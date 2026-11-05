@@ -3,85 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wolf Game Editor v78 ULTIMATE + Genially Drag&Drop</title>
+    <title>Wolf Game Editor v78 MAGIC PIXAR EDITION</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #FF6B9D;
-            --secondary: #FFD93D;
-            --accent: #6BCB77;
-            --bg-body: #FFF8DC;
+            --primary: #FF3366;
+            --secondary: #FFCC00;
+            --accent: #00CC99;
+            --purple: #8A2BE2;
+            --bg-body: linear-gradient(135deg, #fce4ec 0%, #e8eaf6 100%);
             --bg-panel: #ffffff;
-            --text: #4D4D4D;
+            --text: #2D3748;
+            --shadow: 0 10px 25px rgba(138, 43, 226, 0.12);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Fredoka', sans-serif; }
-        body { background-color: var(--bg-body); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif; font-size: 14px;}
+        
+        body { background: var(--bg-body); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-        header { padding: 10px 20px; background: var(--primary); color: white; display: flex; justify-content: space-between; align-items: center; z-index: 100; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .header-actions { display: flex; gap: 8px; flex-wrap: wrap;}
+        header { 
+            padding: 15px 25px; 
+            background: linear-gradient(135deg, #6b11ff 0%, #ff2e93 50%, #ffb703 100%); 
+            color: white; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 100; 
+            box-shadow: 0 0 20px 5px rgba(255, 46, 147, 0.5);
+            border-bottom: 4px solid #fff;
+        }
+        
+        .header-titles { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        header h1 { font-family: 'Comic Sans MS', cursive; text-shadow: 0 0 10px rgba(255,255,255,0.8), 2px 2px 4px rgba(0,0,0,0.3); margin-bottom: 4px; margin-top: 0;}
+        
+        .author-link {
+            color: #FFCC00;
+            text-decoration: underline;
+            transition: 0.3s;
+        }
+        .author-link:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #FFCC00;
+        }
 
         .workspace { display: flex; flex: 1; overflow: hidden; }
         
-        /* Вкладки */
-        .panel-sidebar { width: 420px; background: var(--bg-panel); border-right: 3px solid var(--secondary); display: flex; flex-direction: column; flex-shrink: 0; }
-        .tabs-header { display: flex; flex-wrap: wrap; background: #f9f9f9; border-bottom: 2px solid var(--secondary); }
-        .tab-btn { flex: 1; padding: 10px 5px; font-size: 13px; font-weight: bold; border: none; background: none; cursor: pointer; color: #666; transition: 0.2s; border-bottom: 3px solid transparent; }
-        .tab-btn:hover { background: #eee; }
-        .tab-btn.active { color: var(--primary); border-bottom: 3px solid var(--primary); background: #fff; }
-        .tab-content { padding: 15px; overflow-y: auto; display: none; flex-direction: column; gap: 12px; flex: 1; }
+        .panel-sidebar { width: 570px; background: var(--bg-panel); border-right: 4px solid #ffd1dc; display: flex; flex-direction: column; flex-shrink: 0; box-shadow: 5px 0 25px rgba(255, 51, 102, 0.15); }
+        .tabs-header { display: flex; flex-wrap: wrap; background: #faf5ff; border-bottom: 3px solid #e9d5ff; padding: 6px; gap: 6px; }
+        .tab-btn { flex: 1; padding: 12px 6px; font-weight: bold; border: none; background: #f3e8ff; cursor: pointer; color: #6b21a8; transition: 0.3s; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);}
+        .tab-btn:hover { background: #e9d5ff; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(107, 33, 168, 0.2);}
+        .tab-btn.active { color: white; background: linear-gradient(135deg, #9333ea 0%, #db2777 100%); box-shadow: 0 0 15px rgba(219, 39, 119, 0.6); }
+        
+        .tab-content { padding: 20px; overflow-y: auto; display: none; flex-direction: column; gap: 16px; flex: 1; }
         .tab-content.active { display: flex; }
 
-        .panel-center { flex: 1; display: flex; flex-direction: column; align-items: center; background: #f0f0f0; padding: 15px; min-width: 300px; overflow-y: auto; }
+        .panel-center { flex: 1; display: flex; flex-direction: column; align-items: center; background: #f8fafc; padding: 20px; min-width: 300px; overflow-y: hidden; height: 100%; }
 
-        h2 { font-size: 1.1rem; color: var(--primary); border-bottom: 2px solid var(--secondary); margin-bottom: 5px; padding-bottom: 5px; }
-        label { font-size: 0.8rem; font-weight: bold; margin-top: 5px; display: block; color: var(--text); }
-        input, select, textarea { width: 100%; padding: 8px; border-radius: 8px; border: 1px solid #ccc; font-size: 13px; outline: none; transition: 0.3s; }
-        input:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 5px rgba(255,107,157,0.3); }
+        h2 { font-size: 1.25rem; color: #9333ea; border-bottom: 3px dashed #f3e8ff; margin-bottom: 5px; padding-bottom: 8px; font-weight: 700; display: flex; align-items: center; gap: 6px; text-shadow: 1px 1px 0px #f3e8ff; }
+        label { font-weight: bold; margin-top: 6px; display: block; color: #4a5568; }
+        
+        input, select, textarea { 
+            width: 100%; padding: 12px; border-radius: 14px; border: 2px solid #e2e8f0; outline: none; transition: 0.3s; background: #fdfdfd; font-weight: bold; color: #2D3748;
+        }
+        input:focus, textarea:focus, select:focus { border-color: #FF3366; box-shadow: 0 0 15px rgba(255, 51, 102, 0.3); background: #fff; }
         textarea { resize: vertical; }
         
-        #preview-container { width: 100%; height: 500px; background: #fff; border: 4px solid var(--primary); border-radius: 15px; overflow: hidden; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        iframe { width: 100%; height: 100%; border: none; }
+        #preview-container { display: flex; flex-direction: column; flex: 1; width: 100%; min-height: 400px; background: #fff; border: 6px solid #9333ea; border-radius: 25px; overflow: hidden; position: relative; box-shadow: 0 0 30px rgba(147, 51, 234, 0.4); }
+        iframe { width: 100%; height: 100%; flex: 1; border: none; }
 
-        .code-box { width: 100%; margin-top: 15px; }
-        textarea#iframe-code { height: 70px; font-family: monospace; font-size: 11px; background: #282c34; color: #a5c261; resize: none; }
+        textarea#iframe-code-tab { font-family: monospace; background: #1e1b4b; color: #34d399; border-radius: 12px; padding: 12px; border: 2px solid #312e81; resize: vertical; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); min-height: 100px;}
 
-        button { padding: 10px; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; transition: 0.2s; background: var(--accent); color: white; }
-        button:hover { opacity: 0.9; transform: translateY(-2px); }
-        .secondary-btn { background: var(--secondary); color: var(--text); font-size: 13px; padding: 8px 12px;}
+        button { padding: 12px 18px; border-radius: 15px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; background: var(--accent); color: white; box-shadow: 0 6px 15px rgba(0,204,153,0.4); }
+        button:hover { opacity: 1; transform: translateY(-3px); filter: brightness(1.1); box-shadow: 0 8px 20px rgba(0,204,153,0.6); }
+        button:active { transform: translateY(2px); box-shadow: 0 2px 5px rgba(0,204,153,0.4); }
         
-        .action-btn { background: #4D96A9; }
-        .danger-btn { background: #FF6B9D; }
+        .secondary-btn { background: var(--secondary); color: #78350f; font-weight: 700; box-shadow: 0 4px 15px rgba(255, 204, 0, 0.4);}
+        .action-btn { background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%); color: white; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); }
+        .danger-btn { background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); color: white; box-shadow: 0 4px 15px rgba(225, 29, 72, 0.4);}
+        .big-btn { width: 100%; padding: 14px; font-size: 16px; border-radius: 16px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4); }
 
-        .pos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee; }
-        .pos-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee; }
-        .hot-awards { display: flex; gap: 5px; margin-top: 5px; flex-wrap: wrap; }
-        .award-btn { background: #eee; color: #333; padding: 5px; font-size: 18px; border-radius: 5px; }
+        .pos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: #faf5ff; padding: 15px; border-radius: 16px; border: 2px solid #f3e8ff; box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);}
+        .pos-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; background: #faf5ff; padding: 15px; border-radius: 16px; border: 2px solid #f3e8ff; box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);}
         
-        .mode-btn { padding: 6px 15px; font-size: 12px; font-weight: bold; border-radius: 6px; border: none; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .mode-btn.active-design { background: var(--primary); color: white; }
-        .mode-btn.active-play { background: var(--accent); color: white; }
-        .mode-btn.inactive { background: #ddd; color: #666; box-shadow: none; }
+        .hot-awards { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+        .award-btn { background: #fff; color: #6b21a8; padding: 8px 12px; font-size: 20px; border-radius: 12px; border: 2px solid #e9d5ff; box-shadow: 0 4px 10px rgba(233, 213, 255, 0.5);}
+        .award-btn:hover { background: #f3e8ff; border-color: #d8b4fe; transform: scale(1.1);}
+        
+        .mode-btn { padding: 10px 18px; font-weight: bold; border-radius: 12px; border: none; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .mode-btn.active-design { background: linear-gradient(135deg, #9333ea 0%, #c084fc 100%); color: white; box-shadow: 0 0 15px rgba(147, 51, 234, 0.6);}
+        .mode-btn.active-play { background: linear-gradient(135deg, #10b981 0%, #34d399 100%); color: white; box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);}
+        .mode-btn.inactive { background: #e2e8f0; color: #64748b; box-shadow: none; }
+        .mode-btn.inactive:hover { background: #cbd5e1; }
 
-        .template-item { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 10px; border: 1px solid #ddd; border-radius: 8px; margin-bottom: 8px; }
-        .template-actions button { padding: 5px 10px; font-size: 11px; margin-left: 5px; }
+        .template-item { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px; border: 2px solid #e9d5ff; border-radius: 16px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(147, 51, 234, 0.1); transition: 0.3s;}
+        .template-item:hover { border-color: #c084fc; box-shadow: 0 6px 20px rgba(147, 51, 234, 0.2); transform: scale(1.02);}
+        .template-actions button { padding: 8px 12px; margin-left: 6px; border-radius: 10px; }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 5px; border: 2px solid #f1f1f1;}
+        ::-webkit-scrollbar-thumb:hover { background: #FF3366; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 data-i18n="headerTitle">🐺 Wolf Editor v78 ULTIMATE</h1>
-    <div class="header-actions">
-        <button onclick="downloadStandaloneHTML()" class="secondary-btn action-btn" style="color: white;" data-i18n="btnSaveHtml">💾 Сохранить HTML (Игра)</button>
-        <button onclick="downloadHTML()" class="secondary-btn action-btn" style="color: white;" data-i18n="btnSaveIframe">⬇️ iFrame (Genially)</button>
-        <button onclick="saveProject()" class="secondary-btn" data-i18n="btnSaveJson">💾 Сохранить JSON</button>
-        <button onclick="document.getElementById('fileInput').click()" class="secondary-btn" data-i18n="btnLoadJson">📂 Загрузить JSON</button>
-        <input type="file" id="fileInput" accept=".json" style="display:none" onchange="loadProject(event)">
+    <div class="header-titles">
+        <h1 data-i18n="headerTitle" style="font-size: 20pt;">✨ Wolf Editor: Magic Pixar Edition</h1>
+        <span style="font-size: 16pt; font-weight: bold; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+            <span data-i18n="authorText">автор Ольга Тимофеева | Группа </span><a href="https://vk.ru/club221025676" target="_blank" class="author-link" style="font-size: 16pt;" data-i18n="authorLinkText">«Да! Доступный Английский!»</a>
+        </span>
     </div>
 </header>
 
@@ -94,6 +125,7 @@
             <button class="tab-btn" onclick="openTab('tab-ctrl')" data-i18n="tabCtrl">Управление</button>
             <button class="tab-btn" onclick="openTab('tab-tasks')" data-i18n="tabTasks">Задания</button>
             <button class="tab-btn" onclick="openTab('tab-templates')" data-i18n="tabTemplates">Шаблоны</button>
+            <button class="tab-btn" onclick="openTab('tab-save')" data-i18n="tabSave" style="background: linear-gradient(135deg, #fef08a 0%, #fde047 100%); color: #713f12; font-weight: 900; box-shadow: 0 0 10px rgba(253, 224, 71, 0.6);">💾 Сохранить</button>
         </div>
 
         <!-- Вкладка: Основа -->
@@ -110,13 +142,13 @@
             </select>
 
             <label data-i18n="lblBgMusic">Фоновая музыка (URL)</label>
-            <input type="text" id="conf-bgMusic" placeholder="https://ссылка-на-мп3" oninput="liveUpdate(true)">
+            <input type="text" id="conf-bgMusic" placeholder="https://..." oninput="liveUpdate(true)">
 
             <label style="color: var(--accent);" data-i18n="lblSndWin">Звук Успеха (URL)</label>
             <input type="text" id="conf-sndSuccess" value="https://www.soundjay.com/buttons/button-3.mp3" oninput="liveUpdate(true)">
             
             <label style="color: var(--primary);" data-i18n="lblSndLose">Звук Ошибки (URL)</label>
-            <input type="text" id="conf-sndMiss" value="https://www.soundjay.com/buttons/beep-10.mp3" oninput="liveUpdate(true)">
+            <input type="text" id="conf-sndMiss" value="https://www.soundjay.com/buttons/button-10.mp3" oninput="liveUpdate(true)">
 
             <h2 data-i18n="h2GameSettings">⏱️ Настройки игры</h2>
             <div class="pos-grid">
@@ -127,12 +159,12 @@
                         <option value="stopwatch" data-i18n="valStopwatch">Секундомер</option>
                     </select>
                 </div>
-                <div><label data-i18n="lblTime">Начальное время (сек)</label><input type="number" id="conf-timer" value="60" oninput="liveUpdate(true)"></div>
-                <div><label data-i18n="lblSpeed">Скорость (мс)</label><input type="number" id="conf-speed" value="2500" oninput="liveUpdate(true)"></div>
+                <div><label data-i18n="lblTime">Начальное время (сек)</label><input type="number" id="conf-timer" value="60" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblSpeed">Скорость (мс)</label><input type="number" id="conf-speed" value="2500" oninput="liveUpdate(false)"></div>
             </div>
 
-            <h2 data-i18n="h2Score">📊 Счет и Таймер</h2>
-            <div class="pos-grid" style="background: #f0f8ff; border: 2px solid #87CEFA;">
+            <h2 data-i18n="h2Score">📊 Счет, Таймер и Кнопка Стоп</h2>
+            <div class="pos-grid" style="background: #f0f9ff; border: 2px solid #bae6fd; box-shadow: 0 0 15px rgba(186, 230, 253, 0.5);">
                 <div style="grid-column: span 2;">
                     <label data-i18n="lblFont">Шрифт</label>
                     <select id="conf-uiFont" oninput="liveUpdate(false)">
@@ -143,18 +175,12 @@
                         <option value="Georgia, serif">Georgia</option>
                     </select>
                 </div>
-                <div><label data-i18n="lblSize">Размер (px)</label><input type="number" id="conf-uiFontSize" value="20" oninput="liveUpdate(false)"></div>
-                <div><label data-i18n="lblColor">Цвет</label><input type="color" id="conf-uiColor" value="#333333" oninput="liveUpdate(false)"></div>
-                <div><label data-i18n="lblOffset">Отступ Y (%)</label><input type="number" id="conf-uiY" value="3" oninput="liveUpdate(false)"></div>
-                <div>
-                    <label data-i18n="lblAlign">Положение</label>
-                    <select id="conf-uiAlign" oninput="liveUpdate(false)">
-                        <option value="center">По центру</option>
-                        <option value="flex-start">Слева</option>
-                        <option value="flex-end">Справа</option>
-                        <option value="space-between">По краям</option>
-                    </select>
-                </div>
+                <div><label data-i18n="lblSize">Размер шрифта (px)</label><input type="number" id="conf-uiFontSize" value="20" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblColor">Цвет текста</label><input type="color" id="conf-uiColor" value="#333333" oninput="liveUpdate(false)"></div>
+                
+                <div><label data-i18n="lblScoreScale">Размер счетчика (%)</label><input type="number" id="conf-scoreScale" value="100" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblTimerScale">Размер таймера (%)</label><input type="number" id="conf-timerScale" value="100" oninput="liveUpdate(false)"></div>
+                <div style="grid-column: span 2;"><label data-i18n="lblStopScale">Размер кнопки Стоп (%)</label><input type="number" id="conf-stopBtnScale" value="100" oninput="liveUpdate(false)"></div>
             </div>
         </div>
 
@@ -162,26 +188,26 @@
         <div id="tab-visual" class="tab-content">
             <h2 data-i18n="h2Visual">🖼️ Визуал и Герой</h2>
             <label data-i18n="lblBgUrl">Фон (URL)</label>
-            <input type="text" id="conf-bg" value="https://i.imgur.com/Fni5LJQ.png" oninput="liveUpdate(false)">
+            <input type="text" id="conf-bg" value="" oninput="liveUpdate(false)">
             
-            <label data-i18n="lblWolfUrl">Волк (URL)</label>
-            <input type="text" id="conf-wolf" value="https://i.imgur.com/vHqY7p6.png" oninput="liveUpdate(false)">
+            <label data-i18n="lblWolfUrl">Герой (URL)</label>
+            <input type="text" id="conf-wolf" value="" oninput="liveUpdate(false)">
             
             <div class="pos-grid">
-                <div><label data-i18n="lblWolfSize">Размер Волка (%)</label><input type="number" id="conf-wolfSize" value="60" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblWolfSize">Размер Героя (%)</label><input type="number" id="conf-wolfSize" value="60" oninput="liveUpdate(false)"></div>
                 <div><label data-i18n="lblWolfY">Позиция Y (%)</label><input type="number" id="conf-wolfY" value="50" oninput="liveUpdate(false)"></div>
                 <div><label data-i18n="lblWolfAmpX">Амплитуда X (%)</label><input type="number" id="conf-wolfAmpX" value="25" oninput="liveUpdate(false)"></div>
                 <div><label data-i18n="lblWolfAmpY">Амплитуда Y (%)</label><input type="number" id="conf-wolfAmpY" value="20" oninput="liveUpdate(false)"></div>
             </div>
 
-            <h2 data-i18n="h2Egg">🥚 Яйца: Картинка и Спавн</h2>
-            <label data-i18n="lblEggUrl">URL Предмета (Яйцо)</label>
-            <input type="text" id="conf-egg" value="https://i.imgur.com/mOId9Bv.png" oninput="liveUpdate(false)">
+            <h2 data-i18n="h2Egg">🥚 Предметы: Картинка и Спавн</h2>
+            <label data-i18n="lblEggUrl">URL Предмета</label>
+            <input type="text" id="conf-egg" value="" oninput="liveUpdate(false)">
             
             <label data-i18n="lblEggLayer">Слой предмета (Z-Index)</label>
             <select id="conf-eggZ" onchange="liveUpdate(false)">
-                <option value="20">Поверх героя (Спереди)</option>
-                <option value="5">Позади героя (Сзади)</option>
+                <option value="20" data-i18n="optLayerFront">Поверх героя (Спереди)</option>
+                <option value="5" data-i18n="optLayerBack">Позади героя (Сзади)</option>
             </select>
 
             <div class="pos-grid">
@@ -191,28 +217,28 @@
             
             <label style="color: var(--primary);" data-i18n="lblEggStart">📍 Появление (Старт)</label>
             <div class="pos-grid-3">
-                <div><label>Верх Y (%)</label><input type="number" id="conf-eggTopY" value="15" oninput="liveUpdate(false)"></div>
-                <div><label>Низ Y (%)</label><input type="number" id="conf-eggBottomY" value="55" oninput="liveUpdate(false)"></div>
-                <div><label>Отступ X (%)</label><input type="number" id="conf-eggX" value="8" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblTopY">Верх Y (%)</label><input type="number" id="conf-eggTopY" value="15" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblBotY">Низ Y (%)</label><input type="number" id="conf-eggBottomY" value="55" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblOffsetX">Отступ X (%)</label><input type="number" id="conf-eggX" value="8" oninput="liveUpdate(false)"></div>
             </div>
 
             <label style="color: var(--accent);" data-i18n="lblEggEnd">🎯 Исчезновение (Конец)</label>
             <div class="pos-grid-3">
-                <div><label>Верх Y (%)</label><input type="number" id="conf-eggFinalTopY" value="35" oninput="liveUpdate(false)"></div>
-                <div><label>Низ Y (%)</label><input type="number" id="conf-eggFinalBottomY" value="60" oninput="liveUpdate(false)"></div>
-                <div><label>Отступ X (%)</label><input type="number" id="conf-eggFinalX" value="38" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblTopY">Верх Y (%)</label><input type="number" id="conf-eggFinalTopY" value="35" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblBotY">Низ Y (%)</label><input type="number" id="conf-eggFinalBottomY" value="60" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblOffsetX">Отступ X (%)</label><input type="number" id="conf-eggFinalX" value="38" oninput="liveUpdate(false)"></div>
             </div>
 
             <h2 data-i18n="h2Rails">🏗️ Перила (Жердочки)</h2>
             <label data-i18n="lblRailUrl">URL Картинки (пусто для авто)</label>
             <input type="text" id="conf-rail" value="" placeholder="https://..." oninput="liveUpdate(false)">
             <div class="pos-grid">
-                <div><label>Ширина (%)</label><input type="number" id="conf-railW" value="30" oninput="liveUpdate(false)"></div>
-                <div><label>Высота (px)</label><input type="number" id="conf-railH" value="15" oninput="liveUpdate(false)"></div>
-                <div><label>Угол (°)</label><input type="number" id="conf-railAngle" value="15" oninput="liveUpdate(false)"></div>
-                <div><label>Отступ X (%)</label><input type="number" id="conf-railX" value="-2" oninput="liveUpdate(false)"></div>
-                <div><label>Верхние Y (%)</label><input type="number" id="conf-railTopY" value="18" oninput="liveUpdate(false)"></div>
-                <div><label>Нижние Y (%)</label><input type="number" id="conf-railBottomY" value="58" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblWidth">Ширина (%)</label><input type="number" id="conf-railW" value="30" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblHeightPx">Высота (px)</label><input type="number" id="conf-railH" value="15" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblAngle">Угол (°)</label><input type="number" id="conf-railAngle" value="15" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblOffsetX">Отступ X (%)</label><input type="number" id="conf-railX" value="-2" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblTopYs">Верхние Y (%)</label><input type="number" id="conf-railTopY" value="18" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblBotYs">Нижние Y (%)</label><input type="number" id="conf-railBottomY" value="58" oninput="liveUpdate(false)"></div>
             </div>
         </div>
 
@@ -223,21 +249,52 @@
             <input type="color" id="conf-btnBg" value="#323232" oninput="liveUpdate(false)">
 
             <div class="pos-grid">
-                <div><label>Верх Y (%)</label><input type="number" id="conf-btnUpY" value="20" oninput="liveUpdate(false)"></div>
-                <div><label>Верх X (%)</label><input type="number" id="conf-btnUpX" value="3" oninput="liveUpdate(false)"></div>
-                <div><label>Низ Y (%)</label><input type="number" id="conf-btnDownY" value="20" oninput="liveUpdate(false)"></div>
-                <div><label>Низ X (%)</label><input type="number" id="conf-btnDownX" value="3" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblUpY">Верх Y (%)</label><input type="number" id="conf-btnUpY" value="20" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblUpX">Верх X (%)</label><input type="number" id="conf-btnUpX" value="3" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblDownY">Низ Y (%)</label><input type="number" id="conf-btnDownY" value="20" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblDownX">Низ X (%)</label><input type="number" id="conf-btnDownX" value="3" oninput="liveUpdate(false)"></div>
             </div>
             
             <h2 data-i18n="h2Texts">📝 Тексты (Меню)</h2>
             <label data-i18n="lblTitle">Заголовок:</label>
-            <input type="text" id="conf-title" value="Помоги Волку собрать яйца!" oninput="liveUpdate(true)">
+            <input type="text" id="conf-title" value="Помоги Волку собрать яйца!" oninput="liveUpdate(false)">
+            
+            <div class="pos-grid" style="margin-top: 5px; margin-bottom: 5px;">
+                <div style="grid-column: span 2;">
+                    <label data-i18n="lblTitleFont">Шрифт заголовка</label>
+                    <select id="conf-titleFont" oninput="liveUpdate(false)">
+                        <option value="'Fredoka', sans-serif">Fredoka</option>
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="'Courier New', monospace">Courier New</option>
+                        <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+                        <option value="Georgia, serif">Georgia</option>
+                    </select>
+                </div>
+                <div><label data-i18n="lblSize">Размер (px)</label><input type="number" id="conf-titleFontSize" value="36" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblColor">Цвет</label><input type="color" id="conf-titleColor" value="#FF6B9D" oninput="liveUpdate(false)"></div>
+            </div>
+
             <label data-i18n="lblInstr">Инструкция:</label>
-            <input type="text" id="conf-instr" value="Используй кнопки для ловли!" oninput="liveUpdate(true)">
+            <input type="text" id="conf-instr" value="Используй кнопки для ловли!" oninput="liveUpdate(false)">
+
+            <div class="pos-grid" style="margin-top: 5px; margin-bottom: 5px;">
+                <div style="grid-column: span 2;">
+                    <label data-i18n="lblInstrFont">Шрифт инструкции</label>
+                    <select id="conf-instrFont" oninput="liveUpdate(false)">
+                        <option value="'Fredoka', sans-serif">Fredoka</option>
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="'Courier New', monospace">Courier New</option>
+                        <option value="'Comic Sans MS', cursive">Comic Sans MS</option>
+                        <option value="Georgia, serif">Georgia</option>
+                    </select>
+                </div>
+                <div><label data-i18n="lblSize">Размер (px)</label><input type="number" id="conf-instrFontSize" value="18" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblColor">Цвет</label><input type="color" id="conf-instrColor" value="#333333" oninput="liveUpdate(false)"></div>
+            </div>
 
             <h2 data-i18n="h2Award">🎁 Награда в конце</h2>
             <label data-i18n="lblAwardUrl">Картинка награды (URL или Эмодзи)</label>
-            <input type="text" id="conf-award" value="🏆" oninput="liveUpdate(true)">
+            <input type="text" id="conf-award" value="🏆" oninput="liveUpdate(false)">
             <div class="hot-awards">
                 <button class="award-btn" onclick="setAward('🏆')">🏆</button>
                 <button class="award-btn" onclick="setAward('⭐')">⭐</button>
@@ -247,21 +304,21 @@
             </div>
 
             <h2 data-i18n="h2Feedback">🏆 Экран Фидбека</h2>
-            <div style="background: #FFF3E0; padding: 10px; border-radius: 8px; border: 2px solid var(--secondary);">
+            <div style="background: #fffbeb; padding: 15px; border-radius: 16px; border: 2px solid #fde68a; box-shadow: 0 0 15px rgba(253, 230, 138, 0.5);">
                 <label data-i18n="lblSlogan">Мотивационный слоган:</label>
-                <input type="text" id="conf-fbSlogan" value="Отличная работа!" oninput="liveUpdate(true)">
+                <input type="text" id="conf-fbSlogan" value="Отличная работа!" oninput="liveUpdate(false)">
                 
-                <div class="pos-grid" style="margin-top: 10px;">
+                <div class="pos-grid" style="margin-top: 12px;">
                     <div style="grid-column: span 2;">
-                        <label>Шрифт текста</label>
+                        <label data-i18n="lblTextFont">Шрифт текста</label>
                         <select id="conf-fbFont" oninput="liveUpdate(false)">
                             <option value="'Fredoka', sans-serif">Fredoka</option>
                             <option value="Arial, sans-serif">Arial</option>
                             <option value="'Courier New', monospace">Courier New</option>
                         </select>
                     </div>
-                    <div><label>Размер (px)</label><input type="number" id="conf-fbFontSize" value="26" oninput="liveUpdate(false)"></div>
-                    <div><label>Цвет</label><input type="color" id="conf-fbColor" value="#4D96A9" oninput="liveUpdate(false)"></div>
+                    <div><label data-i18n="lblSize">Размер (px)</label><input type="number" id="conf-fbFontSize" value="26" oninput="liveUpdate(false)"></div>
+                    <div><label data-i18n="lblColor">Цвет</label><input type="color" id="conf-fbColor" value="#4D96A9" oninput="liveUpdate(false)"></div>
                 </div>
             </div>
         </div>
@@ -269,142 +326,367 @@
         <!-- Вкладка: Задания -->
         <div id="tab-tasks" class="tab-content">
             <h2 data-i18n="h2TaskDesign">🎨 Дизайн шрифтов заданий</h2>
-            <div style="background: #E8F5E9; padding: 10px; border-radius: 8px; border: 2px solid var(--accent); margin-bottom: 15px;">
-                <label style="color: var(--accent); font-size: 14px; margin-top:0;" data-i18n="lblQText"><b>Текст вопроса:</b></label>
-                <div class="pos-grid" style="margin-bottom: 10px;">
+            <div style="background: #f0fdf4; padding: 15px; border-radius: 16px; border: 2px solid #bbf7d0; margin-bottom: 15px; box-shadow: 0 0 15px rgba(187, 247, 208, 0.5);">
+                <label style="color: #15803d; margin-top:0;" data-i18n="lblQText"><b>Текст вопроса:</b></label>
+                <div class="pos-grid" style="margin-bottom: 12px;">
                     <div style="grid-column: span 2;">
-                        <label>Шрифт</label>
+                        <label data-i18n="lblFont">Шрифт</label>
                         <select id="conf-taskFont" oninput="liveUpdate(false)">
                             <option value="'Fredoka', sans-serif">Fredoka</option>
                             <option value="Arial, sans-serif">Arial</option>
                         </select>
                     </div>
-                    <div><label>Размер (px)</label><input type="number" id="conf-taskFontSize" value="28" oninput="liveUpdate(false)"></div>
-                    <div><label>Цвет</label><input type="color" id="conf-taskColor" value="#333333" oninput="liveUpdate(false)"></div>
+                    <div><label data-i18n="lblSize">Размер (px)</label><input type="number" id="conf-taskFontSize" value="28" oninput="liveUpdate(false)"></div>
+                    <div><label data-i18n="lblColor">Цвет</label><input type="color" id="conf-taskColor" value="#333333" oninput="liveUpdate(false)"></div>
                 </div>
 
-                <label style="color: var(--primary); font-size: 14px;" data-i18n="lblAText"><b>Текст ответов (кнопки):</b></label>
+                <label style="color: #be185d;" data-i18n="lblAText"><b>Текст ответов (кнопки):</b></label>
                 <div class="pos-grid">
                     <div style="grid-column: span 2;">
-                        <label>Шрифт</label>
+                        <label data-i18n="lblFont">Шрифт</label>
                         <select id="conf-eggFont" oninput="liveUpdate(false)">
                             <option value="'Fredoka', sans-serif">Fredoka</option>
                             <option value="Arial, sans-serif">Arial</option>
                         </select>
                     </div>
-                    <div><label>Размер (px)</label><input type="number" id="conf-eggFontSize" value="20" oninput="liveUpdate(false)"></div>
-                    <div><label>Цвет</label><input type="color" id="conf-eggColor" value="#ffffff" oninput="liveUpdate(false)"></div>
+                    <div><label data-i18n="lblSize">Размер (px)</label><input type="number" id="conf-eggFontSize" value="20" oninput="liveUpdate(false)"></div>
+                    <div><label data-i18n="lblColor">Цвет</label><input type="color" id="conf-eggColor" value="#ffffff" oninput="liveUpdate(false)"></div>
                 </div>
             </div>
 
-            <div style="display:flex; flex-direction:column; gap:10px; margin-bottom: 15px; background: #f0f0f0; padding: 12px; border-radius: 10px; border: 2px solid #ccc;">
-                <div style="display:flex; align-items:center; gap:8px;">
-                    <input type="checkbox" id="conf-teacherMode" style="width:20px; height:20px; cursor:pointer;" checked onchange="liveUpdate(true)">
-                    <label style="margin:0; font-size: 14px; font-weight:bold; cursor:pointer; color: var(--accent);" for="conf-teacherMode" data-i18n="lblTeacherMode">Режим Учителя (Вопросы)</label>
+            <div style="display:flex; flex-direction:column; gap:12px; margin-bottom: 15px; background: #faf5ff; padding: 15px; border-radius: 16px; border: 2px solid #e9d5ff; box-shadow: 0 0 15px rgba(233, 213, 255, 0.5);">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" id="conf-teacherMode" style="width:22px; height:22px; cursor:pointer;" checked onchange="liveUpdate(true)">
+                    <label style="margin:0; font-weight:bold; cursor:pointer; color: #9333ea;" for="conf-teacherMode" data-i18n="lblTeacherMode">✅ Включить задания при ловле</label>
                 </div>
-                <div style="display:flex; align-items:center; gap:8px; margin-left: 5px;">
-                    <input type="checkbox" id="conf-qRandom" style="width:16px; height:16px; cursor:pointer;" checked onchange="liveUpdate(true)">
-                    <label style="margin:0; font-size: 13px; cursor:pointer;" for="conf-qRandom" data-i18n="lblRandom">Случайный порядок</label>
+                <div style="display:flex; align-items:center; gap:10px; margin-left: 5px;">
+                    <input type="checkbox" id="conf-qRandom" style="width:18px; height:18px; cursor:pointer;" checked onchange="liveUpdate(true)">
+                    <label style="margin:0; cursor:pointer;" for="conf-qRandom" data-i18n="lblRandom">Случайный порядок</label>
                 </div>
-                <div style="display:flex; align-items:center; gap:8px; margin-left: 5px;">
-                    <input type="checkbox" id="conf-qRepeat" style="width:16px; height:16px; cursor:pointer;" checked onchange="liveUpdate(true)">
-                    <label style="margin:0; font-size: 13px; cursor:pointer;" for="conf-qRepeat" data-i18n="lblRepeat">Повторять вопросы</label>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" id="conf-qRepeat" style="width:18px; height:18px; cursor:pointer;" checked onchange="liveUpdate(true)">
+                    <label style="margin:0; cursor:pointer;" for="conf-qRepeat" data-i18n="lblRepeat">Повторять вопросы</label>
                 </div>
-                <div style="display:flex; align-items:center; gap:8px; margin-left: 5px; margin-top: 5px;">
-                    <input type="checkbox" id="conf-inGameInput" style="width:16px; height:16px; cursor:pointer;" onchange="liveUpdate(true)">
-                    <label style="margin:0; font-size: 13px; font-weight:bold; color:var(--primary); cursor:pointer;" for="conf-inGameInput" data-i18n="lblInGameInput">Свой ввод в игре</label>
+                <div style="display:flex; align-items:center; gap:10px; margin-left: 5px; margin-top: 5px;">
+                    <input type="checkbox" id="conf-inGameInput" style="width:18px; height:18px; cursor:pointer;" onchange="liveUpdate(true)">
+                    <label style="margin:0; font-weight:bold; color:var(--primary); cursor:pointer;" for="conf-inGameInput" data-i18n="lblInGameInput">Свой ввод в игре</label>
                 </div>
             </div>
 
             <label data-i18n="lblQTimer">Время на ответ (сек):</label>
-            <input type="number" id="conf-qTimer" value="10" oninput="liveUpdate(true)">
+            <input type="number" id="conf-qTimer" value="10" oninput="liveUpdate(false)">
 
             <label data-i18n="lblTasks">Вопросы (каждый с новой строки):</label>
-            <textarea id="conf-tasks" style="min-height:90px;" oninput="liveUpdate(true)">2 + 2 = ?&#10;(a + b)² = ?&#10;"Hamlet" author?</textarea>
+            <textarea id="conf-tasks" style="min-height:90px;" oninput="liveUpdate(false)">2 + 2 = ?
+(a + b)² = ?
+"Hamlet" author?</textarea>
             
             <label style="color: var(--accent);" data-i18n="lblCorrect">Верные ответы (строго по порядку):</label>
-            <textarea id="conf-correct" style="min-height:70px; border-color: var(--accent);" oninput="liveUpdate(true)">4&#10;a²+2ab+b²&#10;Shakespeare</textarea>
+            <textarea id="conf-correct" style="min-height:70px; border-color: var(--accent);" oninput="liveUpdate(false)">4
+a²+2ab+b²
+Shakespeare</textarea>
             
             <label style="color: var(--primary);" data-i18n="lblWrong">Неверные (через запятую):</label>
-            <textarea id="conf-wrong" style="min-height:70px; border-color: var(--primary);" oninput="liveUpdate(true)">3,5&#10;a²+b², a-b&#10;Marlowe, Goethe</textarea>
+            <textarea id="conf-wrong" style="min-height:70px; border-color: var(--primary);" oninput="liveUpdate(false)">3,5
+a²+b², a-b
+Marlowe, Goethe</textarea>
         </div>
 
         <!-- Вкладка: Шаблоны -->
         <div id="tab-templates" class="tab-content">
             <h2 data-i18n="h2Templates">📂 Сохранённые шаблоны</h2>
             <div style="margin-bottom: 15px;">
-                <button onclick="saveTemplate()" style="width: 100%;" data-i18n="btnSaveTemplate">➕ Сохранить текущую как шаблон</button>
+                <button onclick="saveTemplate()" class="big-btn" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);" data-i18n="btnSaveTemplate">➕ Сохранить текущую как шаблон</button>
             </div>
             <div id="template-list">
                 <!-- Список шаблонов генерируется JS -->
             </div>
         </div>
 
+        <!-- Вкладка: Сохранение -->
+        <div id="tab-save" class="tab-content">
+            <h2 data-i18n="h2SaveExport">✨ Экспорт и Сохранение</h2>
+            
+            <div style="background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%); padding: 18px; border-radius: 20px; border: 2px solid #fda4af; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 0 20px rgba(253, 164, 175, 0.4);">
+                <label style="color: #e11d48; font-size: 16px;" data-i18n="lblStandaloneHtml">🎮 Скачать игру (HTML)</label>
+                <p style="font-size: 12px; color: #64748b;" data-i18n="descHtml">Готовый полноценный файл игры для запуска в любом браузере.</p>
+                <button onclick="downloadStandaloneHTML()" class="big-btn" style="background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%); box-shadow: 0 0 15px rgba(244, 63, 94, 0.6);" data-i18n="btnSaveHtml">💾 Сохранить HTML (Игра)</button>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); padding: 18px; border-radius: 20px; border: 2px solid #6ee7b7; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 0 20px rgba(110, 231, 183, 0.4);">
+                <label style="color: #059669; font-size: 16px;" data-i18n="lblGeniallyCode">🎨 Интеграция с Genially (iFrame)</label>
+                <p style="font-size: 12px; color: #64748b;" data-i18n="descIframe">Код вставки для платформ вроде Genially или интерактивных сайтов.</p>
+                <textarea id="iframe-code-tab" readonly></textarea>
+                <button onclick="copyIframeTab()" class="big-btn" style="background: linear-gradient(135deg, #10b981 0%, #047857 100%); box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);" data-i18n="btnCopyCode">📋 Копировать код iFrame</button>
+                <button onclick="downloadHTML()" class="secondary-btn" style="background: #a7f3d0; color: #065f46;" data-i18n="btnSaveIframeTxt">⬇️ Скачать TXT код для Genially</button>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%); padding: 18px; border-radius: 20px; border: 2px solid #fde047; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 0 20px rgba(253, 224, 71, 0.4);">
+                <label style="color: #ca8a04; font-size: 16px;" data-i18n="lblJsonProject">📂 Проект редактора (JSON)</label>
+                <p style="font-size: 12px; color: #64748b;" data-i18n="descJson">Сохраните настройки проекта в файл, чтобы продолжить редактирование позже.</p>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="saveProject()" class="big-btn" style="flex:1; background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); color: white; box-shadow: 0 0 15px rgba(234, 179, 8, 0.6);" data-i18n="btnSaveJson">💾 Сохранить JSON</button>
+                    <button onclick="document.getElementById('fileInput').click()" class="big-btn" style="flex:1; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);" data-i18n="btnLoadJson">📂 Загрузить JSON</button>
+                </div>
+            </div>
+        </div>
+
     </aside>
 
     <main class="panel-center">
-        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <h2 style="margin: 0; border: none;" data-i18n="h2Preview">📺 Предпросмотр (Drag&Drop кнопок)</h2>
-            <div style="display: flex; gap: 8px;">
-                <button id="btn-mode-design" class="mode-btn active-design" onclick="setPreviewMode('design')" data-i18n="btnModeDesign">🛠 Дизайн</button>
+        <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h2 style="margin: 0; border: none; text-shadow: none;" data-i18n="h2Preview">📺 Волшебный Предпросмотр (Drag&Drop)</h2>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button id="btn-mode-start" class="mode-btn inactive" onclick="setPreviewMode('start')" data-i18n="btnModeStart">🚪 Старт</button>
+                <button id="btn-mode-feedback" class="mode-btn inactive" onclick="setPreviewMode('feedback')" data-i18n="btnModeFeedback">🏆 Фидбек</button>
+                <button id="btn-mode-editgame" class="mode-btn active-design" onclick="setPreviewMode('editgame')" data-i18n="btnModeEdit">🛠 Ред. Игра</button>
                 <button id="btn-mode-play" class="mode-btn inactive" onclick="setPreviewMode('play')" data-i18n="btnModePlay">▶️ Играть</button>
             </div>
         </div>
         <div id="preview-container">
             <iframe id="game-preview" allow="autoplay; fullscreen"></iframe>
         </div>
-       
-        <div class="code-box">
-            <label style="color: var(--primary); font-size: 14px;" data-i18n="lblIframeCode">Код iFrame для Genially (Готов к копированию):</label>
-            <textarea id="iframe-code" readonly></textarea>
-            <button style="width:100%; margin-top:5px; font-size: 16px; padding: 12px;" onclick="copyIframe()" data-i18n="btnCopyCode">📋 Копировать код</button>
-        </div>
     </main>
-
+    <input type="file" id="fileInput" accept=".json" style="display:none" onchange="loadProject(event)">
 </div>
 
 <script>
-    let previewMode = 'design';
+    let previewMode = 'editgame';
+    let currentObjectUrl = null;
     
-    // I18N ДЛЯ РЕДАКТОРА
+    // ПРЕДУСТАНОВЛЕННЫЕ ШАБЛОНЫ (АВТОНОМНЫЕ ВЕКТОРНЫЕ ИЗОБРАЖЕНИЯ И НАДЕЖНЫЕ ЗВУКИ)
+    const defaultTemplates = {
+        "🌲 Лес (Базовый)": {
+            bg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%25%27 height=%27100%25%27%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%270%27 y2=%271%27%3E%3Cstop offset=%270%25%27 stop-color=%27%2387CEEB%27/%3E%3Cstop offset=%27100%25%27 stop-color=%27%23228B22%27/%3E%3C/linearGradient%3E%3Crect width=%27100%25%27 height=%27100%25%27 fill=%27url(%23g)%27/%3E%3C/svg%3E", 
+            wolf: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🐺%3C/text%3E%3C/svg%3E", 
+            egg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🥚%3C/text%3E%3C/svg%3E",
+            title: "Помоги Волку собрать яйца!", instr: "Используй кнопки для ловли!",
+            titleColor: "#FF6B9D", btnBg: "#323232", railW: 30, railH: 15, railAngle: 15, railX: -2, railTopY: 18, railBottomY: 58, rail: "",
+            wolfSize: 60, eggSize: 45, wolfY: 50, wolfAmpX: 25, wolfAmpY: 20, eggTopY: 15, eggBottomY: 55, eggX: 8, eggFinalTopY: 35, eggFinalBottomY: 60, eggFinalX: 38,
+            sndSuccess: "https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg", sndMiss: "https://actions.google.com/sounds/v1/cartoon/slip.ogg", bgMusic: ""
+        },
+        "🚀 Космос": {
+            bg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%25%27 height=%27100%25%27%3E%3Crect width=%27100%25%27 height=%27100%25%27 fill=%27%230B0B2A%27/%3E%3Ccircle cx=%2710%25%27 cy=%2720%25%27 r=%272%27 fill=%27white%27/%3E%3Ccircle cx=%2730%25%27 cy=%2780%25%27 r=%271.5%27 fill=%27white%27/%3E%3Ccircle cx=%2780%25%27 cy=%2730%25%27 r=%272.5%27 fill=%27white%27/%3E%3Ccircle cx=%2760%25%27 cy=%2760%25%27 r=%271%27 fill=%27white%27/%3E%3C/svg%3E", 
+            wolf: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E👨‍🚀%3C/text%3E%3C/svg%3E", 
+            egg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E☄️%3C/text%3E%3C/svg%3E",
+            title: "Собери метеориты в космосе!", instr: "Не дай им упасть!",
+            titleColor: "#00d4ff", instrColor: "#ffffff", uiColor: "#00ffcc", fbColor: "#00d4ff", btnBg: "#0f172a", 
+            railW: 0, railH: 0, railAngle: 0, railX: 0, railTopY: 0, railBottomY: 0, rail: "",
+            wolfSize: 55, eggSize: 50, wolfY: 55, wolfAmpX: 30, wolfAmpY: 25, eggTopY: 10, eggBottomY: 50, eggX: 12, eggFinalTopY: 40, eggFinalBottomY: 65, eggFinalX: 42,
+            sndSuccess: "https://actions.google.com/sounds/v1/science_fiction/futuristic_chime.ogg", sndMiss: "https://actions.google.com/sounds/v1/science_fiction/power_down.ogg", bgMusic: "", award: "🌌"
+        },
+        "🌊 Подводный мир": {
+            bg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%25%27 height=%27100%25%27%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%270%27 y2=%271%27%3E%3Cstop offset=%270%25%27 stop-color=%27%23006994%27/%3E%3Cstop offset=%27100%25%27 stop-color=%27%23001F3F%27/%3E%3C/linearGradient%3E%3Crect width=%27100%25%27 height=%27100%25%27 fill=%27url(%23g)%27/%3E%3Ccircle cx=%2720%25%27 cy=%2780%25%27 r=%275%27 fill=%27rgba(255,255,255,0.2)%27/%3E%3Ccircle cx=%2770%25%27 cy=%2750%25%27 r=%278%27 fill=%27rgba(255,255,255,0.2)%27/%3E%3C/svg%3E", 
+            wolf: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🤿%3C/text%3E%3C/svg%3E", 
+            egg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🐚%3C/text%3E%3C/svg%3E",
+            title: "Найди жемчужины на дне океана!", instr: "Лови жемчуг, пока он не всплыл!",
+            titleColor: "#0ea5e9", instrColor: "#e0f2fe", uiColor: "#0ea5e9", fbColor: "#0284c7", btnBg: "#0369a1",
+            railW: 0, railH: 0, railAngle: 0, railX: 0, railTopY: 0, railBottomY: 0, rail: "",
+            wolfSize: 65, eggSize: 40, wolfY: 60, wolfAmpX: 20, wolfAmpY: 15, eggTopY: 20, eggBottomY: 60, eggX: 10, eggFinalTopY: 45, eggFinalBottomY: 70, eggFinalX: 35,
+            sndSuccess: "https://actions.google.com/sounds/v1/water/water_drop.ogg", sndMiss: "https://actions.google.com/sounds/v1/water/water_plunge.ogg", bgMusic: "", award: "🐚"
+        },
+        "🏙️ Мегаполис": {
+            bg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%25%27 height=%27100%25%27%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%270%27 y2=%271%27%3E%3Cstop offset=%270%25%27 stop-color=%27%232C3E50%27/%3E%3Cstop offset=%27100%25%27 stop-color=%27%23000000%27/%3E%3C/linearGradient%3E%3Crect width=%27100%25%27 height=%27100%25%27 fill=%27url(%23g)%27/%3E%3Crect x=%2710%25%27 y=%2740%25%27 width=%2715%25%27 height=%2760%25%27 fill=%27%23111%27/%3E%3Crect x=%2735%25%27 y=%2730%25%27 width=%2720%25%27 height=%2770%25%27 fill=%27%231a1a1a%27/%3E%3Crect x=%2770%25%27 y=%2750%25%27 width=%2715%25%27 height=%2750%25%27 fill=%27%230f0f0f%27/%3E%3C/svg%3E", 
+            wolf: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🦸‍♂️%3C/text%3E%3C/svg%3E", 
+            egg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E💎%3C/text%3E%3C/svg%3E",
+            title: "Собери бонусы на крышах!", instr: "Будь быстрым, как ветер!",
+            titleColor: "#facc15", instrColor: "#ffffff", uiColor: "#facc15", fbColor: "#eab308", btnBg: "#3f3f46",
+            railW: 0, railH: 0, railAngle: 0, railX: 0, railTopY: 0, railBottomY: 0, rail: "",
+            wolfSize: 50, eggSize: 45, wolfY: 45, wolfAmpX: 35, wolfAmpY: 25, eggTopY: 5, eggBottomY: 45, eggX: 15, eggFinalTopY: 30, eggFinalBottomY: 55, eggFinalX: 45,
+            sndSuccess: "https://actions.google.com/sounds/v1/cartoon/clown_horn.ogg", sndMiss: "https://actions.google.com/sounds/v1/cartoon/cartoon_cowbell.ogg", bgMusic: "", award: "💎"
+        },
+        "🏡 Уютная деревня": {
+            bg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%25%27 height=%27100%25%27%3E%3Crect width=%27100%25%27 height=%2760%25%27 fill=%27%2387CEFA%27/%3E%3Crect y=%2760%25%27 width=%27100%25%27 height=%2740%25%27 fill=%27%237CFC00%27/%3E%3C/svg%3E", 
+            wolf: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🧑‍🌾%3C/text%3E%3C/svg%3E", 
+            egg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🍎%3C/text%3E%3C/svg%3E",
+            title: "Помоги собрать урожай яблок!", instr: "Лови сочные яблочки!",
+            titleColor: "#ea580c", instrColor: "#431407", uiColor: "#9a3412", fbColor: "#ea580c", btnBg: "#8b5cf6",
+            railW: 35, railH: 20, railAngle: 20, railX: -5, railTopY: 15, railBottomY: 55, rail: "",
+            wolfSize: 70, eggSize: 55, wolfY: 55, wolfAmpX: 25, wolfAmpY: 20, eggTopY: 10, eggBottomY: 50, eggX: 5, eggFinalTopY: 30, eggFinalBottomY: 55, eggFinalX: 35,
+            sndSuccess: "https://actions.google.com/sounds/v1/cartoon/bite.ogg", sndMiss: "https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg", bgMusic: "", award: "🍎"
+        }
+    };
+
     const editorI18n = {
         ru: {
-            headerTitle: "🐺 Wolf Editor v78 ULTIMATE", btnSaveHtml: "💾 Сохранить HTML (Игра)", btnSaveIframe: "⬇️ iFrame (Genially)", btnSaveJson: "💾 Сохранить JSON", btnLoadJson: "📂 Загрузить JSON",
-            tabMain: "Основа", tabVisual: "Визуал", tabCtrl: "Управление", tabTasks: "Задания", tabTemplates: "Шаблоны",
+            headerTitle: "✨ Wolf Editor: Magic Pixar Edition",
+            authorText: "автор Ольга Тимофеева | Группа ", authorLinkText: "«Да! Доступный Английский!»",
+            tabMain: "Основа", tabVisual: "Визуал", tabCtrl: "Управление", tabTasks: "Задания", tabTemplates: "Шаблоны", tabSave: "💾 Сохранить",
             h2Lang: "🌍 Язык и Музыка", lblLang: "Язык интерфейса", lblBgMusic: "Фоновая музыка (URL)", lblSndWin: "Звук Успеха (URL)", lblSndLose: "Звук Ошибки (URL)",
             h2GameSettings: "⏱️ Настройки игры", lblTimerMode: "Режим таймера", valCountdown: "Обратный отсчёт", valStopwatch: "Секундомер", lblTime: "Начальное время (сек)", lblSpeed: "Скорость (мс)",
-            h2Score: "📊 Счет и Таймер", lblFont: "Шрифт", lblSize: "Размер (px)", lblColor: "Цвет", lblOffset: "Отступ Y (%)", lblAlign: "Положение",
-            h2Visual: "🖼️ Визуал и Герой", lblBgUrl: "Фон (URL)", lblWolfUrl: "Волк (URL)", lblWolfSize: "Размер Волка (%)", lblWolfY: "Позиция Y (%)", lblWolfAmpX: "Амплитуда X (%)", lblWolfAmpY: "Амплитуда Y (%)",
-            h2Egg: "🥚 Яйца: Картинка и Спавн", lblEggUrl: "URL Предмета (Яйцо)", lblEggLayer: "Слой предмета (Z-Index)", lblEggSize: "Размер (px)", lblEggAngle: "Вращение (град)", lblEggStart: "📍 Появление (Старт)", lblEggEnd: "🎯 Исчезновение (Конец)",
+            h2Score: "📊 Счет, Таймер и Кнопка Стоп", lblFont: "Шрифт", lblSize: "Размер (px)", lblColor: "Цвет", lblOffset: "Отступ Y (%)", lblAlign: "Положение",
+            lblScoreScale: "Размер счетчика (%)", lblTimerScale: "Размер таймера (%)", lblStopScale: "Размер кнопки Стоп (%)",
+            optCenter: "По центру", optLeft: "Слева", optRight: "Справа", optEdges: "По краям",
+            h2Visual: "🖼️ Визуал и Герой", lblBgUrl: "Фон (URL)", lblWolfUrl: "Герой (URL)", lblWolfSize: "Размер Героя (%)", lblWolfY: "Позиция Y (%)", lblWolfAmpX: "Амплитуда X (%)", lblWolfAmpY: "Амплитуда Y (%)",
+            h2Egg: "🥚 Предметы: Картинка и Спавн", lblEggUrl: "URL Предмета", lblEggLayer: "Слой предмета (Z-Index)", lblEggSize: "Размер (px)", lblEggAngle: "Вращение (град)", lblEggStart: "📍 Появление (Старт)", lblEggEnd: "🎯 Исчезновение (Конец)",
+            optLayerFront: "Поверх героя (Спереди)", optLayerBack: "Позади героя (Сзади)",
+            lblTopY: "Верх Y (%)", lblBotY: "Низ Y (%)", lblOffsetX: "Отступ X (%)",
             h2Rails: "🏗️ Перила (Жердочки)", lblRailUrl: "URL Картинки (пусто для авто)",
+            lblWidth: "Ширина (%)", lblHeightPx: "Высота (px)", lblAngle: "Угол (°)", lblTopYs: "Верхние Y (%)", lblBotYs: "Нижние Y (%)",
             h2Ctrl: "🎮 Кнопки Управления", lblBtnColor: "Цвет кнопок",
+            lblUpY: "Верх Y (%)", lblUpX: "Верх X (%)", lblDownY: "Низ Y (%)", lblDownX: "Низ X (%)",
             h2Texts: "📝 Тексты (Меню)", lblTitle: "Заголовок:", lblInstr: "Инструкция:",
+            lblTitleFont: "Шрифт заголовка", lblInstrFont: "Шрифт инструкции",
             h2Award: "🎁 Награда в конце", lblAwardUrl: "Картинка награды (URL или Эмодзи)",
-            h2Feedback: "🏆 Экран Фидбека", lblSlogan: "Мотивационный слоган:",
+            h2Feedback: "🏆 Экран Фидбека", lblSlogan: "Мотивационный слоган:", lblTextFont: "Шрифт текста",
             h2TaskDesign: "🎨 Дизайн шрифтов заданий", lblQText: "<b>Текст вопроса:</b>", lblAText: "<b>Текст ответов (кнопки):</b>",
-            lblTeacherMode: "Режим Учителя (Вопросы)", lblRandom: "Случайный порядок", lblRepeat: "Повторять вопросы", lblInGameInput: "Свой ввод в игре",
+            lblTeacherMode: "✅ Включить задания при ловле", lblRandom: "Случайный порядок", lblRepeat: "Повторять вопросы", lblInGameInput: "Свой ввод в игре",
             lblQTimer: "Время на ответ (сек):", lblTasks: "Вопросы (каждый с новой строки):", lblCorrect: "Верные ответы (строго по порядку):", lblWrong: "Неверные (через запятую):",
             h2Templates: "📂 Сохранённые шаблоны", btnSaveTemplate: "➕ Сохранить текущую как шаблон",
-            h2Preview: "📺 Предпросмотр (Drag&Drop кнопок)", btnModeDesign: "🛠 Дизайн", btnModePlay: "▶️ Играть", lblIframeCode: "Код iFrame для Genially:", btnCopyCode: "📋 Копировать код"
+            h2SaveExport: "✨ Экспорт и Сохранение", lblStandaloneHtml: "🎮 Скачать игру (HTML)", descHtml: "Готовый полноценный файл игры для запуска в любом браузере.", btnSaveHtml: "💾 Сохранить HTML (Игра)",
+            lblGeniallyCode: "🎨 Интеграция с Genially (iFrame)", descIframe: "Код вставки для платформ вроде Genially или интерактивных сайтов.", btnCopyCode: "📋 Копировать код iFrame", btnSaveIframeTxt: "⬇️ Скачать TXT код для Genially",
+            lblJsonProject: "📂 Проект редактора (JSON)", descJson: "Сохраните настройки проекта в файл, чтобы продолжить редактирование позже.", btnSaveJson: "💾 Сохранить JSON", btnLoadJson: "📂 Загрузить JSON",
+            h2Preview: "📺 Волшебный Предпросмотр (Drag&Drop)", btnModeStart: "🚪 Старт", btnModeFeedback: "🏆 Фидбек", btnModeEdit: "🛠 Ред. Игра", btnModePlay: "▶️ Играть"
         },
         en: {
-            headerTitle: "🐺 Wolf Editor v78 ULTIMATE", btnSaveHtml: "💾 Save HTML (Game)", btnSaveIframe: "⬇️ iFrame (Genially)", btnSaveJson: "💾 Save JSON", btnLoadJson: "📂 Load JSON",
-            tabMain: "Main", tabVisual: "Visuals", tabCtrl: "Controls", tabTasks: "Tasks", tabTemplates: "Templates",
+            headerTitle: "✨ Wolf Editor: Magic Pixar Edition",
+            authorText: "Author Olga Timofeeva | Group ", authorLinkText: "\"Yes! Accessible English!\"",
+            tabMain: "Main", tabVisual: "Visuals", tabCtrl: "Controls", tabTasks: "Tasks", tabTemplates: "Templates", tabSave: "💾 Save",
             h2Lang: "🌍 Language & Music", lblLang: "Interface Language", lblBgMusic: "Background Music (URL)", lblSndWin: "Success Sound (URL)", lblSndLose: "Error Sound (URL)",
             h2GameSettings: "⏱️ Game Settings", lblTimerMode: "Timer Mode", valCountdown: "Countdown", valStopwatch: "Stopwatch", lblTime: "Start Time (sec)", lblSpeed: "Speed (ms)",
-            h2Score: "📊 Score & Timer", lblFont: "Font", lblSize: "Size (px)", lblColor: "Color", lblOffset: "Offset Y (%)", lblAlign: "Alignment",
+            h2Score: "📊 Score, Timer & Stop Button", lblFont: "Font", lblSize: "Size (px)", lblColor: "Color", lblOffset: "Offset Y (%)", lblAlign: "Alignment",
+            lblScoreScale: "Score Size (%)", lblTimerScale: "Timer Size (%)", lblStopScale: "Stop Button Size (%)",
+            optCenter: "Center", optLeft: "Left", optRight: "Right", optEdges: "Edges",
             h2Visual: "🖼️ Visuals & Hero", lblBgUrl: "Background (URL)", lblWolfUrl: "Hero (URL)", lblWolfSize: "Hero Size (%)", lblWolfY: "Position Y (%)", lblWolfAmpX: "Amplitude X (%)", lblWolfAmpY: "Amplitude Y (%)",
-            h2Egg: "🥚 Items: Image & Spawn", lblEggUrl: "Item URL (Egg)", lblEggLayer: "Item Layer (Z-Index)", lblEggSize: "Size (px)", lblEggAngle: "Rotation (deg)", lblEggStart: "📍 Spawn (Start)", lblEggEnd: "🎯 Disappear (End)",
+            h2Egg: "🥚 Items: Image & Spawn", lblEggUrl: "Item URL", lblEggLayer: "Item Layer (Z-Index)", lblEggSize: "Size (px)", lblEggAngle: "Rotation (deg)", lblEggStart: "📍 Spawn (Start)", lblEggEnd: "🎯 Disappear (End)",
+            optLayerFront: "In front of Hero", optLayerBack: "Behind Hero",
+            lblTopY: "Top Y (%)", lblBotY: "Bottom Y (%)", lblOffsetX: "Offset X (%)",
             h2Rails: "🏗️ Rails", lblRailUrl: "Image URL (empty for auto)",
+            lblWidth: "Width (%)", lblHeightPx: "Height (px)", lblAngle: "Angle (°)", lblTopYs: "Top Y (%)", lblBotYs: "Bottom Y (%)",
             h2Ctrl: "🎮 Controls", lblBtnColor: "Button Color",
+            lblUpY: "Top Y (%)", lblUpX: "Top X (%)", lblDownY: "Bottom Y (%)", lblDownX: "Bottom X (%)",
             h2Texts: "📝 Texts (Menu)", lblTitle: "Title:", lblInstr: "Instructions:",
+            lblTitleFont: "Title Font", lblInstrFont: "Instruction Font",
             h2Award: "🎁 Final Award", lblAwardUrl: "Award Image (URL or Emoji)",
-            h2Feedback: "🏆 Feedback Screen", lblSlogan: "Motivational Slogan:",
+            h2Feedback: "🏆 Feedback Screen", lblSlogan: "Motivational Slogan:", lblTextFont: "Text Font",
             h2TaskDesign: "🎨 Task Fonts Design", lblQText: "<b>Question Text:</b>", lblAText: "<b>Answer Text (buttons):</b>",
-            lblTeacherMode: "Teacher Mode (Questions)", lblRandom: "Random Order", lblRepeat: "Repeat Questions", lblInGameInput: "In-Game Input",
+            lblTeacherMode: "✅ Enable tasks on catch", lblRandom: "Random Order", lblRepeat: "Repeat Questions", lblInGameInput: "In-Game Input",
             lblQTimer: "Answer Time (sec):", lblTasks: "Questions (one per line):", lblCorrect: "Correct Answers (in order):", lblWrong: "Wrong Answers (comma separated):",
             h2Templates: "📂 Saved Templates", btnSaveTemplate: "➕ Save Current as Template",
-            h2Preview: "📺 Preview (Drag&Drop Buttons)", btnModeDesign: "🛠 Design", btnModePlay: "▶️ Play", lblIframeCode: "iFrame Code for Genially:", btnCopyCode: "📋 Copy Code"
+            h2SaveExport: "✨ Export & Save", lblStandaloneHtml: "🎮 Download Game (HTML)", descHtml: "A complete ready-to-play game file for any browser.", btnSaveHtml: "💾 Save HTML (Game)",
+            lblGeniallyCode: "🎨 Genially Integration (iFrame)", descIframe: "Embed code for platforms like Genially or interactive websites.", btnCopyCode: "📋 Copy Code iFrame", btnSaveIframeTxt: "⬇️ Download Genially TXT Code",
+            lblJsonProject: "📂 Editor Project (JSON)", descJson: "Save your project settings to a file to continue editing later.", btnSaveJson: "💾 Save JSON", btnLoadJson: "📂 Load JSON",
+            h2Preview: "📺 Magic Preview (Drag&Drop)", btnModeStart: "🚪 Start", btnModeFeedback: "🏆 Feedback", btnModeEdit: "🛠 Edit Game", btnModePlay: "▶️ Play"
+        },
+        de: {
+            headerTitle: "✨ Wolf Editor: Magic Pixar Edition",
+            authorText: "Autor Olga Timofeeva | Gruppe ", authorLinkText: "\"Ja! Zugängliches Englisch!\"",
+            tabMain: "Basis", tabVisual: "Optik", tabCtrl: "Steuerung", tabTasks: "Aufgaben", tabTemplates: "Vorlagen", tabSave: "💾 Speichern",
+            h2Lang: "🌍 Sprache & Musik", lblLang: "Schnittstellensprache", lblBgMusic: "Hintergrundmusik (URL)", lblSndWin: "Erfolgssound (URL)", lblSndLose: "Fehlersound (URL)",
+            h2GameSettings: "⏱️ Spieleinstellungen", lblTimerMode: "Timer-Modus", valCountdown: "Countdown", valStopwatch: "Stoppuhr", lblTime: "Startzeit (Sek)", lblSpeed: "Geschwindigkeit (ms)",
+            h2Score: "📊 Punktzahl, Timer & Stopp-Taste", lblFont: "Schriftart", lblSize: "Größe (px)", lblColor: "Farbe", lblOffset: "Versatz Y (%)", lblAlign: "Ausrichtung",
+            lblScoreScale: "Punkte-Größe (%)", lblTimerScale: "Timer-Größe (%)", lblStopScale: "Stopp-Tasten-Größe (%)",
+            optCenter: "Mitte", optLeft: "Links", optRight: "Rechts", optEdges: "Ränder",
+            h2Visual: "🖼️ Optik & Held", lblBgUrl: "Hintergrund (URL)", lblWolfUrl: "Held (URL)", lblWolfSize: "Helden-Größe (%)", lblWolfY: "Position Y (%)", lblWolfAmpX: "Amplitude X (%)", lblWolfAmpY: "Amplitude Y (%)",
+            h2Egg: "🥚 Gegenstände: Bild & Spawn", lblEggUrl: "Gegenstand URL", lblEggLayer: "Ebene (Z-Index)", lblEggSize: "Größe (px)", lblEggAngle: "Rotation (Grad)", lblEggStart: "📍 Spawn (Start)", lblEggEnd: "🎯 Verschwinden (Ende)",
+            optLayerFront: "Vor dem Helden", optLayerBack: "Hinter dem Helden",
+            lblTopY: "Oben Y (%)", lblBotY: "Unten Y (%)", lblOffsetX: "Versatz X (%)",
+            h2Rails: "🏗️ Schienen", lblRailUrl: "Bild URL (leer für Auto)",
+            lblWidth: "Breite (%)", lblHeightPx: "Höhe (px)", lblAngle: "Winkel (°)", lblTopYs: "Oben Y (%)", lblBotYs: "Unten Y (%)",
+            h2Ctrl: "🎮 Steuerung", lblBtnColor: "Tastenfarbe",
+            lblUpY: "Oben Y (%)", lblUpX: "Oben X (%)", lblDownY: "Unten Y (%)", lblDownX: "Unten X (%)",
+            h2Texts: "📝 Texte (Menü)", lblTitle: "Titel:", lblInstr: "Anleitung:",
+            lblTitleFont: "Titel-Schriftart", lblInstrFont: "Anleitungs-Schriftart",
+            h2Award: "🎁 Finale Belohnung", lblAwardUrl: "Belohnungsbild (URL/Emoji)",
+            h2Feedback: "🏆 Feedback-Bildschirm", lblSlogan: "Motivationsspruch:", lblTextFont: "Text-Schriftart",
+            h2TaskDesign: "🎨 Aufgaben-Schriftarten", lblQText: "<b>Fragetext:</b>", lblAText: "<b>Antworttext (Tasten):</b>",
+            lblTeacherMode: "✅ Aufgaben beim Fangen aktivieren", lblRandom: "Zufällige Reihenfolge", lblRepeat: "Fragen wiederholen", lblInGameInput: "Eigene Eingabe im Spiel",
+            lblQTimer: "Antwortzeit (Sek):", lblTasks: "Fragen (eine pro Zeile):", lblCorrect: "Richtige Antworten (in der Reihenfolge):", lblWrong: "Falsche Antworten (kommagetrennt):",
+            h2Templates: "📂 Gespeicherte Vorlagen", btnSaveTemplate: "➕ Aktuelle als Vorlage speichern",
+            h2SaveExport: "✨ Export & Speichern", lblStandaloneHtml: "🎮 Spiel herunterladen (HTML)", descHtml: "Eine komplett spielbare Datei für jeden Browser.", btnSaveHtml: "💾 HTML speichern (Spiel)",
+            lblGeniallyCode: "🎨 Genially Integration (iFrame)", descIframe: "Einbettungscode für Plattformen wie Genially.", btnCopyCode: "📋 iFrame-Code kopieren", btnSaveIframeTxt: "⬇️ Genially TXT-Code herunterladen",
+            lblJsonProject: "📂 Editor-Projekt (JSON)", descJson: "Speichern Sie Ihre Projekteinstellungen in einer Datei.", btnSaveJson: "💾 JSON speichern", btnLoadJson: "📂 JSON laden",
+            h2Preview: "📺 Magische Vorschau (Drag&Drop)", btnModeStart: "🚪 Start", btnModeFeedback: "🏆 Feedback", btnModeEdit: "🛠 Spiel bearbeiten", btnModePlay: "▶️ Spielen"
+        },
+        fr: {
+            headerTitle: "✨ Wolf Editor: Magic Pixar Edition",
+            authorText: "Auteur Olga Timofeeva | Groupe ", authorLinkText: "\"Oui! Anglais Accessible!\"",
+            tabMain: "Base", tabVisual: "Visuels", tabCtrl: "Contrôles", tabTasks: "Tâches", tabTemplates: "Modèles", tabSave: "💾 Sauvegarder",
+            h2Lang: "🌍 Langue & Musique", lblLang: "Langue de l'interface", lblBgMusic: "Musique de fond (URL)", lblSndWin: "Son de Succès (URL)", lblSndLose: "Son d'Erreur (URL)",
+            h2GameSettings: "⏱️ Paramètres du Jeu", lblTimerMode: "Mode Chrono", valCountdown: "Compte à rebours", valStopwatch: "Chronomètre", lblTime: "Temps de départ (sec)", lblSpeed: "Vitesse (ms)",
+            h2Score: "📊 Score, Chrono & Bouton Stop", lblFont: "Police", lblSize: "Taille (px)", lblColor: "Couleur", lblOffset: "Décalage Y (%)", lblAlign: "Alignement",
+            lblScoreScale: "Taille du Score (%)", lblTimerScale: "Taille du Chrono (%)", lblStopScale: "Taille du Bouton Stop (%)",
+            optCenter: "Centre", optLeft: "Gauche", optRight: "Droite", optEdges: "Bords",
+            h2Visual: "🖼️ Visuels & Héros", lblBgUrl: "Fond (URL)", lblWolfUrl: "Héros (URL)", lblWolfSize: "Taille Héros (%)", lblWolfY: "Position Y (%)", lblWolfAmpX: "Amplitude X (%)", lblWolfAmpY: "Amplitude Y (%)",
+            h2Egg: "🥚 Objets : Image & Apparition", lblEggUrl: "URL de l'Objet", lblEggLayer: "Couche (Z-Index)", lblEggSize: "Taille (px)", lblEggAngle: "Rotation (deg)", lblEggStart: "📍 Apparition (Début)", lblEggEnd: "🎯 Disparition (Fin)",
+            optLayerFront: "Devant le Héros", optLayerBack: "Derrière le Héros",
+            lblTopY: "Haut Y (%)", lblBotY: "Bas Y (%)", lblOffsetX: "Décalage X (%)",
+            h2Rails: "🏗️ Rails", lblRailUrl: "Image URL (vide pour auto)",
+            lblWidth: "Largeur (%)", lblHeightPx: "Hauteur (px)", lblAngle: "Angle (°)", lblTopYs: "Haut Y (%)", lblBotYs: "Bas Y (%)",
+            h2Ctrl: "🎮 Contrôles", lblBtnColor: "Couleur des boutons",
+            lblUpY: "Haut Y (%)", lblUpX: "Haut X (%)", lblDownY: "Bas Y (%)", lblDownX: "Bas X (%)",
+            h2Texts: "📝 Textes (Menu)", lblTitle: "Titre:", lblInstr: "Instructions:",
+            lblTitleFont: "Police du Titre", lblInstrFont: "Police des Instructions",
+            h2Award: "🎁 Récompense Finale", lblAwardUrl: "Image Récompense (URL/Emoji)",
+            h2Feedback: "🏆 Écran de Feedback", lblSlogan: "Slogan de motivation:", lblTextFont: "Police du Texte",
+            h2TaskDesign: "🎨 Design des Tâches", lblQText: "<b>Texte de la Question:</b>", lblAText: "<b>Texte de Réponse:</b>",
+            lblTeacherMode: "✅ Activer les tâches à la capture", lblRandom: "Ordre Aléatoire", lblRepeat: "Répéter les questions", lblInGameInput: "Entrée propre en jeu",
+            lblQTimer: "Temps de réponse (sec):", lblTasks: "Questions (une par ligne):", lblCorrect: "Bonnes Réponses (dans l'ordre):", lblWrong: "Mauvaises Réponses (séparées par virgules):",
+            h2Templates: "📂 Modèles Sauvegardés", btnSaveTemplate: "➕ Sauvegarder l'actuel comme modèle",
+            h2SaveExport: "✨ Export & Sauvegarde", lblStandaloneHtml: "🎮 Télécharger le Jeu (HTML)", descHtml: "Un fichier de jeu complet prêt à jouer.", btnSaveHtml: "💾 Sauvegarder HTML",
+            lblGeniallyCode: "🎨 Intégration Genially (iFrame)", descIframe: "Code d'intégration pour plateformes comme Genially.", btnCopyCode: "📋 Copier le code iFrame", btnSaveIframeTxt: "⬇️ Télécharger Code TXT Genially",
+            lblJsonProject: "📂 Projet Éditeur (JSON)", descJson: "Sauvegardez vos paramètres de projet dans un fichier.", btnSaveJson: "💾 Sauvegarder JSON", btnLoadJson: "📂 Charger JSON",
+            h2Preview: "📺 Aperçu Magique (Drag&Drop)", btnModeStart: "🚪 Démarrer", btnModeFeedback: "🏆 Feedback", btnModeEdit: "🛠 Éditer", btnModePlay: "▶️ Jouer"
+        },
+        it: {
+            headerTitle: "✨ Wolf Editor: Magic Pixar Edition",
+            authorText: "Autore Olga Timofeeva | Gruppo ", authorLinkText: "\"Sì! Inglese Accessibile!\"",
+            tabMain: "Base", tabVisual: "Visivi", tabCtrl: "Controlli", tabTasks: "Compiti", tabTemplates: "Modelli", tabSave: "💾 Salva",
+            h2Lang: "🌍 Lingua & Musica", lblLang: "Lingua Interfaccia", lblBgMusic: "Musica di Sottofondo (URL)", lblSndWin: "Suono Successo (URL)", lblSndLose: "Suono Errore (URL)",
+            h2GameSettings: "⏱️ Impostazioni Gioco", lblTimerMode: "Modalità Timer", valCountdown: "Conto alla rovescia", valStopwatch: "Cronometro", lblTime: "Tempo di Avvio (sec)", lblSpeed: "Velocità (ms)",
+            h2Score: "📊 Punteggio, Timer & Tasto Stop", lblFont: "Carattere", lblSize: "Dimensione (px)", lblColor: "Colore", lblOffset: "Offset Y (%)", lblAlign: "Allineamento",
+            lblScoreScale: "Dimensione Punteggio (%)", lblTimerScale: "Dimensione Timer (%)", lblStopScale: "Dimensione Tasto Stop (%)",
+            optCenter: "Centro", optLeft: "Sinistra", optRight: "Destra", optEdges: "Bordi",
+            h2Visual: "🖼️ Visivi & Eroe", lblBgUrl: "Sfondo (URL)", lblWolfUrl: "Eroe (URL)", lblWolfSize: "Dimensione Eroe (%)", lblWolfY: "Posizione Y (%)", lblWolfAmpX: "Ampiezza X (%)", lblWolfAmpY: "Ampiezza Y (%)",
+            h2Egg: "🥚 Oggetti: Immagine & Spawn", lblEggUrl: "URL Oggetto", lblEggLayer: "Livello (Z-Index)", lblEggSize: "Dimensione (px)", lblEggAngle: "Rotazione (gradi)", lblEggStart: "📍 Spawn (Inizio)", lblEggEnd: "🎯 Scomparsa (Fine)",
+            optLayerFront: "Davanti all'Eroe", optLayerBack: "Dietro all'Eroe",
+            lblTopY: "Alto Y (%)", lblBotY: "Basso Y (%)", lblOffsetX: "Offset X (%)",
+            h2Rails: "🏗️ Binari", lblRailUrl: "URL Immagine (vuoto per auto)",
+            lblWidth: "Larghezza (%)", lblHeightPx: "Altezza (px)", lblAngle: "Angolo (°)", lblTopYs: "Alto Y (%)", lblBotYs: "Basso Y (%)",
+            h2Ctrl: "🎮 Controlli", lblBtnColor: "Colore Tasti",
+            lblUpY: "Alto Y (%)", lblUpX: "Alto X (%)", lblDownY: "Basso Y (%)", lblDownX: "Basso X (%)",
+            h2Texts: "📝 Testi (Menu)", lblTitle: "Titolo:", lblInstr: "Istruzioni:",
+            lblTitleFont: "Carattere Titolo", lblInstrFont: "Carattere Istruzioni",
+            h2Award: "🎁 Premio Finale", lblAwardUrl: "Immagine Premio (URL/Emoji)",
+            h2Feedback: "🏆 Schermata Feedback", lblSlogan: "Slogan motivazionale:", lblTextFont: "Carattere Testo",
+            h2TaskDesign: "🎨 Design dei Compiti", lblQText: "<b>Testo Domanda:</b>", lblAText: "<b>Testo Risposta (tasti):</b>",
+            lblTeacherMode: "✅ Abilita compiti alla cattura", lblRandom: "Ordine Casuale", lblRepeat: "Ripeti domande", lblInGameInput: "Input proprio in gioco",
+            lblQTimer: "Tempo di risposta (sec):", lblTasks: "Domande (una per riga):", lblCorrect: "Risposte Corrette (in ordine):", lblWrong: "Risposte Errate (separate da virgola):",
+            h2Templates: "📂 Modelli Salvati", btnSaveTemplate: "➕ Salva attuale come modello",
+            h2SaveExport: "✨ Esporta & Salva", lblStandaloneHtml: "🎮 Scarica Gioco (HTML)", descHtml: "Un file di gioco completo pronto da giocare.", btnSaveHtml: "💾 Salva HTML",
+            lblGeniallyCode: "🎨 Integrazione Genially (iFrame)", descIframe: "Codice di incorporamento per piattaforme.", btnCopyCode: "📋 Copia codice iFrame", btnSaveIframeTxt: "⬇️ Scarica Codice TXT Genially",
+            lblJsonProject: "📂 Progetto Editor (JSON)", descJson: "Salva le impostazioni del progetto in un file.", btnSaveJson: "💾 Salva JSON", btnLoadJson: "📂 Carica JSON",
+            h2Preview: "📺 Anteprima Magica (Drag&Drop)", btnModeStart: "🚪 Avvia", btnModeFeedback: "🏆 Feedback", btnModeEdit: "🛠 Modifica Gioco", btnModePlay: "▶️ Gioca"
+        },
+        cn: {
+            headerTitle: "✨ Wolf Editor: Magic Pixar Edition",
+            authorText: "作者 Olga Timofeeva | 组 ", authorLinkText: "\"Yes! Accessible English!\"",
+            tabMain: "基本", tabVisual: "视觉", tabCtrl: "控制", tabTasks: "任务", tabTemplates: "模板", tabSave: "💾 保存",
+            h2Lang: "🌍 语言 & 音乐", lblLang: "界面语言", lblBgMusic: "背景音乐 (URL)", lblSndWin: "成功音效 (URL)", lblSndLose: "错误音效 (URL)",
+            h2GameSettings: "⏱️ 游戏设置", lblTimerMode: "计时模式", valCountdown: "倒计时", valStopwatch: "秒表", lblTime: "开始时间 (秒)", lblSpeed: "速度 (毫秒)",
+            h2Score: "📊 分数, 计时器 & 停止按钮", lblFont: "字体", lblSize: "大小 (px)", lblColor: "颜色", lblOffset: "偏移 Y (%)", lblAlign: "对齐",
+            lblScoreScale: "分数大小 (%)", lblTimerScale: "计时器大小 (%)", lblStopScale: "停止按钮大小 (%)",
+            optCenter: "中心", optLeft: "左", optRight: "右", optEdges: "边缘",
+            h2Visual: "🖼️ 视觉 & 英雄", lblBgUrl: "背景 (URL)", lblWolfUrl: "英雄 (URL)", lblWolfSize: "英雄大小 (%)", lblWolfY: "位置 Y (%)", lblWolfAmpX: "振幅 X (%)", lblWolfAmpY: "振幅 Y (%)",
+            h2Egg: "🥚 物品: 图像 & 生成", lblEggUrl: "物品 URL", lblEggLayer: "物品层级 (Z-Index)", lblEggSize: "大小 (px)", lblEggAngle: "旋转 (度)", lblEggStart: "📍 生成 (开始)", lblEggEnd: "🎯 消失 (结束)",
+            optLayerFront: "在英雄前面", optLayerBack: "在英雄后面",
+            lblTopY: "顶部 Y (%)", lblBotY: "底部 Y (%)", lblOffsetX: "偏移 X (%)",
+            h2Rails: "🏗️ 轨道", lblRailUrl: "图像 URL (留空自动)",
+            lblWidth: "宽度 (%)", lblHeightPx: "高度 (px)", lblAngle: "角度 (°)", lblTopYs: "顶部 Y (%)", lblBotYs: "底部 Y (%)",
+            h2Ctrl: "🎮 控制", lblBtnColor: "按钮颜色",
+            lblUpY: "顶部 Y (%)", lblUpX: "顶部 X (%)", lblDownY: "底部 Y (%)", lblDownX: "底部 X (%)",
+            h2Texts: "📝 文本 (菜单)", lblTitle: "标题:", lblInstr: "说明:",
+            lblTitleFont: "标题字体", lblInstrFont: "说明字体",
+            h2Award: "🎁 最终奖励", lblAwardUrl: "奖励图像 (URL/Emoji)",
+            h2Feedback: "🏆 反馈屏幕", lblSlogan: "励志标语:", lblTextFont: "文本字体",
+            h2TaskDesign: "🎨 任务设计", lblQText: "<b>问题文本:</b>", lblAText: "<b>答案文本 (按钮):</b>",
+            lblTeacherMode: "✅ 启用捕获任务", lblRandom: "随机顺序", lblRepeat: "重复问题", lblInGameInput: "游戏内自定义输入",
+            lblQTimer: "回答时间 (秒):", lblTasks: "问题 (每行一个):", lblCorrect: "正确答案 (按顺序):", lblWrong: "错误答案 (逗号分隔):",
+            h2Templates: "📂 已保存的模板", btnSaveTemplate: "➕ 保存当前为模板",
+            h2SaveExport: "✨ 导出 & 保存", lblStandaloneHtml: "🎮 下载游戏 (HTML)", descHtml: "一个完整的随时可玩的游戏文件。", btnSaveHtml: "💾 保存 HTML",
+            lblGeniallyCode: "🎨 Genially 集成 (iFrame)", descIframe: "嵌入代码。", btnCopyCode: "📋 复制代码 iFrame", btnSaveIframeTxt: "⬇️ 下载 Genially TXT 代码",
+            lblJsonProject: "📂 编辑器项目 (JSON)", descJson: "将项目设置保存到文件中。", btnSaveJson: "💾 保存 JSON", btnLoadJson: "📂 加载 JSON",
+            h2Preview: "📺 魔法预览 (拖放)", btnModeStart: "🚪 开始", btnModeFeedback: "🏆 反馈", btnModeEdit: "🛠 编辑游戏", btnModePlay: "▶️ 播放"
         }
     };
 
@@ -419,21 +701,32 @@
         });
     }
 
-    // ВКЛАДКИ
     function openTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
         document.getElementById(tabId).classList.add('active');
-        event.currentTarget.classList.add('active');
+        
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => {
+            if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(tabId)) {
+                btn.classList.add('active');
+            }
+        });
     }
 
-    // ШАБЛОНЫ (MEMORY BANK)
     function getTemplates() {
-        return JSON.parse(localStorage.getItem('wolfTemplates') || '{}');
+        let saved = JSON.parse(localStorage.getItem('wolfTemplates') || '{}');
+        if (Object.keys(saved).length === 0) {
+            saved = defaultTemplates;
+            saveTemplates(saved);
+        }
+        return saved;
     }
+    
     function saveTemplates(templates) {
         localStorage.setItem('wolfTemplates', JSON.stringify(templates));
     }
+    
     function saveTemplate() {
         let name = prompt("Введите имя шаблона / Enter template name:");
         if(!name) return;
@@ -442,6 +735,7 @@
         saveTemplates(templates);
         renderTemplates();
     }
+    
     function renderTemplates() {
         const list = document.getElementById('template-list');
         const templates = getTemplates();
@@ -496,7 +790,6 @@
         }
     }
     
-    // ИНИЦИАЛИЗАЦИЯ
     window.onload = function() {
         renderTemplates();
         fullReload();
@@ -504,124 +797,212 @@
 
     function setPreviewMode(mode) {
         previewMode = mode;
-        const dBtn = document.getElementById('btn-mode-design');
-        const pBtn = document.getElementById('btn-mode-play');
+        const btnStart = document.getElementById('btn-mode-start');
+        const btnFeedback = document.getElementById('btn-mode-feedback');
+        const btnEditGame = document.getElementById('btn-mode-editgame');
+        const btnPlay = document.getElementById('btn-mode-play');
 
-        if (mode === 'design') {
-            dBtn.className = 'mode-btn active-design';
-            pBtn.className = 'mode-btn inactive';
-        } else {
-            dBtn.className = 'mode-btn inactive';
-            pBtn.className = 'mode-btn active-play';
+        [btnStart, btnFeedback, btnEditGame, btnPlay].forEach(btn => {
+            if(btn) btn.className = 'mode-btn inactive';
+        });
+
+        if (mode === 'start') {
+            if(btnStart) btnStart.className = 'mode-btn active-design';
+        } else if (mode === 'feedback') {
+            if(btnFeedback) btnFeedback.className = 'mode-btn active-design';
+        } else if (mode === 'editgame') {
+            if(btnEditGame) btnEditGame.className = 'mode-btn active-design';
+        } else if (mode === 'play') {
+            if(btnPlay) btnPlay.className = 'mode-btn active-play';
         }
         fullReload();
     }
 
     function setAward(val) {
         document.getElementById('conf-award').value = val;
-        liveUpdate(true);
+        liveUpdate(false);
     }
 
     function getGameConfig() {
+        const getVal = (id) => {
+            const el = document.getElementById(id);
+            return el ? el.value : undefined;
+        };
+        const getCheck = (id) => {
+            const el = document.getElementById(id);
+            return el ? el.checked : false;
+        };
+
         return {
-            lang: document.getElementById('conf-lang').value,
-            bgMusic: document.getElementById('conf-bgMusic').value,
-            bg: document.getElementById('conf-bg').value,
-            wolf: document.getElementById('conf-wolf').value,
-            wolfSize: document.getElementById('conf-wolfSize').value,
-            wolfY: document.getElementById('conf-wolfY').value,
-            wolfAmpX: document.getElementById('conf-wolfAmpX').value,
-            wolfAmpY: document.getElementById('conf-wolfAmpY').value,
+            lang: getVal('conf-lang'),
+            bgMusic: getVal('conf-bgMusic'),
+            bg: getVal('conf-bg'),
+            wolf: getVal('conf-wolf'),
+            wolfSize: getVal('conf-wolfSize'),
+            wolfY: getVal('conf-wolfY'),
+            wolfAmpX: getVal('conf-wolfAmpX'),
+            wolfAmpY: getVal('conf-wolfAmpY'),
             
-            egg: document.getElementById('conf-egg').value,
-            eggSize: document.getElementById('conf-eggSize').value,
-            eggAngle: document.getElementById('conf-eggAngle').value,
-            eggZ: document.getElementById('conf-eggZ').value,
+            egg: getVal('conf-egg'),
+            eggSize: getVal('conf-eggSize'),
+            eggAngle: getVal('conf-eggAngle'),
+            eggZ: getVal('conf-eggZ'),
             
-            eggTopY: document.getElementById('conf-eggTopY').value,
-            eggBottomY: document.getElementById('conf-eggBottomY').value,
-            eggX: document.getElementById('conf-eggX').value,
+            eggTopY: getVal('conf-eggTopY'),
+            eggBottomY: getVal('conf-eggBottomY'),
+            eggX: getVal('conf-eggX'),
             
-            eggFinalTopY: document.getElementById('conf-eggFinalTopY').value,
-            eggFinalBottomY: document.getElementById('conf-eggFinalBottomY').value,
-            eggFinalX: document.getElementById('conf-eggFinalX').value,
+            eggFinalTopY: getVal('conf-eggFinalTopY'),
+            eggFinalBottomY: getVal('conf-eggFinalBottomY'),
+            eggFinalX: getVal('conf-eggFinalX'),
             
-            rail: document.getElementById('conf-rail').value,
-            railW: document.getElementById('conf-railW').value,
-            railH: document.getElementById('conf-railH').value,
-            railAngle: document.getElementById('conf-railAngle').value,
-            railTopY: document.getElementById('conf-railTopY').value,
-            railBottomY: document.getElementById('conf-railBottomY').value,
-            railX: document.getElementById('conf-railX').value,
+            rail: getVal('conf-rail'),
+            railW: getVal('conf-railW'),
+            railH: getVal('conf-railH'),
+            railAngle: getVal('conf-railAngle'),
+            railTopY: getVal('conf-railTopY'),
+            railBottomY: getVal('conf-railBottomY'),
+            railX: getVal('conf-railX'),
             
-            fbFont: document.getElementById('conf-fbFont').value,
-            fbFontSize: document.getElementById('conf-fbFontSize').value,
-            fbColor: document.getElementById('conf-fbColor').value,
-            fbSlogan: document.getElementById('conf-fbSlogan').value,
+            titleFont: getVal('conf-titleFont'),
+            titleFontSize: getVal('conf-titleFontSize'),
+            titleColor: getVal('conf-titleColor'),
+            instrFont: getVal('conf-instrFont'),
+            instrFontSize: getVal('conf-instrFontSize'),
+            instrColor: getVal('conf-instrColor'),
 
-            taskFont: document.getElementById('conf-taskFont').value,
-            taskFontSize: document.getElementById('conf-taskFontSize').value,
-            taskColor: document.getElementById('conf-taskColor').value,
-            eggFont: document.getElementById('conf-eggFont').value,
-            eggFontSize: document.getElementById('conf-eggFontSize').value,
-            eggColor: document.getElementById('conf-eggColor').value,
+            fbFont: getVal('conf-fbFont'),
+            fbFontSize: getVal('conf-fbFontSize'),
+            fbColor: getVal('conf-fbColor'),
+            fbSlogan: getVal('conf-fbSlogan'),
 
-            uiFont: document.getElementById('conf-uiFont').value,
-            uiFontSize: document.getElementById('conf-uiFontSize').value,
-            uiColor: document.getElementById('conf-uiColor').value,
-            uiY: document.getElementById('conf-uiY').value,
-            uiAlign: document.getElementById('conf-uiAlign').value,
+            taskFont: getVal('conf-taskFont'),
+            taskFontSize: getVal('conf-taskFontSize'),
+            taskColor: getVal('conf-taskColor'),
+            eggFont: getVal('conf-eggFont'),
+            eggFontSize: getVal('conf-eggFontSize'),
+            eggColor: getVal('conf-eggColor'),
 
-            timerMode: document.getElementById('conf-timerMode').value,
-            timer: document.getElementById('conf-timer').value,
-            qTimer: document.getElementById('conf-qTimer').value,
-            speed: document.getElementById('conf-speed').value,
-            btnBg: document.getElementById('conf-btnBg').value,
-            btnUpY: document.getElementById('conf-btnUpY').value,
-            btnUpX: document.getElementById('conf-btnUpX').value,
-            btnDownY: document.getElementById('conf-btnDownY').value,
-            btnDownX: document.getElementById('conf-btnDownX').value,
-            title: document.getElementById('conf-title').value,
-            instr: document.getElementById('conf-instr').value,
-            award: document.getElementById('conf-award').value,
+            uiFont: getVal('conf-uiFont'),
+            uiFontSize: getVal('conf-uiFontSize'),
+            uiColor: getVal('conf-uiColor'),
             
-            teacher: document.getElementById('conf-teacherMode').checked,
-            teacherMode: document.getElementById('conf-teacherMode').checked,
-            qRandom: document.getElementById('conf-qRandom').checked,
-            qRepeat: document.getElementById('conf-qRepeat').checked,
-            inGameInput: document.getElementById('conf-inGameInput').checked,
+            scoreScale: getVal('conf-scoreScale'),
+            timerScale: getVal('conf-timerScale'),
+            stopBtnScale: getVal('conf-stopBtnScale'),
+
+            timerMode: getVal('conf-timerMode'),
+            timer: getVal('conf-timer'),
+            qTimer: getVal('conf-qTimer'),
+            speed: getVal('conf-speed'),
+            btnBg: getVal('conf-btnBg'),
+            btnUpY: getVal('conf-btnUpY'),
+            btnUpX: getVal('conf-btnUpX'),
+            btnDownY: getVal('conf-btnDownY'),
+            btnDownX: getVal('conf-btnDownX'),
+            title: getVal('conf-title'),
+            instr: getVal('conf-instr'),
+            award: getVal('conf-award'),
             
-            tasks: document.getElementById('conf-tasks').value.split('\n').filter(t => t.trim() !== ''),
-            correct: document.getElementById('conf-correct').value.split('\n').filter(t => t.trim() !== ''),
-            wrong: document.getElementById('conf-wrong').value.split('\n').filter(t => t.trim() !== ''),
-            sndSuccess: document.getElementById('conf-sndSuccess').value,
-            sndMiss: document.getElementById('conf-sndMiss').value
+            startTitlePos: getGameConfigPositions('startTitlePos', { left: 50, top: 20 }),
+            startInstrPos: getGameConfigPositions('startInstrPos', { left: 50, top: 40 }),
+            startEasyPos: getGameConfigPositions('startEasyPos', { left: 50, top: 60 }),
+            startHardPos: getGameConfigPositions('startHardPos', { left: 50, top: 78 }),
+            startIgBtnPos: getGameConfigPositions('startIgBtnPos', { left: 50, top: 50 }),
+            
+            fbTitlePos: getGameConfigPositions('fbTitlePos', { left: 50, top: 15 }),
+            fbAwardPos: getGameConfigPositions('fbAwardPos', { left: 50, top: 30 }),
+            fbStatsPos: getGameConfigPositions('fbStatsPos', { left: 50, top: 45 }),
+            fbQrPos: getGameConfigPositions('fbQrPos', { left: 50, top: 65 }),
+            fbSloganPos: getGameConfigPositions('fbSloganPos', { left: 50, top: 82 }),
+            fbRetryPos: getGameConfigPositions('fbRetryPos', { left: 50, top: 92 }),
+
+            gameScorePos: getGameConfigPositions('gameScorePos', { left: 20, top: 3 }),
+            gameTimerPos: getGameConfigPositions('gameTimerPos', { left: 50, top: 3 }),
+            gameStopPos: getGameConfigPositions('gameStopPos', { left: 80, top: 3 }),
+            gameWolfPos: getGameConfigPositions('gameWolfPos', { left: 50, top: 50 }),
+
+            teacher: getCheck('conf-teacherMode'),
+            teacherMode: getCheck('conf-teacherMode'),
+            qRandom: getCheck('conf-qRandom'),
+            qRepeat: getCheck('conf-qRepeat'),
+            inGameInput: getCheck('conf-inGameInput'),
+            
+            tasks: (getVal('conf-tasks') || '').split('\n').filter(t => t.trim() !== ''),
+            correct: (getVal('conf-correct') || '').split('\n').filter(t => t.trim() !== ''),
+            wrong: (getVal('conf-wrong') || '').split('\n').filter(t => t.trim() !== ''),
+            sndSuccess: getVal('conf-sndSuccess'),
+            sndMiss: getVal('conf-sndMiss')
         };
     }
 
-    function generateGameHTML(c, isEditorDesignMode = false) {
+    function getGameConfigPositions(key, def) {
+        if (window.editorPositions && window.editorPositions[key]) {
+            return window.editorPositions[key];
+        }
+        return def;
+    }
+
+    function generateGameHTML(c, currentPreviewMode = 'editgame') {
         const dictionary = {
-            ru: { start: "СТАРТ", easy: "ЛЕГКО", hard: "СЛОЖНО", score: "СЧЕТ", time: "ВРЕМЯ", end: "ИГРА ОКОНЧЕНА!", miss: "ОШИБОК", again: "🔄 ИГРАТЬ СНОВА", stop: "СТОП", qrHint: "Покажите QR-код учителю" },
-            en: { start: "START", easy: "EASY", hard: "HARD", score: "SCORE", time: "TIME", end: "GAME OVER!", miss: "MISSES", again: "🔄 RETRY", stop: "STOP", qrHint: "Show this QR code to the teacher" },
-            de: { start: "START", easy: "EINFACH", hard: "SCHWER", score: "PUNKTE", time: "ZEIT", end: "SPIEL ENDE!", miss: "FEHLER", again: "🔄 WIEDERHOLEN", stop: "STOPP", qrHint: "Zeige diesen QR-Code dem Lehrer" },
-            fr: { start: "COMMENCER", easy: "FACILE", hard: "DIFFICILE", score: "SCORE", time: "TEMPS", end: "TERMINÉ!", miss: "ERREURS", again: "🔄 REJOUER", stop: "STOP", qrHint: "Montrez ce code QR au professeur" },
-            it: { start: "INIZIA", easy: "FACILE", hard: "DIFFICILE", score: "PUNTI", time: "TEMPO", end: "FINITO!", miss: "ERRORI", again: "🔄 RIPROVA", stop: "STOP", qrHint: "Mostra questo codice QR all'insegnante" },
-            cn: { start: "开始", easy: "简单", hard: "困难", score: "分数", time: "时间", end: "游戏结束!", miss: "错误", again: "🔄 再来一次", stop: "停止", qrHint: "把这个二维码给老师看" }
+            ru: { start: "СТАРТ", easy: "ЛЕГКО", hard: "СЛОЖНО", score: "СЧЕТ", time: "ВРЕМЯ", end: "ИГРА ОКОНЧЕНА!", miss: "ОШИБОК", again: "🔄 ИГРАТЬ СНОВА", stop: "СТОП", qrHint: "Покажите QR-код учителю", setupTasks: "⚙️ Настройка заданий", questionsLbl: "Вопросы (каждый с новой строки):", correctLbl: "Верные ответы (по порядку):", wrongLbl: "Неверные (через запятую):", saveCont: "✅ Сохранить и продолжить", loadOwn: "📝 Загрузить свои задания", questionTitle: "Вопрос" },
+            en: { start: "START", easy: "EASY", hard: "HARD", score: "SCORE", time: "TIME", end: "GAME OVER!", miss: "MISSES", again: "🔄 RETRY", stop: "STOP", qrHint: "Show this QR code to the teacher", setupTasks: "⚙️ Task Setup", questionsLbl: "Questions (one per line):", correctLbl: "Correct Answers (in order):", wrongLbl: "Wrong Answers (comma separated):", saveCont: "✅ Save & Continue", loadOwn: "📝 Load Custom Tasks", questionTitle: "Question" },
+            de: { start: "START", easy: "EINFACH", hard: "SCHWER", score: "PUNKTE", time: "ZEIT", end: "SPIEL ENDE!", miss: "FEHLER", again: "🔄 WIEDERHOLEN", stop: "STOPP", qrHint: "Zeige diesen QR-Code dem Lehrer", setupTasks: "⚙️ Task Setup", questionsLbl: "Questions (one per line):", correctLbl: "Correct Answers (in order):", wrongLbl: "Wrong Answers (comma separated):", saveCont: "✅ Save & Continue", loadOwn: "📝 Load Custom Tasks", questionTitle: "Question" },
+            fr: { start: "COMMENCER", easy: "FACILE", hard: "DIFFICILE", score: "SCORE", time: "TEMPS", end: "TERMINÉ!", miss: "ERREURS", again: "🔄 REJOUER", stop: "STOP", qrHint: "Montrez ce code QR au professeur", setupTasks: "⚙️ Task Setup", questionsLbl: "Questions (one per line):", correctLbl: "Correct Answers (in order):", wrongLbl: "Wrong Answers (comma separated):", saveCont: "✅ Save & Continue", loadOwn: "📝 Load Custom Tasks", questionTitle: "Question" },
+            it: { start: "INIZIA", easy: "FACILE", hard: "DIFFICILE", score: "PUNTI", time: "TEMPO", end: "FINITO!", miss: "ERRORI", again: "🔄 RIPROVA", stop: "STOP", qrHint: "Mostra questo codice QR all'insegnante", setupTasks: "⚙️ Task Setup", questionsLbl: "Questions (one per line):", correctLbl: "Correct Answers (in order):", wrongLbl: "Wrong Answers (comma separated):", saveCont: "✅ Save & Continue", loadOwn: "📝 Load Custom Tasks", questionTitle: "Question" },
+            cn: { start: "开始", easy: "简单", hard: "困难", score: "分数", time: "时间", end: "游戏结束!", miss: "错误", again: "🔄 再来一次", stop: "停止", qrHint: "把这个二维码给老师看", setupTasks: "⚙️ Task Setup", questionsLbl: "Questions (one per line):", correctLbl: "Correct Answers (in order):", wrongLbl: "Wrong Answers (comma separated):", saveCont: "✅ Save & Continue", loadOwn: "📝 Load Custom Tasks", questionTitle: "Question" }
         };
         const lang = dictionary[c.lang] || dictionary.ru;
 
-        const tasksJSON = JSON.stringify(c.tasks).replace(/</g, '\\u003c');
-        const correctJSON = JSON.stringify(c.correct).replace(/</g, '\\u003c');
-        const wrongJSON = JSON.stringify(c.wrong).replace(/</g, '\\u003c');
+        const tasksJSON = JSON.stringify(c.tasks || []);
+        const correctJSON = JSON.stringify(c.correct || []);
+        const wrongJSON = JSON.stringify(c.wrong || []);
         
-        const startScreenStyle = isEditorDesignMode ? 'display: none !important;' : '';
-        const topUiStyle = isEditorDesignMode ? 'display: flex !important;' : 'display: none;';
+        let startScreenStyle = '';
+        let feedbackScreenStyle = 'display:none;';
+        let topUiStyle = 'display: none;';
+        const isEditorMode = currentPreviewMode !== 'play';
+
+        if (currentPreviewMode === 'start') {
+            startScreenStyle = 'display: flex !important;';
+            feedbackScreenStyle = 'display: none !important;';
+            topUiStyle = 'display: none !important;';
+        } else if (currentPreviewMode === 'feedback') {
+            startScreenStyle = 'display: none !important;';
+            feedbackScreenStyle = 'display: flex !important;';
+            topUiStyle = 'display: none !important;';
+        } else if (currentPreviewMode === 'editgame') {
+            startScreenStyle = 'display: none !important;';
+            feedbackScreenStyle = 'display: none !important;';
+            topUiStyle = 'display: flex !important;';
+        } else if (currentPreviewMode === 'play') {
+            startScreenStyle = 'display: flex;';
+            feedbackScreenStyle = 'display: none;';
+            topUiStyle = 'display: none;';
+        }
         
-        // Initial timer display logic for UI preview
         const initTimerVal = c.timerMode === 'countdown' ? c.timer : '0';
 
+        const sTitlePos = c.startTitlePos || { left: 50, top: 20 };
+        const sInstrPos = c.startInstrPos || { left: 50, top: 40 };
+        const sEasyPos = c.startEasyPos || { left: 50, top: 60 };
+        const sHardPos = c.startHardPos || { left: 50, top: 78 };
+        const sIgBtnPos = c.startIgBtnPos || { left: 50, top: 50 };
+
+        const fbTitlePos = c.fbTitlePos || { left: 50, top: 15 };
+        const fbAwardPos = c.fbAwardPos || { left: 50, top: 30 };
+        const fbStatsPos = c.fbStatsPos || { left: 50, top: 45 };
+        const fbQrPos = c.fbQrPos || { left: 50, top: 65 };
+        const fbSloganPos = c.fbSloganPos || { left: 50, top: 82 };
+        const fbRetryPos = c.fbRetryPos || { left: 50, top: 92 };
+
+        const gScorePos = c.gameScorePos || { left: 20, top: 3 };
+        const gTimerPos = c.gameTimerPos || { left: 50, top: 3 };
+        const gStopPos = c.gameStopPos || { left: 80, top: 3 };
+        const gWolfPos = c.gameWolfPos || { left: 50, top: c.wolfY || 50 };
+
         return `<!DOCTYPE html>
-<html lang="${c.lang}">
+<html lang="${c.lang || 'ru'}">
 <head>
     <meta charset="UTF-8">
     <meta name="referrer" content="no-referrer">
@@ -629,50 +1010,60 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: url('${c.bg}');
-            --wolf-img: url('${c.wolf}');
-            --wolf-size: ${c.wolfSize}%;
-            --wolf-y: ${c.wolfY}%;
-            --egg-size: ${c.eggSize}px;
-            --egg-z: ${c.eggZ};
-            --btn-bg: ${c.btnBg};
-            --btn-up-y: ${c.btnUpY}%;
-            --btn-up-x: ${c.btnUpX}%;
-            --btn-down-y: ${c.btnDownY}%;
-            --btn-down-x: ${c.btnDownX}%;
+            --bg: ${c.bg && c.bg.startsWith('data:') ? `url("${c.bg}")` : `url('${c.bg || ''}')`};
+            --wolf-img: ${c.wolf && c.wolf.startsWith('data:') ? `url("${c.wolf}")` : `url('${c.wolf || ''}')`};
+            --wolf-size: ${c.wolfSize || 60}%;
+            --wolf-y: ${gWolfPos.top}%;
+            --wolf-x: ${gWolfPos.left}%;
+            --egg-size: ${c.eggSize || 45}px;
+            --egg-z: ${c.eggZ || 20};
+            --btn-bg: ${c.btnBg || '#323232'};
+            --btn-up-y: ${c.btnUpY || 20}%;
+            --btn-up-x: ${c.btnUpX || 3}%;
+            --btn-down-y: ${c.btnDownY || 20}%;
+            --btn-down-x: ${c.btnDownX || 3}%;
             --rail-img: ${c.rail ? `url('${c.rail}')` : 'none'};
-            --rail-w: ${c.railW}%;
-            --rail-h: ${c.railH}px;
-            --rail-angle: ${c.railAngle}deg;
-            --rail-top-y: ${c.railTopY}%;
-            --rail-bot-y: ${c.railBottomY}%;
-            --rail-x: ${c.railX}%;
+            --rail-w: ${c.railW || 30}%;
+            --rail-h: ${c.railH || 15}px;
+            --rail-angle: ${c.railAngle || 15}deg;
+            --rail-top-y: ${c.railTopY || 18}%;
+            --rail-bot-y: ${c.railBottomY || 58}%;
+            --rail-x: ${c.railX || -2}%;
             
-            --q-font: ${c.taskFont};
-            --q-size: ${c.taskFontSize}px;
-            --q-color: ${c.taskColor};
-            --a-font: ${c.eggFont};
-            --a-size: ${c.eggFontSize}px;
-            --a-color: ${c.eggColor};
-            
-            --fb-font: ${c.fbFont};
-            --fb-size: ${c.fbFontSize}px;
-            --fb-color: ${c.fbColor};
-            
-            --ui-font: ${c.uiFont};
-            --ui-size: ${c.uiFontSize}px;
-            --ui-color: ${c.uiColor};
-            --ui-y: ${c.uiY}%;
-            --ui-align: ${c.uiAlign};
+            --title-font: ${c.titleFont || "'Fredoka', sans-serif"};
+            --title-size: ${c.titleFontSize || 36}px;
+            --title-color: ${c.titleColor || '#FF6B9D'};
+            --instr-font: ${c.instrFont || "'Fredoka', sans-serif"};
+            --instr-size: ${c.instrFontSize || 18}px;
+            --instr-color: ${c.instrColor || '#333333'};
 
-            --egg-top-y: ${c.eggTopY}%;
-            --egg-bot-y: ${c.eggBottomY}%;
-            --egg-x: ${c.eggX}%;
-            --egg-angle: ${c.eggAngle}deg;
+            --q-font: ${c.taskFont || 'Arial'};
+            --q-size: ${c.taskFontSize || 28}px;
+            --q-color: ${c.taskColor || '#333333'};
+            --a-font: ${c.eggFont || 'Arial'};
+            --a-size: ${c.eggFontSize || 20}px;
+            --a-color: ${c.eggColor || '#ffffff'};
             
-            --egg-final-top-y: ${c.eggFinalTopY}%;
-            --egg-final-bot-y: ${c.eggFinalBottomY}%;
-            --egg-final-x: ${c.eggFinalX}%;
+            --fb-font: ${c.fbFont || 'Arial'};
+            --fb-size: ${c.fbFontSize || 26}px;
+            --fb-color: ${c.fbColor || '#4D96A9'};
+            
+            --ui-font: ${c.uiFont || 'Arial'};
+            --ui-size: ${c.uiFontSize || 20}px;
+            --ui-color: ${c.uiColor || '#333333'};
+            
+            --score-scale: ${(c.scoreScale || 100) / 100};
+            --timer-scale: ${(c.timerScale || 100) / 100};
+            --stop-scale: ${(c.stopBtnScale || 100) / 100};
+
+            --egg-top-y: ${c.eggTopY || 15}%;
+            --egg-bot-y: ${c.eggBottomY || 55}%;
+            --egg-x: ${c.eggX || 8}%;
+            --egg-angle: ${c.eggAngle || 0}deg;
+            
+            --egg-final-top-y: ${c.eggFinalTopY || 35}%;
+            --egg-final-bot-y: ${c.eggFinalBottomY || 60}%;
+            --egg-final-x: ${c.eggFinalX || 38}%;
         }
         
         body, html { 
@@ -688,13 +1079,13 @@
             background: var(--bg) center/100% 100% no-repeat; box-shadow: 0 0 20px rgba(0,0,0,0.8); overflow: hidden;
         }
         
-        .rail { position: absolute; width: var(--rail-w); height: var(--rail-h); background-image: var(--rail-img); background-size: 100% 100%; background-color: #A0522D; border: 3px solid #5C3317; border-radius: 10px; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2), 0 5px 10px rgba(0,0,0,0.4); z-index: 4; }
+        .rail { position: absolute; width: var(--rail-w); height: var(--rail-h); background-image: var(--rail-img); background-size: 100% 100%; background-color: #A0522D; border: 3px solid #5C3317; border-radius: 10px; box-shadow: inset 0 -3px 0 rgba(0,0,0,0.2), 0 5px 10px rgba(0,0,0,0.4); z-index: 4; display: ${c.railW > 0 ? 'block' : 'none'}; transition: top 0.2s, left 0.2s, right 0.2s, width 0.2s, height 0.2s, transform 0.2s;}
         .rail-tl { top: var(--rail-top-y); left: var(--rail-x); transform: rotate(var(--rail-angle)); transform-origin: left center; }
         .rail-tr { top: var(--rail-top-y); right: var(--rail-x); transform: rotate(calc(-1 * var(--rail-angle))); transform-origin: right center; }
         .rail-bl { top: var(--rail-bot-y); left: var(--rail-x); transform: rotate(var(--rail-angle)); transform-origin: left center; }
         .rail-br { top: var(--rail-bot-y); right: var(--rail-x); transform: rotate(calc(-1 * var(--rail-angle))); transform-origin: right center; }
 
-        .wolf-container { position:absolute; width:var(--wolf-size); left:50%; top:var(--wolf-y); transform:translate(-50%,-50%); transition: all 0.15s ease-out; z-index:10; }
+        .wolf-container { position:absolute; width:var(--wolf-size); left:var(--wolf-x); top:var(--wolf-y); transform:translate(-50%,-50%); transition: top 0.15s ease-out, left 0.15s ease-out, width 0.15s ease-out, transform 0.15s ease-out; z-index:10; }
         .wolf-img { width:100%; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3)); transition: transform 0.1s; }
         .mirror { transform: scaleX(-1); }
 
@@ -711,21 +1102,25 @@
         .btn-bl { bottom: var(--btn-down-y); left: var(--btn-down-x); }
         .btn-br { bottom: var(--btn-down-y); right: var(--btn-down-x); }
 
-        #top-ui { position:absolute; top:var(--ui-y); left: 0; width:100%; display:flex; justify-content:var(--ui-align); gap: 15px; z-index:100; pointer-events: none; padding: 0 20px; box-sizing: border-box; }
-        .stat-badge { background:rgba(255,255,255,0.95); padding:10px 15px; border-radius:15px; border:3px solid #FF6B9D; font-weight:700; font-size:var(--ui-size); font-family:var(--ui-font); color: var(--ui-color); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        #top-ui { position:absolute; top:0; left: 0; width:100%; height:100%; z-index:100; pointer-events: none; box-sizing: border-box; }
+        .stat-badge { position: absolute; background:rgba(255,255,255,0.95); padding:10px 15px; border-radius:15px; border:3px solid #FF6B9D; font-weight:700; font-size:var(--ui-size); font-family:var(--ui-font); color: var(--ui-color); box-shadow: 0 4px 10px rgba(0,0,0,0.2); transform: translate(-50%, -50%); }
+        #score-badge { left: ${gScorePos.left}%; top: ${gScorePos.top}%; transform: translate(-50%, -50%) scale(var(--score-scale)); transform-origin: center center; }
+        #timer-badge { left: ${gTimerPos.left}%; top: ${gTimerPos.top}%; transform: translate(-50%, -50%) scale(var(--timer-scale)); transform-origin: center center; }
         
-        .stop-btn { background: #FF6B9D; color: white; border: 2px solid white; padding: 8px 15px; border-radius: 15px; font-family: var(--ui-font); font-size: var(--ui-size); font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.2s; pointer-events: auto; }
-        .stop-btn:active { transform: scale(0.9); }
+        .stop-btn { position: absolute; left: ${gStopPos.left}%; top: ${gStopPos.top}%; transform: translate(-50%, -50%) scale(var(--stop-scale)); transform-origin: center center; background: #FF6B9D; color: white; border: 2px solid white; padding: 8px 15px; border-radius: 15px; font-family: var(--ui-font); font-size: var(--ui-size); font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: 0.2s; pointer-events: auto; }
+        .stop-btn:active { transform: translate(-50%, -50%) scale(calc(var(--stop-scale) * 0.9)); }
 
         #miss-sign { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:100px; color:red; display:none; z-index:2000; text-shadow: 2px 2px 10px black; }
 
         .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:flex; align-items:center; justify-content:center; z-index:1000; color:white; text-align:center; flex-direction: column; }
         
-        .menu-card { background:rgba(255,255,255,0.95); color:#333; padding:25px 35px; border-radius:25px; border:6px solid #FF6B9D; max-width:500px; width:90%; box-shadow: 0 15px 40px rgba(0,0,0,0.6); max-height: 95vh; overflow-y: auto; }
+        .menu-card { position: relative; width: 100vw; height: 56.25vw; max-height: 100vh; max-width: calc(100vh * (16 / 9)); background:rgba(255,255,255,0.95); color:#333; border-radius:25px; border:6px solid #FF6B9D; box-shadow: 0 15px 40px rgba(0,0,0,0.6); overflow: hidden; }
         
-        .big-btn { width:100%; padding:18px; background:linear-gradient(135deg, #6BCB77 0%, #4D96A9 100%); color:white; border:none; border-radius:15px; font-size:22px; font-weight:bold; cursor:pointer; margin-top: 15px; box-shadow: 0 6px 12px rgba(0,0,0,0.3); transition: 0.2s; }
+        .big-btn { padding:12px 25px; background:linear-gradient(135deg, #6BCB77 0%, #4D96A9 100%); color:white; border:none; border-radius:15px; font-size:22px; font-weight:bold; cursor:pointer; box-shadow: 0 6px 12px rgba(0,0,0,0.3); transition: 0.2s; white-space: nowrap; }
         .big-btn:hover { transform: translateY(-2px); }
         
+        .drag-item { position: absolute; transform: translate(-50%, -50%); margin: 0; box-sizing: border-box; }
+
         #countdown { font-size: 140px; color: #FFD93D; text-shadow: 0 0 30px #FF6B9D; display:none; font-weight: 900; }
         
         #q-text { font-size: var(--q-size); font-family: var(--q-font); color: var(--q-color); margin-bottom: 25px; line-height: 1.3; white-space: pre-wrap; word-wrap: break-word; overflow-wrap: break-word; }
@@ -733,21 +1128,24 @@
         .ans-btn { background: #6BCB77; border: none; padding: 15px 18px; border-radius: 12px; color: var(--a-color); font-size: var(--a-size); font-family: var(--a-font); font-weight: bold; width: 100%; margin-bottom: 12px; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 8px rgba(0,0,0,0.2); white-space: normal; word-wrap: break-word; overflow-wrap: break-word; line-height: 1.2; height: auto; min-height: 50px; }
         .ans-btn:hover { transform: scale(1.02); }
 
-        .stats-grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin: 15px 0; font-size: 16px; text-align:left; font-weight: 600;}
+        .stats-grid { display:flex; gap:20px; justify-content: center; font-size: 18px; font-weight: 600;}
         
-        #fb-slogan { font-family: var(--fb-font); font-size: var(--fb-size); color: var(--fb-color); margin-top: 10px; margin-bottom: 5px; font-weight: bold; text-align: center; }
+        #fb-slogan { font-family: var(--fb-font); font-size: var(--fb-size); color: var(--fb-color); font-weight: bold; text-align: center; margin: 0; }
         
-        .qr-wrapper { display: flex; flex-direction: column; align-items: center; margin: 10px 0; }
-        .qr-wrapper img { width: 130px; height: 130px; border: 4px solid #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background: #fff; }
-        .qr-wrapper span { font-size: 12px; font-weight: bold; color: #666; margin-top: 5px; }
+        .qr-wrapper { display: flex; flex-direction: column; align-items: center; margin: 0; }
+        .qr-wrapper img { width: 100px; height: 100px; border: 3px solid #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); background: #fff; }
+        .qr-wrapper span { font-size: 11px; font-weight: bold; color: #666; margin-top: 3px; }
+        
+        .game-title-text { font-family: var(--title-font); font-size: var(--title-size); color: var(--title-color); text-shadow: 2px 2px 0px #FFD93D; margin: 0; width: 90%; text-align: center; }
+        .game-instr-text { font-family: var(--instr-font); font-size: var(--instr-size); color: var(--instr-color); font-weight: 600; margin: 0; width: 85%; text-align: center; }
     </style>
 </head>
 <body>
     <div id="game-area">
         <div id="top-ui" style="${topUiStyle}">
-            <div class="stat-badge">${lang.score}: <span id="score-val">0</span></div>
-            <div class="stat-badge">${lang.time}: <span id="timer-val">${initTimerVal}</span></div>
-            <button class="stop-btn" onclick="stopGameEarly()" style="pointer-events: auto;">⏹ ${lang.stop}</button>
+            <div class="stat-badge drag-item" id="score-badge" data-drag-key="gameScorePos">${lang.score}: <span id="score-val">0</span></div>
+            <div class="stat-badge drag-item" id="timer-badge" data-drag-key="gameTimerPos">${lang.time}: <span id="timer-val">${initTimerVal}</span></div>
+            <button class="stop-btn drag-item" id="stop-badge" data-drag-key="gameStopPos" onclick="stopGameEarly()" style="pointer-events: auto;">⏹ ${lang.stop}</button>
         </div>
         
         <div class="rail rail-tl"></div>
@@ -755,11 +1153,11 @@
         <div class="rail rail-bl"></div>
         <div class="rail rail-br"></div>
 
-        <div class="wolf-container" id="wolf">
-            <img src="${c.wolf}" class="wolf-img" id="wolf-sprite">
+        <div class="wolf-container drag-item" id="wolf" data-drag-key="gameWolfPos">
+            <img src="${c.wolf || ''}" class="wolf-img" id="wolf-sprite">
         </div>
 
-        ${isEditorDesignMode ? `
+        ${currentPreviewMode === 'editgame' ? `
             <img src="${c.egg}" class="ghost-egg" style="top: var(--egg-top-y); left: var(--egg-x);">
             <img src="${c.egg}" class="ghost-egg" style="top: var(--egg-top-y); right: var(--egg-x);">
             <img src="${c.egg}" class="ghost-egg" style="top: var(--egg-bot-y); left: var(--egg-x);">
@@ -780,31 +1178,31 @@
     </div>
 
     <div id="screen-in-game-tasks" class="overlay" style="display:none; z-index: 3000;">
-        <div class="menu-card" style="text-align: left; border-color: #4D96A9;">
-            <h2 style="color:#4D96A9; text-align:center; font-size: 28px; margin-bottom: 15px;">⚙️ Настройка заданий</h2>
+        <div class="menu-card" style="text-align: left; border-color: #4D96A9; padding: 25px; box-sizing: border-box;">
+            <h2 style="color:#4D96A9; text-align:center; font-size: 28px; margin-bottom: 15px;">${lang.setupTasks}</h2>
             
-            <label style="font-weight:bold; font-size:14px; color:#333;">Вопросы (каждый с новой строки):</label>
-            <textarea id="ig-tasks" style="width:100%; height:80px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc; padding:8px; font-family:inherit;"></textarea>
+            <label style="font-weight:bold; font-size:14px; color:#333;">${lang.questionsLbl}</label>
+            <textarea id="ig-tasks" style="width:100%; height:60px; margin-bottom:10px; border-radius:8px; border:1px solid #ccc; padding:8px; font-family:inherit;"></textarea>
             
-            <label style="font-weight:bold; font-size:14px; color:#6BCB77;">Верные ответы (по порядку):</label>
-            <textarea id="ig-correct" style="width:100%; height:80px; margin-bottom:10px; border-radius:8px; border:1px solid #6BCB77; padding:8px; font-family:inherit;"></textarea>
+            <label style="font-weight:bold; font-size:14px; color:#6BCB77;">${lang.correctLbl}</label>
+            <textarea id="ig-correct" style="width:100%; height:60px; margin-bottom:10px; border-radius:8px; border:1px solid #6BCB77; padding:8px; font-family:inherit;"></textarea>
             
-            <label style="font-weight:bold; font-size:14px; color:#FF6B9D;">Неверные (через запятую):</label>
-            <textarea id="ig-wrong" style="width:100%; height:80px; margin-bottom:15px; border-radius:8px; border:1px solid #FF6B9D; padding:8px; font-family:inherit;"></textarea>
+            <label style="font-weight:bold; font-size:14px; color:#FF6B9D;">${lang.wrongLbl}</label>
+            <textarea id="ig-wrong" style="width:100%; height:60px; margin-bottom:15px; border-radius:8px; border:1px solid #FF6B9D; padding:8px; font-family:inherit;"></textarea>
             
-            <button class="big-btn" style="background:#4D96A9;" onclick="saveIgTasks()">✅ Сохранить и продолжить</button>
+            <button class="big-btn" style="background:#4D96A9; width:100%;" onclick="saveIgTasks()">${lang.saveCont}</button>
         </div>
     </div>
 
     <div id="screen-start" class="overlay" style="${startScreenStyle}">
         <div class="menu-card">
-            <h2 style="color:#FF6B9D; font-size:36px; margin-bottom:10px; text-shadow: 2px 2px 0px #FFD93D;">${c.title}</h2>
-            <p style="margin-bottom:20px; font-size:18px; font-weight:600;">${c.instr}</p>
+            <h2 class="drag-item game-title-text" data-drag-key="startTitlePos" style="left: ${sTitlePos.left}%; top: ${sTitlePos.top}%;">${c.title || ''}</h2>
+            <p class="drag-item game-instr-text" data-drag-key="startInstrPos" style="left: ${sInstrPos.left}%; top: ${sInstrPos.top}%;">${c.instr || ''}</p>
             
-            ${c.inGameInput && !isEditorDesignMode ? '<button class="big-btn" style="background:linear-gradient(135deg, #4D96A9 0%, #3a7585 100%); margin-bottom: 15px;" onclick="openIgTasks()">📝 Загрузить свои задания</button>' : ''}
+            ${c.inGameInput ? `<button class="big-btn drag-item" data-drag-key="startIgBtnPos" style="left: ${sIgBtnPos.left}%; top: ${sIgBtnPos.top}%; background:linear-gradient(135deg, #4D96A9 0%, #3a7585 100%);" onclick="openIgTasks()">${lang.loadOwn}</button>` : ''}
 
-            <button class="big-btn" onclick="preStart(window.gameConfig.speed, 1)">${lang.easy}</button>
-            <button class="big-btn" style="background:linear-gradient(135deg, #FF6B9D 0%, #FFD93D 100%);" onclick="preStart(Math.max(1000, window.gameConfig.speed - 1000), 2)">${lang.hard}</button>
+            <button class="big-btn drag-item" data-drag-key="startEasyPos" style="left: ${sEasyPos.left}%; top: ${sEasyPos.top}%;" onclick="preStart(window.gameConfig.speed, 1)">${lang.easy}</button>
+            <button class="big-btn drag-item" data-drag-key="startHardPos" style="left: ${sHardPos.left}%; top: ${sHardPos.top}%; background:linear-gradient(135deg, #FF6B9D 0%, #FFD93D 100%);" onclick="preStart(Math.max(1000, window.gameConfig.speed - 1000), 2)">${lang.hard}</button>
         </div>
     </div>
 
@@ -813,68 +1211,69 @@
     </div>
 
     <div id="q-modal" class="overlay" style="display:none; z-index: 2000; background: rgba(0,0,0,0.9);">
-        <div class="menu-card" style="border-color: #6BCB77;">
+        <div class="menu-card" style="border-color: #6BCB77; padding: 25px; box-sizing: border-box;">
             <div style="background: #E8F5E9; color: #6BCB77; padding: 10px 20px; border-radius: 15px; font-size: 32px; font-weight: 900; margin-bottom: 20px; border: 4px solid #6BCB77; display: inline-block;">
-                ⏱ <span id="q-timer-display">${c.qTimer}</span>
+                ⏱ <span id="q-timer-display">${c.qTimer || 10}</span>
             </div>
-            <h2 id="q-text">Вопрос</h2>
+            <h2 id="q-text">${lang.questionTitle}</h2>
             <div id="answers" style="display:flex; flex-direction:column; width: 100%;"></div>
         </div>
     </div>
 
-    <div id="screen-result" class="overlay" style="display:none">
+    <div id="screen-result" class="overlay" style="${feedbackScreenStyle}">
         <div class="menu-card">
-            <h2 style="color:#FF6B9D; font-size:32px; margin:0; text-shadow: 2px 2px 0px #FFD93D;">${lang.end}</h2>
-            <div style="font-size:45px; margin:10px 0;">
-                ${c.award.startsWith('http') ? '<img src="'+c.award+'" style="width:80px">' : c.award}
+            <h2 class="drag-item" data-drag-key="fbTitlePos" style="left: ${fbTitlePos.left}%; top: ${fbTitlePos.top}%; color:#FF6B9D; font-size:32px; margin:0; text-shadow: 2px 2px 0px #FFD93D; width: 90%; text-align: center;">${lang.end}</h2>
+            <div class="drag-item" data-drag-key="fbAwardPos" style="left: ${fbAwardPos.left}%; top: ${fbAwardPos.top}%; font-size:45px;">
+                ${c.award && c.award.startsWith('http') ? '<img src="'+c.award+'" style="width:80px">' : (c.award || '')}
             </div>
-            <div class="stats-grid">
+            <div class="stats-grid drag-item" data-drag-key="fbStatsPos" style="left: ${fbStatsPos.left}%; top: ${fbStatsPos.top}%; width: 90%;">
                 <div>${lang.score}: <b id="f-score" style="color:#6BCB77;">0</b></div>
                 <div>${lang.time}: <b id="f-time" style="color:#FFD93D;">0</b>s</div>
                 <div>${lang.miss}: <b id="f-miss" style="color:#FF6B9D;">0</b></div>
             </div>
             
-            <div class="qr-wrapper">
-                <img id="qr-code-img" src="" alt="QR Code">
+            <div class="qr-wrapper drag-item" data-drag-key="fbQrPos" style="left: ${fbQrPos.left}%; top: ${fbQrPos.top}%;">
+                <img id="qr-code-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&margin=10&data=PREVIEW" alt="QR Code">
                 <span>${lang.qrHint}</span>
             </div>
 
-            <div id="fb-slogan">${c.fbSlogan}</div>
+            <div class="drag-item" id="fb-slogan" data-drag-key="fbSloganPos" style="left: ${fbSloganPos.left}%; top: ${fbSloganPos.top}%; width: 90%;">${c.fbSlogan || ''}</div>
             
-            <button class="big-btn" style="background:linear-gradient(135deg, #FFD93D 0%, #FF6B9D 100%); color:#333;" onclick="restartGame()">${lang.again}</button>
+            <button class="big-btn drag-item" data-drag-key="fbRetryPos" style="left: ${fbRetryPos.left}%; top: ${fbRetryPos.top}%; background:linear-gradient(135deg, #FFD93D 0%, #FF6B9D 100%); color:#333;" onclick="restartGame()">${lang.again}</button>
         </div>
     </div>
 
-    <audio id="snd-success" src="${c.sndSuccess}" preload="auto"></audio>
-    <audio id="snd-miss" src="${c.sndMiss}" preload="auto"></audio>
-    <audio id="snd-bg" src="${c.bgMusic}" loop preload="auto"></audio>
+    <audio id="snd-success" src="${c.sndSuccess || ''}" preload="auto"></audio>
+    <audio id="snd-miss" src="${c.sndMiss || ''}" preload="auto"></audio>
+    <audio id="snd-bg" src="${c.bgMusic || ''}" loop preload="auto"></audio>
 
     <script>
-        window.IS_DESIGN_MODE = ${isEditorDesignMode};
+        window.CURRENT_PREVIEW_MODE = '${currentPreviewMode}';
+        window.IS_DESIGN_MODE = ${isEditorMode};
 
         window.gameConfig = {
-            eggTopY: ${c.eggTopY},
-            eggBottomY: ${c.eggBottomY},
-            eggX: ${c.eggX},
-            eggFinalTopY: ${c.eggFinalTopY},
-            eggFinalBottomY: ${c.eggFinalBottomY},
-            eggFinalX: ${c.eggFinalX},
-            speed: ${c.speed},
-            timerMode: '${c.timerMode}',
-            timer: ${c.timer}, 
-            qTimer: ${c.qTimer},
-            teacher: ${c.teacher},
-            teacherMode: ${c.teacherMode},
-            qRandom: ${c.qRandom},
-            qRepeat: ${c.qRepeat},
-            inGameInput: ${c.inGameInput},
+            eggTopY: ${c.eggTopY || 15},
+            eggBottomY: ${c.eggBottomY || 55},
+            eggX: ${c.eggX || 8},
+            eggFinalTopY: ${c.eggFinalTopY || 35},
+            eggFinalBottomY: ${c.eggFinalBottomY || 60},
+            eggFinalX: ${c.eggFinalX || 38},
+            speed: ${c.speed || 2500},
+            timerMode: '${c.timerMode || 'countdown'}',
+            timer: ${c.timer || 60}, 
+            qTimer: ${c.qTimer || 10},
+            teacher: ${c.teacher || false},
+            teacherMode: ${c.teacherMode || false},
+            qRandom: ${c.qRandom !== false},
+            qRepeat: ${c.qRepeat !== false},
+            inGameInput: ${c.inGameInput || false},
             tasks: ${tasksJSON},
             correct: ${correctJSON},
             wrong: ${wrongJSON},
-            eggImg: '${c.egg}',
-            eggAngle: ${c.eggAngle},
-            wolfAmpX: ${c.wolfAmpX},
-            wolfAmpY: ${c.wolfAmpY}
+            eggImg: '${c.egg || ''}',
+            eggAngle: ${c.eggAngle || 0},
+            wolfAmpX: ${c.wolfAmpX || 25},
+            wolfAmpY: ${c.wolfAmpY || 20}
         };
 
         const lblScore = "${lang.score}";
@@ -1107,17 +1506,19 @@
             const s = document.getElementById('wolf-sprite');
             let ty = 0;
             
-            if(p.includes('l')) { s.classList.add('mirror'); }
-            else { s.classList.remove('mirror'); }
+            if(p.includes('l')) { s.classList.remove('mirror'); }
+            else { s.classList.add('mirror'); }
             
             if(p.includes('t')) ty = -window.gameConfig.wolfAmpY;
             else ty = window.gameConfig.wolfAmpY;
 
             const wolf = document.getElementById('wolf');
+            const baseTop = parseFloat(wolf.style.top) || window.gameConfig.wolfY || 50;
             wolf.style.transform = \`translate(-50%, calc(-50% + \${ty}%))\`;
         }
 
         function preStart(speed, pts) {
+            if (window.CURRENT_PREVIEW_MODE !== 'play') return;
             eggSpeed = speed;
             pointsPerEgg = pts;
             document.getElementById('screen-start').style.display = 'none';
@@ -1326,7 +1727,7 @@
         }
 
         function stopGameEarly() {
-            if(!window.IS_DESIGN_MODE) {
+            if(window.CURRENT_PREVIEW_MODE === 'play') {
                 endGame();
             }
         }
@@ -1356,7 +1757,6 @@
             document.getElementById('f-time').innerText = timeSpent;
             document.getElementById('f-miss').innerText = misses;
 
-            // Generate QR Code with results
             const qrDataText = \`\${lblScore}: \${score} | \${lblMiss}: \${misses} | \${lblTime}: \${timeSpent}s\`;
             const qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&margin=10&data=" + encodeURIComponent(qrDataText);
             document.getElementById('qr-code-img').src = qrUrl;
@@ -1370,7 +1770,7 @@
             clearInterval(countdownTimer);
             clearTimeout(spawnTimeout);
             
-            if (!window.IS_DESIGN_MODE) {
+            if (window.CURRENT_PREVIEW_MODE === 'play') {
                 document.getElementById('screen-start').style.display = 'flex';
             }
             
@@ -1386,16 +1786,19 @@
     }
 
     function updateExportCode(c) {
-        const htmlExp = generateGameHTML(c, false);
-        const escapedHTML = htmlExp.replace(/&/g, '&amp;').replace(/'/g, '&#39;');
-        document.getElementById('iframe-code').value = `<div style="position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden;"><iframe srcdoc='${escapedHTML}' style="width:100%; height:100%; border:none;" allow="autoplay; fullscreen"></iframe></div>`;
+        const htmlExp = generateGameHTML(c, 'play');
+        const escapedHTML = htmlExp.replace(/&/g, '&amp;').replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+        const iframeCodeVal = `<div style="position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden;"><iframe srcdoc="${escapedHTML}" style="width:100%; height:100%; border:none;" allow="autoplay; fullscreen"></iframe></div>`;
+        
+        const areaTab = document.getElementById('iframe-code-tab');
+        if(areaTab) areaTab.value = iframeCodeVal;
     }
 
     function downloadHTML() {
         const config = getGameConfig();
-        const htmlExp = generateGameHTML(config, false);
-        const escapedHTML = htmlExp.replace(/&/g, '&amp;').replace(/'/g, '&#39;');
-        const divContent = `<div style="position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden;"><iframe srcdoc='${escapedHTML}' style="width:100%; height:100%; border:none;" allow="autoplay; fullscreen"></iframe></div>`;
+        const htmlExp = generateGameHTML(config, 'play');
+        const escapedHTML = htmlExp.replace(/&/g, '&amp;').replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+        const divContent = `<div style="position:absolute; top:0; left:0; width:100%; height:100%; overflow:hidden;"><iframe srcdoc="${escapedHTML}" style="width:100%; height:100%; border:none;" allow="autoplay; fullscreen"></iframe></div>`;
 
         const blob = new Blob([divContent], {type: "text/plain;charset=utf-8"});
         const a = document.createElement("a");
@@ -1406,7 +1809,7 @@
 
     function downloadStandaloneHTML() {
         const config = getGameConfig();
-        const htmlExp = generateGameHTML(config, false);
+        const htmlExp = generateGameHTML(config, 'play');
         const blob = new Blob([htmlExp], {type: "text/html;charset=utf-8"});
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
@@ -1420,9 +1823,11 @@
         updateExportCode(c);
         
         const activeElement = document.activeElement;
-        if (activeElement && (activeElement.id === 'conf-lang' || activeElement.id === 'conf-bgMusic' || activeElement.id === 'conf-award' || activeElement.id === 'conf-fbSlogan' || activeElement.classList.contains('award-btn'))) {
-            if(shouldStop) fullReload();
-            return;
+        if (activeElement && (activeElement.id === 'conf-lang' || activeElement.id === 'conf-bgMusic' || activeElement.id === 'conf-timerMode')) {
+            if(shouldStop) {
+                fullReload();
+                return;
+            }
         }
 
         const iframe = document.getElementById('game-preview');
@@ -1431,68 +1836,98 @@
             const doc = iframe.contentDocument;
             
             if(doc && doc.documentElement) {
-                doc.documentElement.style.setProperty('--bg', `url('${c.bg}')`);
-                doc.documentElement.style.setProperty('--wolf-size', `${c.wolfSize}%`);
-                doc.documentElement.style.setProperty('--wolf-y', `${c.wolfY}%`);
-                doc.documentElement.style.setProperty('--egg-size', `${c.eggSize}px`);
-                doc.documentElement.style.setProperty('--egg-z', `${c.eggZ}`);
-                doc.documentElement.style.setProperty('--btn-bg', c.btnBg);
-                doc.documentElement.style.setProperty('--btn-up-y', `${c.btnUpY}%`);
-                doc.documentElement.style.setProperty('--btn-up-x', `${c.btnUpX}%`);
-                doc.documentElement.style.setProperty('--btn-down-y', `${c.btnDownY}%`);
-                doc.documentElement.style.setProperty('--btn-down-x', `${c.btnDownX}%`);
+                doc.documentElement.style.setProperty('--bg', c.bg && c.bg.startsWith('data:') ? `url("${c.bg}")` : `url('${c.bg || ''}')`);
+                doc.documentElement.style.setProperty('--wolf-size', `${c.wolfSize || 60}%`);
+                doc.documentElement.style.setProperty('--wolf-y', `${(c.gameWolfPos && c.gameWolfPos.top) || c.wolfY || 50}%`);
+                doc.documentElement.style.setProperty('--wolf-x', `${(c.gameWolfPos && c.gameWolfPos.left) || 50}%`);
+                doc.documentElement.style.setProperty('--egg-size', `${c.eggSize || 45}px`);
+                doc.documentElement.style.setProperty('--egg-z', `${c.eggZ || 20}`);
+                doc.documentElement.style.setProperty('--btn-bg', c.btnBg || '#323232');
+                doc.documentElement.style.setProperty('--btn-up-y', `${c.btnUpY || 20}%`);
+                doc.documentElement.style.setProperty('--btn-up-x', `${c.btnUpX || 3}%`);
+                doc.documentElement.style.setProperty('--btn-down-y', `${c.btnDownY || 20}%`);
+                doc.documentElement.style.setProperty('--btn-down-x', `${c.btnDownX || 3}%`);
+                
                 doc.documentElement.style.setProperty('--rail-img', c.rail ? `url('${c.rail}')` : 'none');
-                doc.documentElement.style.setProperty('--rail-w', `${c.railW}%`);
-                doc.documentElement.style.setProperty('--rail-h', `${c.railH}px`);
-                doc.documentElement.style.setProperty('--rail-angle', `${c.railAngle}deg`);
-                doc.documentElement.style.setProperty('--rail-top-y', `${c.railTopY}%`);
-                doc.documentElement.style.setProperty('--rail-bot-y', `${c.railBottomY}%`);
-                doc.documentElement.style.setProperty('--rail-x', `${c.railX}%`);
+                doc.documentElement.style.setProperty('--rail-w', `${c.railW || 30}%`);
+                doc.documentElement.style.setProperty('--rail-h', `${c.railH || 15}px`);
+                doc.documentElement.style.setProperty('--rail-angle', `${c.railAngle || 15}deg`);
+                doc.documentElement.style.setProperty('--rail-top-y', `${c.railTopY || 18}%`);
+                doc.documentElement.style.setProperty('--rail-bot-y', `${c.railBottomY || 58}%`);
+                doc.documentElement.style.setProperty('--rail-x', `${c.railX || -2}%`);
                 
-                doc.documentElement.style.setProperty('--egg-top-y', `${c.eggTopY}%`);
-                doc.documentElement.style.setProperty('--egg-bot-y', `${c.eggBottomY}%`);
-                doc.documentElement.style.setProperty('--egg-x', `${c.eggX}%`);
+                doc.documentElement.style.setProperty('--egg-top-y', `${c.eggTopY || 15}%`);
+                doc.documentElement.style.setProperty('--egg-bot-y', `${c.eggBottomY || 55}%`);
+                doc.documentElement.style.setProperty('--egg-x', `${c.eggX || 8}%`);
+                doc.documentElement.style.setProperty('--egg-angle', `${c.eggAngle || 0}deg`);
                 
-                doc.documentElement.style.setProperty('--egg-final-top-y', `${c.eggFinalTopY}%`);
-                doc.documentElement.style.setProperty('--egg-final-bot-y', `${c.eggFinalBottomY}%`);
-                doc.documentElement.style.setProperty('--egg-final-x', `${c.eggFinalX}%`);
+                doc.documentElement.style.setProperty('--egg-final-top-y', `${c.eggFinalTopY || 35}%`);
+                doc.documentElement.style.setProperty('--egg-final-bot-y', `${c.eggFinalBottomY || 60}%`);
+                doc.documentElement.style.setProperty('--egg-final-x', `${c.eggFinalX || 38}%`);
                 
-                doc.documentElement.style.setProperty('--q-font', c.taskFont);
-                doc.documentElement.style.setProperty('--q-size', `${c.taskFontSize}px`);
-                doc.documentElement.style.setProperty('--q-color', c.taskColor);
-                doc.documentElement.style.setProperty('--a-font', c.eggFont);
-                doc.documentElement.style.setProperty('--a-size', `${c.eggFontSize}px`);
-                doc.documentElement.style.setProperty('--a-color', c.eggColor);
+                doc.documentElement.style.setProperty('--title-font', c.titleFont || "'Fredoka', sans-serif");
+                doc.documentElement.style.setProperty('--title-size', `${c.titleFontSize || 36}px`);
+                doc.documentElement.style.setProperty('--title-color', c.titleColor || '#FF6B9D');
+                doc.documentElement.style.setProperty('--instr-font', c.instrFont || "'Fredoka', sans-serif");
+                doc.documentElement.style.setProperty('--instr-size', `${c.instrFontSize || 18}px`);
+                doc.documentElement.style.setProperty('--instr-color', c.instrColor || '#333333');
+
+                doc.documentElement.style.setProperty('--q-font', c.taskFont || 'Arial');
+                doc.documentElement.style.setProperty('--q-size', `${c.taskFontSize || 28}px`);
+                doc.documentElement.style.setProperty('--q-color', c.taskColor || '#333333');
+                doc.documentElement.style.setProperty('--a-font', c.eggFont || 'Arial');
+                doc.documentElement.style.setProperty('--a-size', `${c.eggFontSize || 20}px`);
+                doc.documentElement.style.setProperty('--a-color', c.eggColor || '#ffffff');
                 
-                doc.documentElement.style.setProperty('--fb-font', c.fbFont);
-                doc.documentElement.style.setProperty('--fb-size', `${c.fbFontSize}px`);
-                doc.documentElement.style.setProperty('--fb-color', c.fbColor);
+                doc.documentElement.style.setProperty('--fb-font', c.fbFont || 'Arial');
+                doc.documentElement.style.setProperty('--fb-size', `${c.fbFontSize || 26}px`);
+                doc.documentElement.style.setProperty('--fb-color', c.fbColor || '#4D96A9');
                 
-                doc.documentElement.style.setProperty('--ui-font', c.uiFont);
-                doc.documentElement.style.setProperty('--ui-size', `${c.uiFontSize}px`);
-                doc.documentElement.style.setProperty('--ui-color', c.uiColor);
-                doc.documentElement.style.setProperty('--ui-y', `${c.uiY}%`);
-                doc.documentElement.style.setProperty('--ui-align', c.uiAlign);
+                doc.documentElement.style.setProperty('--ui-font', c.uiFont || 'Arial');
+                doc.documentElement.style.setProperty('--ui-size', `${c.uiFontSize || 20}px`);
+                doc.documentElement.style.setProperty('--ui-color', c.uiColor || '#333333');
+                
+                doc.documentElement.style.setProperty('--score-scale', (c.scoreScale || 100) / 100);
+                doc.documentElement.style.setProperty('--timer-scale', (c.timerScale || 100) / 100);
+                doc.documentElement.style.setProperty('--stop-scale', (c.stopBtnScale || 100) / 100);
 
                 const wolfImg = doc.getElementById('wolf-sprite');
-                if(wolfImg) wolfImg.src = c.wolf;
+                if(wolfImg) wolfImg.src = c.wolf || '';
                 
                 const eggImgs = doc.querySelectorAll('.egg');
-                eggImgs.forEach(e => e.src = c.egg);
+                eggImgs.forEach(e => e.src = c.egg || '');
 
                 const ghostEggs = doc.querySelectorAll('.ghost-egg');
-                ghostEggs.forEach(e => e.src = c.egg);
+                ghostEggs.forEach(e => e.src = c.egg || '');
 
-                const audioSuccess = doc.getElementById('snd-success');
-                if (audioSuccess && audioSuccess.src !== c.sndSuccess) {
-                    audioSuccess.src = c.sndSuccess;
-                    audioSuccess.load();
+                const tTitle = doc.querySelector('.game-title-text');
+                if(tTitle) tTitle.innerHTML = c.title || '';
+                
+                const tInstr = doc.querySelector('.game-instr-text');
+                if(tInstr) tInstr.innerHTML = c.instr || '';
+                
+                const tSlogan = doc.getElementById('fb-slogan');
+                if(tSlogan) tSlogan.innerHTML = c.fbSlogan || '';
+                
+                const tAward = doc.querySelector('[data-drag-key="fbAwardPos"]');
+                if(tAward) {
+                    tAward.innerHTML = c.award && c.award.startsWith('http') ? `<img src="${c.award}" style="width:80px">` : (c.award || '');
                 }
-                const audioMiss = doc.getElementById('snd-miss');
-                if (audioMiss && audioMiss.src !== c.sndMiss) {
-                    audioMiss.src = c.sndMiss;
-                    audioMiss.load();
+
+                if (wolfImg && activeElement && activeElement.id === 'conf-wolfY') {
+                    const wolfContainer = doc.getElementById('wolf');
+                    if (wolfContainer) {
+                        wolfContainer.style.top = c.wolfY + '%';
+                        if (!window.editorPositions) window.editorPositions = {};
+                        if (!window.editorPositions['gameWolfPos']) window.editorPositions['gameWolfPos'] = {left: 50, top: 50};
+                        window.editorPositions['gameWolfPos'].top = c.wolfY;
+                    }
                 }
+
+                const rails = doc.querySelectorAll('.rail');
+                rails.forEach(rail => {
+                   rail.style.display = (c.railW > 0) ? 'block' : 'none'; 
+                });
             }
 
             if(win && win.gameConfig) {
@@ -1521,10 +1956,6 @@
                 win.gameConfig.eggAngle = c.eggAngle;
                 win.gameConfig.wolfAmpX = c.wolfAmpX;
                 win.gameConfig.wolfAmpY = c.wolfAmpY;
-            }
-
-            if(shouldStop && typeof win.stopGame === 'function') {
-                win.stopGame();
             }
         }
     }
@@ -1604,29 +2035,103 @@
             iDoc.addEventListener('mouseup', stopDragAction);
             iDoc.addEventListener('mouseleave', stopDragAction);
         });
+
+        if (!window.editorPositions) window.editorPositions = {};
+
+        const dragElements = iDoc.querySelectorAll('.drag-item');
+        dragElements.forEach(el => {
+            const dragKey = el.getAttribute('data-drag-key');
+            if (!dragKey) return;
+
+            el.style.pointerEvents = 'auto';
+            el.style.cursor = 'move';
+            el.style.zIndex = '999999';
+
+            let isDragging = false;
+            let startX, startY;
+            let initialLeft = 50, initialTop = 50;
+            let parentContainer = el.parentElement;
+
+            el.addEventListener('mousedown', function(e) {
+                if(!iDoc.defaultView.IS_DESIGN_MODE) return;
+
+                isDragging = true;
+                startX = e.clientX;
+                startY = e.clientY;
+
+                initialLeft = parseFloat(el.style.left) || 50;
+                initialTop = parseFloat(el.style.top) || 50;
+
+                e.preventDefault();
+                e.stopPropagation();
+            });
+
+            iDoc.addEventListener('mousemove', function(e) {
+                if (!isDragging || !parentContainer) return;
+
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+
+                const rect = parentContainer.getBoundingClientRect();
+                const percentX = (dx / rect.width) * 100;
+                const percentY = (dy / rect.height) * 100;
+
+                const newLeft = parseFloat((initialLeft + percentX).toFixed(1));
+                const newTop = parseFloat((initialTop + percentY).toFixed(1));
+
+                el.style.left = newLeft + '%';
+                el.style.top = newTop + '%';
+
+                window.editorPositions[dragKey] = { left: newLeft, top: newTop };
+                
+                if (dragKey === 'gameWolfPos') {
+                    const wYInput = document.getElementById('conf-wolfY');
+                    if (wYInput) wYInput.value = newTop;
+                }
+            });
+
+            const stopGenericDrag = function() {
+                if (isDragging) {
+                    isDragging = false;
+                    updateExportCode(getGameConfig());
+                }
+            };
+
+            iDoc.addEventListener('mouseup', stopGenericDrag);
+            iDoc.addEventListener('mouseleave', stopGenericDrag);
+        });
     }
 
     function fullReload() {
         const c = getGameConfig();
-        const html = generateGameHTML(c, previewMode === 'design');
+        const html = generateGameHTML(c, previewMode);
         const iframe = document.getElementById('game-preview');
         
+        if (currentObjectUrl) {
+            URL.revokeObjectURL(currentObjectUrl);
+        }
+        
+        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+        currentObjectUrl = URL.createObjectURL(blob);
+        
         iframe.onload = function() {
-            if (previewMode === 'design') {
+            if (previewMode !== 'play') {
                 enableButtonDrag();
             }
         };
         
-        iframe.srcdoc = html;
+        iframe.src = currentObjectUrl;
         updateExportCode(c);
         translateEditor();
     }
 
-    function copyIframe() {
-        const area = document.getElementById('iframe-code');
-        area.select();
-        document.execCommand('copy');
-        alert("Код для Genially скопирован! Аудио, визуал и настройки сохранены.");
+    function copyIframeTab() {
+        const area = document.getElementById('iframe-code-tab');
+        if(area) {
+            area.select();
+            document.execCommand('copy');
+            alert("✨ Код для Genially скопирован в волшебный буфер обмена!");
+        }
     }
 
     function saveProject() {
@@ -1634,83 +2139,110 @@
         const blob = new Blob([JSON.stringify(config, null, 2)], {type: "application/json"});
         const a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "wolf_project_v78_ultimate.json";
+        a.download = "wolf_project_v78_magic.json";
         a.click();
     }
 
     function applyConfig(config) {
-        document.getElementById('conf-lang').value = config.lang || 'ru';
-        document.getElementById('conf-bgMusic').value = config.bgMusic || '';
-        
-        document.getElementById('conf-bg').value = config.bg || 'https://i.imgur.com/Fni5LJQ.png';
-        document.getElementById('conf-wolf').value = config.wolf || 'https://i.imgur.com/vHqY7p6.png';
-        document.getElementById('conf-egg').value = config.egg || 'https://i.imgur.com/mOId9Bv.png';
-        
-        document.getElementById('conf-wolfSize').value = config.wolfSize || 60;
-        document.getElementById('conf-wolfY').value = config.wolfY || 50;
-        document.getElementById('conf-wolfAmpX').value = config.wolfAmpX || 25;
-        document.getElementById('conf-wolfAmpY').value = config.wolfAmpY || 20;
-        
-        document.getElementById('conf-eggSize').value = config.eggSize || 45;
-        document.getElementById('conf-eggZ').value = config.eggZ || 20;
-        document.getElementById('conf-eggAngle').value = config.eggAngle || 0;
-        
-        document.getElementById('conf-eggTopY').value = config.eggTopY || 15;
-        document.getElementById('conf-eggBottomY').value = config.eggBottomY || 55;
-        document.getElementById('conf-eggX').value = config.eggX || 8;
-        
-        document.getElementById('conf-eggFinalTopY').value = config.eggFinalTopY || 35;
-        document.getElementById('conf-eggFinalBottomY').value = config.eggFinalBottomY || 60;
-        document.getElementById('conf-eggFinalX').value = config.eggFinalX || 38;
-        
-        document.getElementById('conf-rail').value = config.rail || '';
-        document.getElementById('conf-railW').value = config.railW !== undefined ? config.railW : 30;
-        document.getElementById('conf-railH').value = config.railH !== undefined ? config.railH : 15;
-        document.getElementById('conf-railAngle').value = config.railAngle !== undefined ? config.railAngle : 15;
-        document.getElementById('conf-railTopY').value = config.railTopY !== undefined ? config.railTopY : 18;
-        document.getElementById('conf-railBottomY').value = config.railBottomY !== undefined ? config.railBottomY : 58;
-        document.getElementById('conf-railX').value = config.railX !== undefined ? config.railX : -2;
+        const setVal = (id, val, def) => {
+            const el = document.getElementById(id);
+            if (el) {
+                if (el.type === 'checkbox') {
+                    el.checked = val !== undefined ? val : def;
+                } else {
+                    el.value = val !== undefined ? val : def;
+                }
+            }
+        };
 
-        document.getElementById('conf-fbFont').value = config.fbFont || "'Fredoka', sans-serif";
-        document.getElementById('conf-fbFontSize').value = config.fbFontSize || 26;
-        document.getElementById('conf-fbColor').value = config.fbColor || '#4D96A9';
-        document.getElementById('conf-fbSlogan').value = config.fbSlogan || "Отличная работа!";
+        if (!window.editorPositions) window.editorPositions = {};
+        const posKeys = ['startTitlePos', 'startInstrPos', 'startEasyPos', 'startHardPos', 'startIgBtnPos', 'fbTitlePos', 'fbAwardPos', 'fbStatsPos', 'fbQrPos', 'fbSloganPos', 'fbRetryPos', 'gameScorePos', 'gameTimerPos', 'gameStopPos', 'gameWolfPos'];
+        posKeys.forEach(k => {
+            if (config[k]) window.editorPositions[k] = config[k];
+        });
 
-        document.getElementById('conf-taskFont').value = config.taskFont || "'Fredoka', sans-serif";
-        document.getElementById('conf-taskFontSize').value = config.taskFontSize || 28;
-        document.getElementById('conf-taskColor').value = config.taskColor || '#333333';
+        setVal('conf-lang', config.lang, 'ru');
+        setVal('conf-bgMusic', config.bgMusic, '');
         
-        document.getElementById('conf-eggFont').value = config.eggFont || "'Fredoka', sans-serif";
-        document.getElementById('conf-eggFontSize').value = config.eggFontSize || 20;
-        document.getElementById('conf-eggColor').value = config.eggColor || '#ffffff';
-
-        document.getElementById('conf-uiFont').value = config.uiFont || "'Fredoka', sans-serif";
-        document.getElementById('conf-uiFontSize').value = config.uiFontSize || 20;
-        document.getElementById('conf-uiColor').value = config.uiColor || '#333333';
-        document.getElementById('conf-uiY').value = config.uiY !== undefined ? config.uiY : 3;
-        document.getElementById('conf-uiAlign').value = config.uiAlign || 'center';
-
-        document.getElementById('conf-timerMode').value = config.timerMode || 'countdown';
-        document.getElementById('conf-speed').value = config.speed || 2500;
-        document.getElementById('conf-btnBg').value = config.btnBg || '#323232';
-        document.getElementById('conf-btnUpY').value = config.btnUpY || 20;
-        document.getElementById('conf-btnUpX').value = config.btnUpX !== undefined ? config.btnUpX : 3;
-        document.getElementById('conf-btnDownY').value = config.btnDownY || 20;
-        document.getElementById('conf-btnDownX').value = config.btnDownX !== undefined ? config.btnDownX : 3;
+        setVal('conf-bg', config.bg, 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%25%27 height=%27100%25%27%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%270%27 y2=%271%27%3E%3Cstop offset=%270%25%27 stop-color=%27%2387CEEB%27/%3E%3Cstop offset=%27100%25%27 stop-color=%27%23228B22%27/%3E%3C/linearGradient%3E%3Crect width=%27100%25%27 height=%27100%25%27 fill=%27url(%23g)%27/%3E%3C/svg%3E');
+        setVal('conf-wolf', config.wolf, 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🐺%3C/text%3E%3C/svg%3E');
+        setVal('conf-egg', config.egg, 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🥚%3C/text%3E%3C/svg%3E');
         
-        document.getElementById('conf-timer').value = config.timer || 60;
-        document.getElementById('conf-qTimer').value = config.qTimer || 10;
+        setVal('conf-wolfSize', config.wolfSize, 60);
+        setVal('conf-wolfY', config.wolfY, 50);
+        setVal('conf-wolfAmpX', config.wolfAmpX, 25);
+        setVal('conf-wolfAmpY', config.wolfAmpY, 20);
+        
+        setVal('conf-eggSize', config.eggSize, 45);
+        setVal('conf-eggZ', config.eggZ, 20);
+        setVal('conf-eggAngle', config.eggAngle, 0);
+        
+        setVal('conf-eggTopY', config.eggTopY, 15);
+        setVal('conf-eggBottomY', config.eggBottomY, 55);
+        setVal('conf-eggX', config.eggX, 8);
+        
+        setVal('conf-eggFinalTopY', config.eggFinalTopY, 35);
+        setVal('conf-eggFinalBottomY', config.eggFinalBottomY, 60);
+        setVal('conf-eggFinalX', config.eggFinalX, 38);
+        
+        setVal('conf-rail', config.rail, '');
+        setVal('conf-railW', config.railW, 30);
+        setVal('conf-railH', config.railH, 15);
+        setVal('conf-railAngle', config.railAngle, 15);
+        setVal('conf-railTopY', config.railTopY, 18);
+        setVal('conf-railBottomY', config.railBottomY, 58);
+        setVal('conf-railX', config.railX, -2);
+
+        setVal('conf-titleFont', config.titleFont, "'Fredoka', sans-serif");
+        setVal('conf-titleFontSize', config.titleFontSize, 36);
+        setVal('conf-titleColor', config.titleColor, '#FF6B9D');
+        setVal('conf-instrFont', config.instrFont, "'Fredoka', sans-serif");
+        setVal('conf-instrFontSize', config.instrFontSize, 18);
+        setVal('conf-instrColor', config.instrColor, '#333333');
+
+        setVal('conf-fbFont', config.fbFont, "'Fredoka', sans-serif");
+        setVal('conf-fbFontSize', config.fbFontSize, 26);
+        setVal('conf-fbColor', config.fbColor, '#4D96A9');
+        setVal('conf-fbSlogan', config.fbSlogan, "Отличная работа!");
+
+        setVal('conf-taskFont', config.taskFont, "'Fredoka', sans-serif");
+        setVal('conf-taskFontSize', config.taskFontSize, 28);
+        setVal('conf-taskColor', config.taskColor, '#333333');
+        
+        setVal('conf-eggFont', config.eggFont, "'Fredoka', sans-serif");
+        setVal('conf-eggFontSize', config.eggFontSize, 20);
+        setVal('conf-eggColor', config.eggColor, '#ffffff');
+
+        setVal('conf-uiFont', config.uiFont, "'Fredoka', sans-serif");
+        setVal('conf-uiFontSize', config.uiFontSize, 20);
+        setVal('conf-uiColor', config.uiColor, '#333333');
+        
+        setVal('conf-scoreScale', config.scoreScale, 100);
+        setVal('conf-timerScale', config.timerScale, 100);
+        setVal('conf-stopBtnScale', config.stopBtnScale, 100);
+
+        setVal('conf-timerMode', config.timerMode, 'countdown');
+        setVal('conf-speed', config.speed, 2500);
+        setVal('conf-btnBg', config.btnBg, '#323232');
+        setVal('conf-btnUpY', config.btnUpY, 20);
+        setVal('conf-btnUpX', config.btnUpX, 3);
+        setVal('conf-btnDownY', config.btnDownY, 20);
+        setVal('conf-btnDownX', config.btnDownX, 3);
+        
+        setVal('conf-timer', config.timer, 60);
+        setVal('conf-qTimer', config.qTimer, 10);
         
         const hasTasks = config.tasks && config.tasks.length > 0;
-        document.getElementById('conf-teacherMode').checked = config.teacher === true || config.teacherMode === true || hasTasks || (config.teacher !== false && config.teacherMode === undefined);
+        const defaultTeacher = config.teacher === true || config.teacherMode === true || hasTasks || (config.teacher !== false && config.teacherMode === undefined);
+        setVal('conf-teacherMode', undefined, defaultTeacher);
         
-        document.getElementById('conf-qRandom').checked = config.qRandom !== false;
-        document.getElementById('conf-qRepeat').checked = config.qRepeat !== false;
-        document.getElementById('conf-inGameInput').checked = config.inGameInput === true;
+        setVal('conf-qRandom', config.qRandom, true);
+        setVal('conf-qRepeat', config.qRepeat, true);
+        setVal('conf-inGameInput', config.inGameInput, false);
         
-        document.getElementById('conf-title').value = config.title || "Помоги Волку собрать яйца!";
-        document.getElementById('conf-instr').value = config.instr || "Используй кнопки для ловли!";
-        document.getElementById('conf-award').value = config.award || '🏆';
+        setVal('conf-title', config.title, "Помоги Волку собрать яйца!");
+        setVal('conf-instr', config.instr, "Используй кнопки для ловли!");
+        setVal('conf-award', config.award, '🏆');
         
         const defTasks = "2 + 2 = ?\n(a + b)² = ?\n\"Hamlet\" author?";
         const defCorr = "4\na²+2ab+b²\nShakespeare";
@@ -1718,18 +2250,18 @@
 
         let tasksVal = config.tasks;
         if (Array.isArray(tasksVal)) tasksVal = tasksVal.join('\n');
-        document.getElementById('conf-tasks').value = tasksVal || defTasks;
+        setVal('conf-tasks', tasksVal, defTasks);
 
         let corrVal = config.correct;
         if (Array.isArray(corrVal)) corrVal = corrVal.join('\n');
-        document.getElementById('conf-correct').value = corrVal || defCorr;
+        setVal('conf-correct', corrVal, defCorr);
 
         let wrngVal = config.wrong;
         if (Array.isArray(wrngVal)) wrngVal = wrngVal.join('\n');
-        document.getElementById('conf-wrong').value = wrngVal || defWrng;
+        setVal('conf-wrong', wrngVal, defWrng);
         
-        document.getElementById('conf-sndSuccess').value = config.sndSuccess || 'https://www.soundjay.com/buttons/button-3.mp3';
-        document.getElementById('conf-sndMiss').value = config.sndMiss || 'https://www.soundjay.com/buttons/beep-10.mp3';
+        setVal('conf-sndSuccess', config.sndSuccess, 'https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg');
+        setVal('conf-sndMiss', config.sndMiss, 'https://actions.google.com/sounds/v1/cartoon/slip.ogg');
     }
 
     function loadProject(event) {
