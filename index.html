@@ -142,13 +142,13 @@
             </select>
 
             <label data-i18n="lblBgMusic">Фоновая музыка (URL)</label>
-            <input type="text" id="conf-bgMusic" placeholder="https://..." oninput="liveUpdate(true)">
+            <input type="text" id="conf-bgMusic" placeholder="https://..." oninput="liveUpdate(false)">
 
             <label style="color: var(--accent);" data-i18n="lblSndWin">Звук Успеха (URL)</label>
-            <input type="text" id="conf-sndSuccess" value="https://www.soundjay.com/buttons/button-3.mp3" oninput="liveUpdate(true)">
+            <input type="text" id="conf-sndSuccess" value="https://www.soundjay.com/buttons/button-3.mp3" oninput="liveUpdate(false)">
             
             <label style="color: var(--primary);" data-i18n="lblSndLose">Звук Ошибки (URL)</label>
-            <input type="text" id="conf-sndMiss" value="https://www.soundjay.com/buttons/button-10.mp3" oninput="liveUpdate(true)">
+            <input type="text" id="conf-sndMiss" value="https://www.soundjay.com/buttons/button-10.mp3" oninput="liveUpdate(false)">
 
             <h2 data-i18n="h2GameSettings">⏱️ Настройки игры</h2>
             <div class="pos-grid">
@@ -217,16 +217,16 @@
             
             <label style="color: var(--primary);" data-i18n="lblEggStart">📍 Появление (Старт)</label>
             <div class="pos-grid-3">
-                <div><label data-i18n="lblTopY">Верх Y (%)</label><input type="number" id="conf-eggTopY" value="15" oninput="liveUpdate(false)"></div>
-                <div><label data-i18n="lblBotY">Низ Y (%)</label><input type="number" id="conf-eggBottomY" value="55" oninput="liveUpdate(false)"></div>
-                <div><label data-i18n="lblOffsetX">Отступ X (%)</label><input type="number" id="conf-eggX" value="8" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblTopY">Верх Y (%)</label><input type="number" id="conf-eggTopY" value="15" step="1" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblBotY">Низ Y (%)</label><input type="number" id="conf-eggBottomY" value="55" step="1" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblOffsetX">Отступ X (%)</label><input type="number" id="conf-eggX" value="8" step="1" oninput="liveUpdate(false)"></div>
             </div>
 
             <label style="color: var(--accent);" data-i18n="lblEggEnd">🎯 Исчезновение (Конец)</label>
             <div class="pos-grid-3">
-                <div><label data-i18n="lblTopY">Верх Y (%)</label><input type="number" id="conf-eggFinalTopY" value="35" oninput="liveUpdate(false)"></div>
-                <div><label data-i18n="lblBotY">Низ Y (%)</label><input type="number" id="conf-eggFinalBottomY" value="60" oninput="liveUpdate(false)"></div>
-                <div><label data-i18n="lblOffsetX">Отступ X (%)</label><input type="number" id="conf-eggFinalX" value="38" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblTopY">Верх Y (%)</label><input type="number" id="conf-eggFinalTopY" value="35" step="1" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblBotY">Низ Y (%)</label><input type="number" id="conf-eggFinalBottomY" value="60" step="1" oninput="liveUpdate(false)"></div>
+                <div><label data-i18n="lblOffsetX">Отступ X (%)</label><input type="number" id="conf-eggFinalX" value="38" step="1" oninput="liveUpdate(false)"></div>
             </div>
 
             <h2 data-i18n="h2Rails">🏗️ Перила (Жердочки)</h2>
@@ -452,23 +452,22 @@ Marlowe, Goethe</textarea>
 
 <script>
     let previewMode = 'editgame';
-    let currentObjectUrl = null;
     
     // ПРЕДУСТАНОВЛЕННЫЕ ШАБЛОНЫ (АВТОНОМНЫЕ ВЕКТОРНЫЕ ИЗОБРАЖЕНИЯ И НАДЕЖНЫЕ ЗВУКИ)
     const defaultTemplates = {
         "🌲 Лес (Базовый)": {
-            bg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%25%27 height=%27100%25%27%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%270%27 y2=%271%27%3E%3Cstop offset=%270%25%27 stop-color=%27%2387CEEB%27/%3E%3Cstop offset=%27100%25%27 stop-color=%27%23228B22%27/%3E%3C/linearGradient%3E%3Crect width=%27100%25%27 height=%27100%25%27 fill=%27url(%23g)%27/%3E%3C/svg%3E", 
-            wolf: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🐺%3C/text%3E%3C/svg%3E", 
-            egg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🥚%3C/text%3E%3C/svg%3E",
+            bg: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnPjxsaW5lYXJHcmFkaWVudCBpZD0nZycgeDE9JzAnIHkxPScwJyB4Mj0nMCcgeTI9JzEnPjxzdG9wIG9mZnNldD0nMCUnIHN0b3AtY29sb3I9JyM4N0NFRUInLz48c3RvcCBvZmZzZXQ9JzEwMCUnIHN0b3AtY29sb3I9JyMyMjhCMjInLz48L2xpbmVhckdyYWRpZW50PjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbGw9J3VybCgjZyknLz48L3N2Zz4=", 
+            wolf: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7wn5C6PC90ZXh0Pjwvc3ZnPg==", 
+            egg: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7wn6WePC90ZXh0Pjwvc3ZnPg==",
             title: "Помоги Волку собрать яйца!", instr: "Используй кнопки для ловли!",
             titleColor: "#FF6B9D", btnBg: "#323232", railW: 30, railH: 15, railAngle: 15, railX: -2, railTopY: 18, railBottomY: 58, rail: "",
             wolfSize: 60, eggSize: 45, wolfY: 50, wolfAmpX: 25, wolfAmpY: 20, eggTopY: 15, eggBottomY: 55, eggX: 8, eggFinalTopY: 35, eggFinalBottomY: 60, eggFinalX: 38,
             sndSuccess: "https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg", sndMiss: "https://actions.google.com/sounds/v1/cartoon/slip.ogg", bgMusic: ""
         },
         "🚀 Космос": {
-            bg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%25%27 height=%27100%25%27%3E%3Crect width=%27100%25%27 height=%27100%25%27 fill=%27%230B0B2A%27/%3E%3Ccircle cx=%2710%25%27 cy=%2720%25%27 r=%272%27 fill=%27white%27/%3E%3Ccircle cx=%2730%25%27 cy=%2780%25%27 r=%271.5%27 fill=%27white%27/%3E%3Ccircle cx=%2780%25%27 cy=%2730%25%27 r=%272.5%27 fill=%27white%27/%3E%3Ccircle cx=%2760%25%27 cy=%2760%25%27 r=%271%27 fill=%27white%27/%3E%3C/svg%3E", 
-            wolf: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E👨‍🚀%3C/text%3E%3C/svg%3E", 
-            egg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E☄️%3C/text%3E%3C/svg%3E",
+            bg: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiMwQjBCMkEiLz48Y2lyY2xlIGN4PSIxMCUiIGN5PSIyMCUiIHI9IjIiIGZpbGw9IndoaXRlIi8+PGNpcmNsZSBjeD0iMzAlIiBjeT0iODAlIiByPSIxLjUiIGZpbGw9IndoaXRlIi8+PGNpcmNsZSBjeD0iODAlIiBjeT0iMzAlIiByPSIyLjUiIGZpbGw9IndoaXRlIi8+PGNpcmNsZSBjeD0iNjAlIiBjeT0iNjAlIiByPSIxIiBmaWxsPSJ3aGl0ZSIvPjwvc3ZnPg==", 
+            wolf: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7wn5Go4oCN8J+agDwvdGV4dD48L3N2Zz4=", 
+            egg: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7imIQ8L3RleHQ+PC9zdmc+",
             title: "Собери метеориты в космосе!", instr: "Не дай им упасть!",
             titleColor: "#00d4ff", instrColor: "#ffffff", uiColor: "#00ffcc", fbColor: "#00d4ff", btnBg: "#0f172a", 
             railW: 0, railH: 0, railAngle: 0, railX: 0, railTopY: 0, railBottomY: 0, rail: "",
@@ -476,9 +475,9 @@ Marlowe, Goethe</textarea>
             sndSuccess: "https://actions.google.com/sounds/v1/science_fiction/futuristic_chime.ogg", sndMiss: "https://actions.google.com/sounds/v1/science_fiction/power_down.ogg", bgMusic: "", award: "🌌"
         },
         "🌊 Подводный мир": {
-            bg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%25%27 height=%27100%25%27%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%270%27 y2=%271%27%3E%3Cstop offset=%270%25%27 stop-color=%27%23006994%27/%3E%3Cstop offset=%27100%25%27 stop-color=%27%23001F3F%27/%3E%3C/linearGradient%3E%3Crect width=%27100%25%27 height=%27100%25%27 fill=%27url(%23g)%27/%3E%3Ccircle cx=%2720%25%27 cy=%2780%25%27 r=%275%27 fill=%27rgba(255,255,255,0.2)%27/%3E%3Ccircle cx=%2770%25%27 cy=%2750%25%27 r=%278%27 fill=%27rgba(255,255,255,0.2)%27/%3E%3C/svg%3E", 
-            wolf: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🤿%3C/text%3E%3C/svg%3E", 
-            egg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🐚%3C/text%3E%3C/svg%3E",
+            bg: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnPjxsaW5lYXJHcmFkaWVudCBpZD0nZycgeDE9JzAnIHkxPScwJyB4Mj0nMCcgeTI9JzEnPjxzdG9wIG9mZnNldD0nMCUnIHN0b3AtY29sb3I9JyMwMDY5OTQnLz48c3RvcCBvZmZzZXQ9JzEwMCUnIHN0b3AtY29sb3I9JyMwMDFGM0YnLz48L2xpbmVhckdyYWRpZW50PjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbGw9J3VybCgjZyknLz48L3N2Zz4=", 
+            wolf: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7wn6SFPC90ZXh0Pjwvc3ZnPg==", 
+            egg: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7wn5OYPC90ZXh0Pjwvc3ZnPg==",
             title: "Найди жемчужины на дне океана!", instr: "Лови жемчуг, пока он не всплыл!",
             titleColor: "#0ea5e9", instrColor: "#e0f2fe", uiColor: "#0ea5e9", fbColor: "#0284c7", btnBg: "#0369a1",
             railW: 0, railH: 0, railAngle: 0, railX: 0, railTopY: 0, railBottomY: 0, rail: "",
@@ -486,9 +485,9 @@ Marlowe, Goethe</textarea>
             sndSuccess: "https://actions.google.com/sounds/v1/water/water_drop.ogg", sndMiss: "https://actions.google.com/sounds/v1/water/water_plunge.ogg", bgMusic: "", award: "🐚"
         },
         "🏙️ Мегаполис": {
-            bg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%25%27 height=%27100%25%27%3E%3ClinearGradient id=%27g%27 x1=%270%27 y1=%270%27 x2=%270%27 y2=%271%27%3E%3Cstop offset=%270%25%27 stop-color=%27%232C3E50%27/%3E%3Cstop offset=%27100%25%27 stop-color=%27%23000000%27/%3E%3C/linearGradient%3E%3Crect width=%27100%25%27 height=%27100%25%27 fill=%27url(%23g)%27/%3E%3Crect x=%2710%25%27 y=%2740%25%27 width=%2715%25%27 height=%2760%25%27 fill=%27%23111%27/%3E%3Crect x=%2735%25%27 y=%2730%25%27 width=%2720%25%27 height=%2770%25%27 fill=%27%231a1a1a%27/%3E%3Crect x=%2770%25%27 y=%2750%25%27 width=%2715%25%27 height=%2750%25%27 fill=%27%230f0f0f%27/%3E%3C/svg%3E", 
-            wolf: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🦸‍♂️%3C/text%3E%3C/svg%3E", 
-            egg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E💎%3C/text%3E%3C/svg%3E",
+            bg: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAiIHkxPSIwIiB4Mj0iMCIgeTI9IjEiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyQzNFNTAiLz48c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiLz48L2xpbmVhckdyYWRpZW50PjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZykiLz48cmVjdCB4PSIxMCUiIHk9IjQwJSIgd2lkdGg9IjE1JSIgaGVpZ2h0PSI2MCUiIGZpbGw9IiMxMTEiLz48cmVjdCB4PSIzNSUiIHk9IjMwJSIgd2lkdGg9IjIwJSIgaGVpZ2h0PSI3MCUiIGZpbGw9IiMxYTFhMWEiLz48cmVjdCB4PSI3MCUiIHk9IjUwJSIgd2lkdGg9IjE1JSIgaGVpZ2h0PSI1MCUiIGZpbGw9IiMwZjBmMGYiLz48L3N2Zz4=", 
+            wolf: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7wn6a4PC90ZXh0Pjwvc3ZnPg==", 
+            egg: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7wn5KOPC90ZXh0Pjwvc3ZnPg==",
             title: "Собери бонусы на крышах!", instr: "Будь быстрым, как ветер!",
             titleColor: "#facc15", instrColor: "#ffffff", uiColor: "#facc15", fbColor: "#eab308", btnBg: "#3f3f46",
             railW: 0, railH: 0, railAngle: 0, railX: 0, railTopY: 0, railBottomY: 0, rail: "",
@@ -496,9 +495,9 @@ Marlowe, Goethe</textarea>
             sndSuccess: "https://actions.google.com/sounds/v1/cartoon/clown_horn.ogg", sndMiss: "https://actions.google.com/sounds/v1/cartoon/cartoon_cowbell.ogg", bgMusic: "", award: "💎"
         },
         "🏡 Уютная деревня": {
-            bg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%27100%25%27 height=%27100%25%27%3E%3Crect width=%27100%25%27 height=%2760%25%27 fill=%27%2387CEFA%27/%3E%3Crect y=%2760%25%27 width=%27100%25%27 height=%2740%25%27 fill=%27%237CFC00%27/%3E%3C/svg%3E", 
-            wolf: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🧑‍🌾%3C/text%3E%3C/svg%3E", 
-            egg: "data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E🍎%3C/text%3E%3C/svg%3E",
+            bg: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjYwJSIgZmlsbD0iIzg3Q0VGQSIvPjxyZWN0IHk9IjYwJSIgd2lkdGg9IjEwMCUiBoZWlnaHQ9IjQwJSIgZmlsbD0iIzdDRkMwMCIvPjwvc3ZnPg==", 
+            wolf: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7wn6eR4oCN8J+MviA8L3RleHQ+PC9zdmc+", 
+            egg: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7wn42OPC90ZXh0Pjwvc3ZnPg==",
             title: "Помоги собрать урожай яблок!", instr: "Лови сочные яблочки!",
             titleColor: "#ea580c", instrColor: "#431407", uiColor: "#9a3412", fbColor: "#ea580c", btnBg: "#8b5cf6",
             railW: 35, railH: 20, railAngle: 20, railX: -5, railTopY: 15, railBottomY: 55, rail: "",
@@ -731,6 +730,9 @@ Marlowe, Goethe</textarea>
         let name = prompt("Введите имя шаблона / Enter template name:");
         if(!name) return;
         let templates = getTemplates();
+        if (templates[name]) {
+            if (!confirm(`Шаблон "${name}" уже существует. Перезаписать? / Template already exists. Overwrite?`)) return;
+        }
         templates[name] = getGameConfig();
         saveTemplates(templates);
         renderTemplates();
@@ -1087,7 +1089,6 @@ Marlowe, Goethe</textarea>
 
         .wolf-container { position:absolute; width:var(--wolf-size); left:var(--wolf-x); top:var(--wolf-y); transform:translate(-50%,-50%); transition: top 0.15s ease-out, left 0.15s ease-out, width 0.15s ease-out, transform 0.15s ease-out; z-index:10; }
         .wolf-img { width:100%; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3)); transition: transform 0.1s; }
-        .mirror { transform: scaleX(-1); }
 
         .egg { position:absolute; width:var(--egg-size); z-index:var(--egg-z); filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); transition: transform linear; }
         
@@ -1501,13 +1502,14 @@ Marlowe, Goethe</textarea>
             }
         }
 
+        // ИСПРАВЛЕНА ЛОГИКА ПОВОРОТА ГЕРОЯ: левые кнопки - поворот влево (-1), правые - вправо (1)
         function move(p) {
             currentPos = p;
             const s = document.getElementById('wolf-sprite');
             let ty = 0;
             
-            if(p.includes('l')) { s.classList.remove('mirror'); }
-            else { s.classList.add('mirror'); }
+            if(p.includes('l')) { s.style.transform = 'scaleX(-1)'; }
+            else { s.style.transform = 'scaleX(1)'; }
             
             if(p.includes('t')) ty = -window.gameConfig.wolfAmpY;
             else ty = window.gameConfig.wolfAmpY;
@@ -1823,6 +1825,9 @@ Marlowe, Goethe</textarea>
         updateExportCode(c);
         
         const activeElement = document.activeElement;
+        
+        // ВНИМАНИЕ: fullReload вызывается ТОЛЬКО для тех полей, где без этого не обойтись (например, смена языка).
+        // Это позволяет избежать потери фокуса и лагов при ручном вводе чисел (размеров/координат).
         if (activeElement && (activeElement.id === 'conf-lang' || activeElement.id === 'conf-bgMusic' || activeElement.id === 'conf-timerMode')) {
             if(shouldStop) {
                 fullReload();
@@ -1835,6 +1840,8 @@ Marlowe, Goethe</textarea>
             const win = iframe.contentWindow;
             const doc = iframe.contentDocument;
             
+            // Если документ доступен (теперь всегда доступен благодаря srcdoc), 
+            // мгновенно применяем все изменения размеров и координат через CSS-переменные!
             if(doc && doc.documentElement) {
                 doc.documentElement.style.setProperty('--bg', c.bg && c.bg.startsWith('data:') ? `url("${c.bg}")` : `url('${c.bg || ''}')`);
                 doc.documentElement.style.setProperty('--wolf-size', `${c.wolfSize || 60}%`);
@@ -1891,6 +1898,7 @@ Marlowe, Goethe</textarea>
                 doc.documentElement.style.setProperty('--timer-scale', (c.timerScale || 100) / 100);
                 doc.documentElement.style.setProperty('--stop-scale', (c.stopBtnScale || 100) / 100);
 
+                // Если меняем картинку
                 const wolfImg = doc.getElementById('wolf-sprite');
                 if(wolfImg) wolfImg.src = c.wolf || '';
                 
@@ -1900,6 +1908,7 @@ Marlowe, Goethe</textarea>
                 const ghostEggs = doc.querySelectorAll('.ghost-egg');
                 ghostEggs.forEach(e => e.src = c.egg || '');
 
+                // Если меняем тексты
                 const tTitle = doc.querySelector('.game-title-text');
                 if(tTitle) tTitle.innerHTML = c.title || '';
                 
@@ -1914,6 +1923,8 @@ Marlowe, Goethe</textarea>
                     tAward.innerHTML = c.award && c.award.startsWith('http') ? `<img src="${c.award}" style="width:80px">` : (c.award || '');
                 }
 
+                // Гарантируем, что inline-стили волка, установленные Drag&Drop, 
+                // обновляются при ручном вводе Y координаты
                 if (wolfImg && activeElement && activeElement.id === 'conf-wolfY') {
                     const wolfContainer = doc.getElementById('wolf');
                     if (wolfContainer) {
@@ -1924,12 +1935,14 @@ Marlowe, Goethe</textarea>
                     }
                 }
 
+                // Мгновенное скрытие/появление перил при изменении ширины
                 const rails = doc.querySelectorAll('.rail');
                 rails.forEach(rail => {
                    rail.style.display = (c.railW > 0) ? 'block' : 'none'; 
                 });
             }
 
+            // Синхронизация логических переменных внутри iframe
             if(win && win.gameConfig) {
                 win.gameConfig.eggTopY = c.eggTopY;
                 win.gameConfig.eggBottomY = c.eggBottomY;
@@ -1960,9 +1973,12 @@ Marlowe, Goethe</textarea>
         }
     }
 
+    // ЛОГИКА ПЕРЕТАСКИВАНИЯ КНОПОК И ЭЛЕМЕНТОВ
     function enableButtonDrag() {
         const iframe = document.getElementById('game-preview');
         if (!iframe || !iframe.contentWindow) return;
+        
+        // Подключаем iframe только если браузер успел его прогрузить (srcdoc работает синхронно)
         const iDoc = iframe.contentWindow.document;
 
         const dragConfigs = [
@@ -2084,6 +2100,7 @@ Marlowe, Goethe</textarea>
 
                 window.editorPositions[dragKey] = { left: newLeft, top: newTop };
                 
+                // Если мы тащим волка, обновляем его координату Y в левой панели
                 if (dragKey === 'gameWolfPos') {
                     const wYInput = document.getElementById('conf-wolfY');
                     if (wYInput) wYInput.value = newTop;
@@ -2102,25 +2119,20 @@ Marlowe, Goethe</textarea>
         });
     }
 
+    // ПОЛНАЯ ПЕРЕЗАГРУЗКА ИГРЫ (ИСПОЛЬЗУЕТСЯ ТОЛЬКО КОГДА НУЖНО СМЕНИТЬ РЕЖИМ ИЛИ ШАБЛОН)
     function fullReload() {
         const c = getGameConfig();
         const html = generateGameHTML(c, previewMode);
         const iframe = document.getElementById('game-preview');
         
-        if (currentObjectUrl) {
-            URL.revokeObjectURL(currentObjectUrl);
-        }
-        
-        const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
-        currentObjectUrl = URL.createObjectURL(blob);
-        
+        // ВАЖНО: используем srcdoc для 100% гарантии same-origin и обхода Security Error
         iframe.onload = function() {
             if (previewMode !== 'play') {
                 enableButtonDrag();
             }
         };
+        iframe.srcdoc = html;
         
-        iframe.src = currentObjectUrl;
         updateExportCode(c);
         translateEditor();
     }
