@@ -495,7 +495,7 @@ Marlowe, Goethe</textarea>
             sndSuccess: "https://actions.google.com/sounds/v1/cartoon/clown_horn.ogg", sndMiss: "https://actions.google.com/sounds/v1/cartoon/cartoon_cowbell.ogg", bgMusic: "", award: "💎"
         },
         "🏡 Уютная деревня": {
-            bg: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjYwJSIgZmlsbD0iIzg3Q0VGQSIvPjxyZWN0IHk9IjYwJSIgd2lkdGg9IjEwMCUiBoZWlnaHQ9IjQwJSIgZmlsbD0iIzdDRkMwMCIvPjwvc3ZnPg==", 
+            bg: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjYwJSIgZmlsbD0iIzg3Q0VGQSIvPjxyZWN0IHk9IjYwJSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iNDAlIiBmaWxsPSIjN0NGQzAwIi8+PC9zdmc+", 
             wolf: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7wn6eR4oCN8J+MviA8L3RleHQ+PC9zdmc+", 
             egg: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48dGV4dCB5PSIuOWVtIiBmb250LXNpemU9IjkwIj7wn42OPC90ZXh0Pjwvc3ZnPg==",
             title: "Помоги собрать урожай яблок!", instr: "Лови сочные яблочки!",
@@ -633,7 +633,7 @@ Marlowe, Goethe</textarea>
             tabMain: "Base", tabVisual: "Visivi", tabCtrl: "Controlli", tabTasks: "Compiti", tabTemplates: "Modelli", tabSave: "💾 Salva",
             h2Lang: "🌍 Lingua & Musica", lblLang: "Lingua Interfaccia", lblBgMusic: "Musica di Sottofondo (URL)", lblSndWin: "Suono Successo (URL)", lblSndLose: "Suono Errore (URL)",
             h2GameSettings: "⏱️ Impostazioni Gioco", lblTimerMode: "Modalità Timer", valCountdown: "Conto alla rovescia", valStopwatch: "Cronometro", lblTime: "Tempo di Avvio (sec)", lblSpeed: "Velocità (ms)",
-            h2Score: "📊 Punteggio, Timer & Tasto Stop", lblFont: "Carattere", lblSize: "Dimensione (px)", lblColor: "Colore", lblOffset: "Offset Y (%)", lblAlign: "Allineamento",
+            h2Score: "📊 Punteggio, Timer & Tasto Stop", lblFont: "Carattere", lblSize: "Dimensione (px)", lblColORE: "Colore", lblOffset: "Offset Y (%)", lblAlign: "Allineamento",
             lblScoreScale: "Dimensione Punteggio (%)", lblTimerScale: "Dimensione Timer (%)", lblStopScale: "Dimensione Tasto Stop (%)",
             optCenter: "Centro", optLeft: "Sinistra", optRight: "Destra", optEdges: "Bordi",
             h2Visual: "🖼️ Visivi & Eroe", lblBgUrl: "Sfondo (URL)", lblWolfUrl: "Eroe (URL)", lblWolfSize: "Dimensione Eroe (%)", lblWolfY: "Posizione Y (%)", lblWolfAmpX: "Ampiezza X (%)", lblWolfAmpY: "Ampiezza Y (%)",
@@ -680,7 +680,7 @@ Marlowe, Goethe</textarea>
             h2Feedback: "🏆 反馈屏幕", lblSlogan: "励志标语:", lblTextFont: "文本字体",
             h2TaskDesign: "🎨 任务设计", lblQText: "<b>问题文本:</b>", lblAText: "<b>答案文本 (按钮):</b>",
             lblTeacherMode: "✅ 启用捕获任务", lblRandom: "随机顺序", lblRepeat: "重复问题", lblInGameInput: "游戏内自定义输入",
-            lblQTimer: "回答时间 (秒):", lblTasks: "问题 (每行一个):", lblCorrect: "正确答案 (按顺序):", lblWrong: "错误答案 (逗号分隔):",
+            lblQTimer: "回答时间 (秒):", lblTasks: "Questions (one per line):", lblCorrect: "Correct Answers (in order):", lblWrong: "Wrong Answers (comma separated):",
             h2Templates: "📂 已保存的模板", btnSaveTemplate: "➕ 保存当前为模板",
             h2SaveExport: "✨ 导出 & 保存", lblStandaloneHtml: "🎮 下载游戏 (HTML)", descHtml: "一个完整的随时可玩的游戏文件。", btnSaveHtml: "💾 保存 HTML",
             lblGeniallyCode: "🎨 Genially 集成 (iFrame)", descIframe: "嵌入代码。", btnCopyCode: "📋 复制代码 iFrame", btnSaveIframeTxt: "⬇️ 下载 Genially TXT 代码",
@@ -1502,14 +1502,14 @@ Marlowe, Goethe</textarea>
             }
         }
 
-        // ИСПРАВЛЕНА ЛОГИКА ПОВОРОТА ГЕРОЯ: левые кнопки - поворот влево (-1), правые - вправо (1)
+        // ИСПРАВЛЕНА ЛОГИКА ПОВОРОТА ГЕРОЯ: левые кнопки поворачивают героя влево (scaleX(1)), правые — вправо (scaleX(-1))
         function move(p) {
             currentPos = p;
             const s = document.getElementById('wolf-sprite');
             let ty = 0;
             
-            if(p.includes('l')) { s.style.transform = 'scaleX(-1)'; }
-            else { s.style.transform = 'scaleX(1)'; }
+            if(p.includes('l')) { s.style.transform = 'scaleX(1)'; }
+            else { s.style.transform = 'scaleX(-1)'; }
             
             if(p.includes('t')) ty = -window.gameConfig.wolfAmpY;
             else ty = window.gameConfig.wolfAmpY;
@@ -1826,8 +1826,6 @@ Marlowe, Goethe</textarea>
         
         const activeElement = document.activeElement;
         
-        // ВНИМАНИЕ: fullReload вызывается ТОЛЬКО для тех полей, где без этого не обойтись (например, смена языка).
-        // Это позволяет избежать потери фокуса и лагов при ручном вводе чисел (размеров/координат).
         if (activeElement && (activeElement.id === 'conf-lang' || activeElement.id === 'conf-bgMusic' || activeElement.id === 'conf-timerMode')) {
             if(shouldStop) {
                 fullReload();
@@ -1840,8 +1838,6 @@ Marlowe, Goethe</textarea>
             const win = iframe.contentWindow;
             const doc = iframe.contentDocument;
             
-            // Если документ доступен (теперь всегда доступен благодаря srcdoc), 
-            // мгновенно применяем все изменения размеров и координат через CSS-переменные!
             if(doc && doc.documentElement) {
                 doc.documentElement.style.setProperty('--bg', c.bg && c.bg.startsWith('data:') ? `url("${c.bg}")` : `url('${c.bg || ''}')`);
                 doc.documentElement.style.setProperty('--wolf-size', `${c.wolfSize || 60}%`);
@@ -1898,7 +1894,6 @@ Marlowe, Goethe</textarea>
                 doc.documentElement.style.setProperty('--timer-scale', (c.timerScale || 100) / 100);
                 doc.documentElement.style.setProperty('--stop-scale', (c.stopBtnScale || 100) / 100);
 
-                // Если меняем картинку
                 const wolfImg = doc.getElementById('wolf-sprite');
                 if(wolfImg) wolfImg.src = c.wolf || '';
                 
@@ -1908,7 +1903,6 @@ Marlowe, Goethe</textarea>
                 const ghostEggs = doc.querySelectorAll('.ghost-egg');
                 ghostEggs.forEach(e => e.src = c.egg || '');
 
-                // Если меняем тексты
                 const tTitle = doc.querySelector('.game-title-text');
                 if(tTitle) tTitle.innerHTML = c.title || '';
                 
@@ -1923,8 +1917,6 @@ Marlowe, Goethe</textarea>
                     tAward.innerHTML = c.award && c.award.startsWith('http') ? `<img src="${c.award}" style="width:80px">` : (c.award || '');
                 }
 
-                // Гарантируем, что inline-стили волка, установленные Drag&Drop, 
-                // обновляются при ручном вводе Y координаты
                 if (wolfImg && activeElement && activeElement.id === 'conf-wolfY') {
                     const wolfContainer = doc.getElementById('wolf');
                     if (wolfContainer) {
@@ -1935,14 +1927,12 @@ Marlowe, Goethe</textarea>
                     }
                 }
 
-                // Мгновенное скрытие/появление перил при изменении ширины
                 const rails = doc.querySelectorAll('.rail');
                 rails.forEach(rail => {
                    rail.style.display = (c.railW > 0) ? 'block' : 'none'; 
                 });
             }
 
-            // Синхронизация логических переменных внутри iframe
             if(win && win.gameConfig) {
                 win.gameConfig.eggTopY = c.eggTopY;
                 win.gameConfig.eggBottomY = c.eggBottomY;
@@ -1973,12 +1963,10 @@ Marlowe, Goethe</textarea>
         }
     }
 
-    // ЛОГИКА ПЕРЕТАСКИВАНИЯ КНОПОК И ЭЛЕМЕНТОВ
     function enableButtonDrag() {
         const iframe = document.getElementById('game-preview');
         if (!iframe || !iframe.contentWindow) return;
         
-        // Подключаем iframe только если браузер успел его прогрузить (srcdoc работает синхронно)
         const iDoc = iframe.contentWindow.document;
 
         const dragConfigs = [
@@ -2100,7 +2088,6 @@ Marlowe, Goethe</textarea>
 
                 window.editorPositions[dragKey] = { left: newLeft, top: newTop };
                 
-                // Если мы тащим волка, обновляем его координату Y в левой панели
                 if (dragKey === 'gameWolfPos') {
                     const wYInput = document.getElementById('conf-wolfY');
                     if (wYInput) wYInput.value = newTop;
@@ -2119,13 +2106,11 @@ Marlowe, Goethe</textarea>
         });
     }
 
-    // ПОЛНАЯ ПЕРЕЗАГРУЗКА ИГРЫ (ИСПОЛЬЗУЕТСЯ ТОЛЬКО КОГДА НУЖНО СМЕНИТЬ РЕЖИМ ИЛИ ШАБЛОН)
     function fullReload() {
         const c = getGameConfig();
         const html = generateGameHTML(c, previewMode);
         const iframe = document.getElementById('game-preview');
         
-        // ВАЖНО: используем srcdoc для 100% гарантии same-origin и обхода Security Error
         iframe.onload = function() {
             if (previewMode !== 'play') {
                 enableButtonDrag();
