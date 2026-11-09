@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wolf Game Editor v78 MAGIC PIXAR EDITION</title>
+    <title>Catch Quest Studio</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -109,7 +109,7 @@
 
 <header>
     <div class="header-titles">
-        <h1 data-i18n="headerTitle" style="font-size: 20pt;">✨ Wolf Editor: Magic Pixar Edition</h1>
+        <h1 data-i18n="headerTitle" style="font-size: 20pt;">✨ Catch Quest Studio</h1>
         <span style="font-size: 16pt; font-weight: bold; color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
             <span data-i18n="authorText">автор Ольга Тимофеева | Группа </span><a href="https://vk.ru/club221025676" target="_blank" class="author-link" style="font-size: 16pt;" data-i18n="authorLinkText">«Да! Доступный Английский!»</a>
         </span>
@@ -446,6 +446,7 @@ Marlowe, Goethe</textarea>
         <div id="preview-container">
             <iframe id="game-preview" allow="autoplay; fullscreen"></iframe>
         </div>
+        <div style="text-align: center; margin-top: 15px; font-weight: bold; color: #4a5568; font-size: 14px;">Только для личного использования. Продажа и передача третьим лицам запрещена.</div>
     </main>
     <input type="file" id="fileInput" accept=".json" style="display:none" onchange="loadProject(event)">
 </div>
@@ -508,7 +509,7 @@ Marlowe, Goethe</textarea>
 
     const editorI18n = {
         ru: {
-            headerTitle: "✨ Wolf Editor: Magic Pixar Edition",
+            headerTitle: "✨ Catch Quest Studio",
             authorText: "автор Ольга Тимофеева | Группа ", authorLinkText: "«Да! Доступный Английский!»",
             tabMain: "Основа", tabVisual: "Визуал", tabCtrl: "Управление", tabTasks: "Задания", tabTemplates: "Шаблоны", tabSave: "💾 Сохранить",
             h2Lang: "🌍 Язык и Музыка", lblLang: "Язык интерфейса", lblBgMusic: "Фоновая музыка (URL)", lblSndWin: "Звук Успеха (URL)", lblSndLose: "Звук Ошибки (URL)",
@@ -538,7 +539,7 @@ Marlowe, Goethe</textarea>
             h2Preview: "📺 Волшебный Предпросмотр (Drag&Drop)", btnModeStart: "🚪 Старт", btnModeFeedback: "🏆 Фидбек", btnModeEdit: "🛠 Ред. Игра", btnModePlay: "▶️ Играть"
         },
         en: {
-            headerTitle: "✨ Wolf Editor: Magic Pixar Edition",
+            headerTitle: "✨ Catch Quest Studio",
             authorText: "Author Olga Timofeeva | Group ", authorLinkText: "\"Yes! Accessible English!\"",
             tabMain: "Main", tabVisual: "Visuals", tabCtrl: "Controls", tabTasks: "Tasks", tabTemplates: "Templates", tabSave: "💾 Save",
             h2Lang: "🌍 Language & Music", lblLang: "Interface Language", lblBgMusic: "Background Music (URL)", lblSndWin: "Success Sound (URL)", lblSndLose: "Error Sound (URL)",
@@ -568,7 +569,7 @@ Marlowe, Goethe</textarea>
             h2Preview: "📺 Magic Preview (Drag&Drop)", btnModeStart: "🚪 Start", btnModeFeedback: "🏆 Feedback", btnModeEdit: "🛠 Edit Game", btnModePlay: "▶️ Play"
         },
         de: {
-            headerTitle: "✨ Wolf Editor: Magic Pixar Edition",
+            headerTitle: "✨ Catch Quest Studio",
             authorText: "Autor Olga Timofeeva | Gruppe ", authorLinkText: "\"Ja! Zugängliches Englisch!\"",
             tabMain: "Basis", tabVisual: "Optik", tabCtrl: "Steuerung", tabTasks: "Aufgaben", tabTemplates: "Vorlagen", tabSave: "💾 Speichern",
             h2Lang: "🌍 Sprache & Musik", lblLang: "Schnittstellensprache", lblBgMusic: "Hintergrundmusik (URL)", lblSndWin: "Erfolgssound (URL)", lblSndLose: "Fehlersound (URL)",
@@ -598,7 +599,7 @@ Marlowe, Goethe</textarea>
             h2Preview: "📺 Magische Vorschau (Drag&Drop)", btnModeStart: "🚪 Start", btnModeFeedback: "🏆 Feedback", btnModeEdit: "🛠 Spiel bearbeiten", btnModePlay: "▶️ Spielen"
         },
         fr: {
-            headerTitle: "✨ Wolf Editor: Magic Pixar Edition",
+            headerTitle: "✨ Catch Quest Studio",
             authorText: "Auteur Olga Timofeeva | Groupe ", authorLinkText: "\"Oui! Anglais Accessible!\"",
             tabMain: "Base", tabVisual: "Visuels", tabCtrl: "Contrôles", tabTasks: "Tâches", tabTemplates: "Modèles", tabSave: "💾 Sauvegarder",
             h2Lang: "🌍 Langue & Musique", lblLang: "Langue de l'interface", lblBgMusic: "Musique de fond (URL)", lblSndWin: "Son de Succès (URL)", lblSndLose: "Son d'Erreur (URL)",
@@ -628,7 +629,7 @@ Marlowe, Goethe</textarea>
             h2Preview: "📺 Aperçu Magique (Drag&Drop)", btnModeStart: "🚪 Démarrer", btnModeFeedback: "🏆 Feedback", btnModeEdit: "🛠 Éditer", btnModePlay: "▶️ Jouer"
         },
         it: {
-            headerTitle: "✨ Wolf Editor: Magic Pixar Edition",
+            headerTitle: "✨ Catch Quest Studio",
             authorText: "Autore Olga Timofeeva | Gruppo ", authorLinkText: "\"Sì! Inglese Accessibile!\"",
             tabMain: "Base", tabVisual: "Visivi", tabCtrl: "Controlli", tabTasks: "Compiti", tabTemplates: "Modelli", tabSave: "💾 Salva",
             h2Lang: "🌍 Lingua & Musica", lblLang: "Lingua Interfaccia", lblBgMusic: "Musica di Sottofondo (URL)", lblSndWin: "Suono Successo (URL)", lblSndLose: "Suono Errore (URL)",
@@ -658,7 +659,7 @@ Marlowe, Goethe</textarea>
             h2Preview: "📺 Anteprima Magica (Drag&Drop)", btnModeStart: "🚪 Avvia", btnModeFeedback: "🏆 Feedback", btnModeEdit: "🛠 Modifica Gioco", btnModePlay: "▶️ Gioca"
         },
         cn: {
-            headerTitle: "✨ Wolf Editor: Magic Pixar Edition",
+            headerTitle: "✨ Catch Quest Studio",
             authorText: "作者 Olga Timofeeva | 组 ", authorLinkText: "\"Yes! Accessible English!\"",
             tabMain: "基本", tabVisual: "视觉", tabCtrl: "控制", tabTasks: "任务", tabTemplates: "模板", tabSave: "💾 保存",
             h2Lang: "🌍 语言 & 音乐", lblLang: "界面语言", lblBgMusic: "背景音乐 (URL)", lblSndWin: "成功音效 (URL)", lblSndLose: "错误音效 (URL)",
@@ -1003,6 +1004,11 @@ Marlowe, Goethe</textarea>
         const gStopPos = c.gameStopPos || { left: 80, top: 3 };
         const gWolfPos = c.gameWolfPos || { left: 50, top: c.wolfY || 50 };
 
+        let extraBodyClass = '';
+        if (currentPreviewMode === 'start' || currentPreviewMode === 'feedback' || currentPreviewMode === 'play') {
+            extraBodyClass = 'hide-game-elements';
+        }
+
         return `<!DOCTYPE html>
 <html lang="${c.lang || 'ru'}">
 <head>
@@ -1139,9 +1145,16 @@ Marlowe, Goethe</textarea>
         
         .game-title-text { font-family: var(--title-font); font-size: var(--title-size); color: var(--title-color); text-shadow: 2px 2px 0px #FFD93D; margin: 0; width: 90%; text-align: center; }
         .game-instr-text { font-family: var(--instr-font); font-size: var(--instr-size); color: var(--instr-color); font-weight: 600; margin: 0; width: 85%; text-align: center; }
+        
+        body.hide-game-elements .wolf-container,
+        body.hide-game-elements .ctrl,
+        body.hide-game-elements .rail,
+        body.hide-game-elements .ghost-egg {
+            display: none !important;
+        }
     </style>
 </head>
-<body>
+<body class="${extraBodyClass}">
     <div id="game-area">
         <div id="top-ui" style="${topUiStyle}">
             <div class="stat-badge drag-item" id="score-badge" data-drag-key="gameScorePos">${lang.score}: <span id="score-val">0</span></div>
@@ -1521,6 +1534,7 @@ Marlowe, Goethe</textarea>
 
         function preStart(speed, pts) {
             if (window.CURRENT_PREVIEW_MODE !== 'play') return;
+            document.body.classList.remove('hide-game-elements');
             eggSpeed = speed;
             pointsPerEgg = pts;
             document.getElementById('screen-start').style.display = 'none';
@@ -1742,6 +1756,8 @@ Marlowe, Goethe</textarea>
             clearInterval(countdownTimer);
             clearTimeout(spawnTimeout);
             
+            document.body.classList.add('hide-game-elements');
+            
             playSynthSound('gameEnd');
             
             const bgSnd = document.getElementById('snd-bg');
@@ -1771,6 +1787,8 @@ Marlowe, Goethe</textarea>
             clearInterval(qTimerInterval);
             clearInterval(countdownTimer);
             clearTimeout(spawnTimeout);
+            
+            document.body.classList.add('hide-game-elements');
             
             if (window.CURRENT_PREVIEW_MODE === 'play') {
                 document.getElementById('screen-start').style.display = 'flex';
